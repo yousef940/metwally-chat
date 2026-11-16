@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0B1E24;
+  --foreground: #FFF7EF;
+  --cream: #0B1E24;
+  --surface: #122A31;
+  --surface-raised: #16353D;
+  --surface-border: #20454E;
+  --coral: #F26B4F;
+  --coral-hover: #E0563A;
+  --ink: #FFF7EF;
+  --ink-secondary: #9CB3B8;
+  --gold: #D9A441;
+}
+
+[data-theme="dark"],
+:root {
+  --background: #0B1E24;
+  --foreground: #FFF7EF;
+  --cream: #0B1E24;
+  --ink: #FFF7EF;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-cream: var(--cream);
+  --color-coral: var(--coral);
+  --color-coral-hover: var(--coral-hover);
+  --color-ink: var(--ink);
+  --color-gold: var(--gold);
+  --font-alexandria: var(--font-alexandria);
+}
+
+body {
+  background-color: #0B1E24;
+  color: #FFF7EF;
+  font-family: var(--font-alexandria), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+/* Dark mode overrides for cards, panels, inputs, and modals */
+.bg-white {
+  background-color: #122A31 !important;
+}
+
+.bg-white\/95 {
+  background-color: rgba(18, 42, 49, 0.95) !important;
+}
+
+.bg-white\/85 {
+  background-color: rgba(18, 42, 49, 0.85) !important;
+}
+
+.bg-white\/60 {
+  background-color: rgba(18, 42, 49, 0.6) !important;
+}
+
+.bg-white\/50 {
+  background-color: rgba(18, 42, 49, 0.5) !important;
+}
+
+/* Border overrides for dark theme */
+.border-ink\/10 {
+  border-color: #20454E !important;
+}
+
+.border-ink\/15 {
+  border-color: #28545E !important;
+}
+
+.border-ink\/20 {
+  border-color: #2D5E69 !important;
+}
+
+/* Form controls styling in dark mode */
+input, select, textarea {
+  color-scheme: dark;
+}
+
+select option {
+  background-color: #122A31;
+  color: #FFF7EF;
+}

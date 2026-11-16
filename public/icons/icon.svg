@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="coralGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F26B4F" />
+      <stop offset="100%" stop-color="#E0563A" />
+    </linearGradient>
+  </defs>
+  <!-- Background with rounded corners -->
+  <rect width="512" height="512" rx="128" fill="url(#coralGrad)" />
+  
+  <!-- Chat bubbles representing connection and social chat -->
+  <g fill="#FFF7EF">
+    <!-- Main bubble -->
+    <path d="M140 180 C140 135.8 175.8 100 220 100 L320 100 C364.2 100 400 135.8 400 180 L400 240 C400 284.2 364.2 320 320 320 L240 320 L170 370 L180 320 L220 320 C175.8 320 140 284.2 140 240 Z" />
+    <!-- Heart accent in gold -->
+    <path d="M260 210 C250 180 210 180 200 205 C190 230 220 255 260 280 C300 255 330 230 320 205 C310 180 270 180 260 210 Z" fill="#D9A441" />
+  </g>
+</svg>

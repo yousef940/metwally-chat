@@ -144,6 +144,14 @@ export function PrivateChat({
         setError(res.error);
         setInputText(text); // restore input
       } else {
+        if (res.message) {
+          const newMsg = res.message as PrivateMessage;
+          setMessages((prev) => {
+            if (prev.some((m) => m.id === newMsg.id)) return prev;
+            return [...prev, newMsg];
+          });
+          setTimeout(() => scrollToBottom("smooth"), 50);
+        }
         inputRef.current?.focus();
       }
     });

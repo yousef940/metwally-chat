@@ -9,6 +9,13 @@ import { asUuid, toSafeErrorMessage } from "@/lib/validation";
 export interface SendMessageResult {
   error?: string | null;
   success?: boolean;
+  message?: {
+    id: string;
+    room_id: string;
+    user_id: string;
+    content: string;
+    created_at: string;
+  };
 }
 
 /** Maximum length of a public room message (matches the database constraint). */
@@ -79,11 +86,15 @@ export async function sendRoomMessage(
     return { error: safetyCheck.reason };
   }
 
-  const { error } = await supabase.from("room_messages").insert({
-    room_id: roomUuid,
-    user_id: user.id,
-    content: safetyCheck.cleanedText,
-  });
+  const { data, error } = await supabase
+    .from("room_messages")
+    .insert({
+      room_id: roomUuid,
+      user_id: user.id,
+      content: safetyCheck.cleanedText,
+    })
+    .select("id, room_id, user_id, content, created_at")
+    .single();
 
   if (error) {
     return {
@@ -94,7 +105,7 @@ export async function sendRoomMessage(
     };
   }
 
-  return { success: true };
+  return { success: true, message: data };
 }
 
 /**

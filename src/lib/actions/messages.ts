@@ -10,6 +10,14 @@ export interface MessageActionResult {
   error?: string | null;
   success?: boolean;
   conversationId?: string | null;
+  message?: {
+    id: string;
+    conversation_id: string;
+    sender_id: string;
+    content: string;
+    is_read: boolean;
+    created_at: string;
+  };
 }
 
 /** Maximum length of the first message of a chat request. */
@@ -358,12 +366,16 @@ export async function sendPrivateMessage(
   }
 
   // Insert message
-  const { error: msgErr } = await supabase.from("messages").insert({
-    conversation_id: conversationUuid,
-    sender_id: user.id,
-    content: trimmed,
-    is_read: false,
-  });
+  const { data: newMsg, error: msgErr } = await supabase
+    .from("messages")
+    .insert({
+      conversation_id: conversationUuid,
+      sender_id: user.id,
+      content: trimmed,
+      is_read: false,
+    })
+    .select("id, conversation_id, sender_id, content, is_read, created_at")
+    .single();
 
   if (msgErr) {
     return {
@@ -381,7 +393,7 @@ export async function sendPrivateMessage(
     console.error("[sohba] conversation touch failed:", convUpdateError.message);
   }
 
-  return { success: true };
+  return { success: true, message: newMsg };
 }
 
 /**

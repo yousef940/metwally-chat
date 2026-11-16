@@ -655,6 +655,21 @@ export function RoomChat({
         setInputText(text); // restore input so user doesn't lose text
         if (currentReply) setReplyingTo(currentReply);
       } else {
+        if (res.message) {
+          const sentMsg: ChatMessage = {
+            id: res.message.id,
+            room_id: res.message.room_id,
+            user_id: res.message.user_id,
+            content: res.message.content,
+            created_at: res.message.created_at,
+            profile: currentProfile,
+          };
+          setMessages((prev) => {
+            if (prev.some((m) => m.id === sentMsg.id)) return prev;
+            return [...prev, sentMsg];
+          });
+          setTimeout(() => scrollToBottom("smooth"), 50);
+        }
         inputRef.current?.focus();
       }
     });

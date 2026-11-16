@@ -209,6 +209,21 @@ export function RoomChat({
           }
 
           setMessages((prev) => {
+            // Check if there is an optimistic message waiting for this real message
+            const tempIndex = prev.findIndex(
+              (m) =>
+                m.id.startsWith("temp_") &&
+                m.user_id === newMsg.user_id &&
+                m.content === newMsg.content
+            );
+            if (tempIndex !== -1) {
+              const updated = [...prev];
+              updated[tempIndex] = {
+                ...newMsg,
+                profile: senderProfile || updated[tempIndex].profile,
+              };
+              return updated;
+            }
             if (prev.some((m) => m.id === newMsg.id)) return prev;
             return [...prev, { ...newMsg, profile: senderProfile }];
           });
@@ -648,9 +663,25 @@ export function RoomChat({
     setInputText("");
     setReplyingTo(null);
 
+    // Instant 0ms Optimistic UI
+    const tempId = `temp_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+    const optimisticMsg: ChatMessage = {
+      id: tempId,
+      room_id: room.id,
+      user_id: currentUser.id,
+      content: finalContent,
+      created_at: new Date().toISOString(),
+      profile: currentProfile,
+    };
+
+    setMessages((prev) => [...prev, optimisticMsg]);
+    setTimeout(() => scrollToBottom("smooth"), 10);
+
     startTransition(async () => {
       const res = await sendRoomMessage(room.id, finalContent);
       if (res.error) {
+        // Rollback temporary message on error
+        setMessages((prev) => prev.filter((m) => m.id !== tempId));
         setErrorMessage(res.error);
         setInputText(text); // restore input so user doesn't lose text
         if (currentReply) setReplyingTo(currentReply);
@@ -665,10 +696,13 @@ export function RoomChat({
             profile: currentProfile,
           };
           setMessages((prev) => {
+            const hasTemp = prev.some((m) => m.id === tempId);
+            if (hasTemp) {
+              return prev.map((m) => (m.id === tempId ? sentMsg : m));
+            }
             if (prev.some((m) => m.id === sentMsg.id)) return prev;
             return [...prev, sentMsg];
           });
-          setTimeout(() => scrollToBottom("smooth"), 50);
         }
         inputRef.current?.focus();
       }

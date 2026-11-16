@@ -332,15 +332,22 @@ export async function sendPrivateMessage(
     return { error: safetyCheck.reason };
   }
 
-  // Verify conversation membership and mutual block check
-  const { data: conv, error: convErr } = await supabase
-    .from("conversations")
-    .select("id, participant_one, participant_two")
-    .eq("id", conversationUuid)
-    .maybeSingle();
+  // Verify conversation membership and ban check in parallel
+  const [{ data: conv, error: convErr }, ban] = await Promise.all([
+    supabase
+      .from("conversations")
+      .select("id, participant_one, participant_two")
+      .eq("id", conversationUuid)
+      .maybeSingle(),
+    getActiveBan(supabase, user.id),
+  ]);
 
   if (convErr || !conv) {
     return { error: "المحادثة غير موجودة أو غير مصرح لك بدخولها." };
+  }
+
+  if (ban.banned) {
+    return { error: `الحساب محظور من استخدام المنصة: ${ban.reason ?? "مخالفة قواعد المجتمع"}` };
   }
 
   if (conv.participant_one !== user.id && conv.participant_two !== user.id) {
@@ -357,12 +364,6 @@ export async function sendPrivateMessage(
 
   if (isBlocked) {
     return { error: "لا يمكن إرسال الرسالة نظراً لوجود حظر بينك وبين الطرف الآخر." };
-  }
-
-  // Banned accounts cannot chat.
-  const ban = await getActiveBan(supabase, user.id);
-  if (ban.banned) {
-    return { error: `الحساب محظور من استخدام المنصة: ${ban.reason ?? "مخالفة قواعد المجتمع"}` };
   }
 
   // Insert message

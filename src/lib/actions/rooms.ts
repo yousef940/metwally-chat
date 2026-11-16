@@ -51,22 +51,6 @@ export async function sendRoomMessage(
     return { error: "يجب تسجيل الدخول للمشاركة في الغرفة." };
   }
 
-  // The room must exist and be active before a message can be published.
-  const { data: room, error: roomError } = await supabase
-    .from("rooms")
-    .select("id, is_active")
-    .eq("id", roomUuid)
-    .maybeSingle();
-
-  if (roomError) {
-    console.error("[sohba] room lookup failed:", roomError.message);
-    return { error: "تعذر التحقق من الغرفة، يرجى المحاولة لاحقاً." };
-  }
-
-  if (!room || !room.is_active) {
-    return { error: "هذه الغرفة غير متاحة حالياً." };
-  }
-
   // Rate limiting check
   const rateLimit = checkRateLimit(user.id, "roomMessage");
   if (!rateLimit.allowed) {
@@ -75,15 +59,23 @@ export async function sendRoomMessage(
     };
   }
 
-  // Check if banned
-  const ban = await getActiveBan(supabase, user.id);
-  if (ban.banned) {
-    return { error: `الحساب محظور من المشاركة: ${ban.reason ?? "مخالفة قواعد المجتمع"}` };
-  }
-
   const safetyCheck = validateMessageSafety(trimmed, MAX_ROOM_MESSAGE_LENGTH);
   if (!safetyCheck.isAllowed) {
     return { error: safetyCheck.reason };
+  }
+
+  // Run room & ban checks in parallel for maximum speed
+  const [{ data: room, error: roomError }, ban] = await Promise.all([
+    supabase.from("rooms").select("id, is_active").eq("id", roomUuid).maybeSingle(),
+    getActiveBan(supabase, user.id),
+  ]);
+
+  if (roomError || !room || !room.is_active) {
+    return { error: "هذه الغرفة غير متاحة حالياً." };
+  }
+
+  if (ban.banned) {
+    return { error: `الحساب محظور من المشاركة: ${ban.reason ?? "مخالفة قواعد المجتمع"}` };
   }
 
   const { data, error } = await supabase

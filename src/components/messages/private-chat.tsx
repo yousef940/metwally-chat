@@ -96,6 +96,17 @@ export function PrivateChat({
         (payload) => {
           const newMsg = payload.new as PrivateMessage;
           setMessages((prev) => {
+            const tempIndex = prev.findIndex(
+              (m) =>
+                m.id.startsWith("temp_") &&
+                m.sender_id === newMsg.sender_id &&
+                m.content === newMsg.content
+            );
+            if (tempIndex !== -1) {
+              const updated = [...prev];
+              updated[tempIndex] = newMsg;
+              return updated;
+            }
             if (prev.some((m) => m.id === newMsg.id)) return prev;
             return [...prev, newMsg];
           });
@@ -138,19 +149,37 @@ export function PrivateChat({
     setError(null);
     setInputText("");
 
+    // Instant 0ms Optimistic UI
+    const tempId = `temp_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+    const optimisticMsg: PrivateMessage = {
+      id: tempId,
+      conversation_id: conversationId,
+      sender_id: currentUserId,
+      content: text,
+      is_read: false,
+      created_at: new Date().toISOString(),
+    };
+
+    setMessages((prev) => [...prev, optimisticMsg]);
+    setTimeout(() => scrollToBottom("smooth"), 10);
+
     startTransition(async () => {
       const res = await sendPrivateMessage(conversationId, text);
       if (res.error) {
+        setMessages((prev) => prev.filter((m) => m.id !== tempId));
         setError(res.error);
         setInputText(text); // restore input
       } else {
         if (res.message) {
           const newMsg = res.message as PrivateMessage;
           setMessages((prev) => {
+            const hasTemp = prev.some((m) => m.id === tempId);
+            if (hasTemp) {
+              return prev.map((m) => (m.id === tempId ? newMsg : m));
+            }
             if (prev.some((m) => m.id === newMsg.id)) return prev;
             return [...prev, newMsg];
           });
-          setTimeout(() => scrollToBottom("smooth"), 50);
         }
         inputRef.current?.focus();
       }

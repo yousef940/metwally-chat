@@ -128,7 +128,8 @@ export function BottomNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center justify-center py-1 transition-colors select-none ${
+              prefetch={true}
+              className={`flex flex-col items-center justify-center py-1 transition-all select-none active:scale-95 ${
                 active
                   ? "text-coral font-bold"
                   : "text-white/60 hover:text-white"

@@ -43,12 +43,30 @@ export default async function MessagesPage({
     redirect("/login?redirect=/messages");
   }
 
-  // 1. Fetch Conversations
-  const { data: convs } = await supabase
-    .from("conversations")
-    .select("id, participant_one, participant_two, updated_at")
-    .or(`participant_one.eq.${user.id},participant_two.eq.${user.id}`)
-    .order("updated_at", { ascending: false });
+  // 1. Fetch Conversations, Incoming Requests, and Outgoing Requests in parallel
+  const [
+    { data: convs },
+    { data: incomingReqs },
+    { data: outgoingReqs },
+  ] = await Promise.all([
+    supabase
+      .from("conversations")
+      .select("id, participant_one, participant_two, updated_at")
+      .or(`participant_one.eq.${user.id},participant_two.eq.${user.id}`)
+      .order("updated_at", { ascending: false }),
+    supabase
+      .from("chat_requests")
+      .select("id, sender_id, initial_message, created_at")
+      .eq("receiver_id", user.id)
+      .eq("status", "pending")
+      .order("created_at", { ascending: false }),
+    supabase
+      .from("chat_requests")
+      .select("id, receiver_id, initial_message, created_at")
+      .eq("sender_id", user.id)
+      .eq("status", "pending")
+      .order("created_at", { ascending: false }),
+  ]);
 
   const otherUserIds = Array.from(
     new Set(
@@ -77,16 +95,15 @@ export default async function MessagesPage({
 
     if (profs) {
       profilesMap = profs.reduce(
-        (acc, p) => ({ ...acc, [p.id]: p as typeof profilesMap[string] }),
+        (acc, p) => ({ ...acc, [p.id]: p as (typeof profilesMap)[string] }),
         {}
       );
     }
   }
 
-  const conversationItems: ConversationItem[] = [];
-
-  if (convs && convs.length > 0) {
-    for (const c of convs) {
+  // Fetch last messages & unread counts in parallel for all conversations
+  const conversationItems: ConversationItem[] = await Promise.all(
+    (convs || []).map(async (c) => {
       const otherId =
         c.participant_one === user.id ? c.participant_two : c.participant_one;
       const otherUser = profilesMap[otherId] || {
@@ -97,48 +114,31 @@ export default async function MessagesPage({
         country: "",
       };
 
-      // Get last message
-      const { data: lastMsg } = await supabase
-        .from("messages")
-        .select("content, created_at, sender_id")
-        .eq("conversation_id", c.id)
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
+      const [{ data: lastMsg }, { count: unreadCount }] = await Promise.all([
+        supabase
+          .from("messages")
+          .select("content, created_at, sender_id")
+          .eq("conversation_id", c.id)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle(),
+        supabase
+          .from("messages")
+          .select("id", { count: "exact", head: true })
+          .eq("conversation_id", c.id)
+          .neq("sender_id", user.id)
+          .eq("is_read", false),
+      ]);
 
-      // Get unread count
-      const { count: unreadCount } = await supabase
-        .from("messages")
-        .select("id", { count: "exact", head: true })
-        .eq("conversation_id", c.id)
-        .neq("sender_id", user.id)
-        .eq("is_read", false);
-
-      conversationItems.push({
+      return {
         id: c.id,
         updated_at: c.updated_at,
         otherUser,
         lastMessage: lastMsg,
         unreadCount: unreadCount || 0,
-      });
-    }
-  }
-
-  // 2. Fetch Incoming Requests
-  const { data: incomingReqs } = await supabase
-    .from("chat_requests")
-    .select("id, sender_id, initial_message, created_at")
-    .eq("receiver_id", user.id)
-    .eq("status", "pending")
-    .order("created_at", { ascending: false });
-
-  // 3. Fetch Outgoing Requests
-  const { data: outgoingReqs } = await supabase
-    .from("chat_requests")
-    .select("id, receiver_id, initial_message, created_at")
-    .eq("sender_id", user.id)
-    .eq("status", "pending")
-    .order("created_at", { ascending: false });
+      };
+    })
+  );
 
   // Fetch profiles for incoming and outgoing
   const reqSenderIds = (incomingReqs || []).map((r) => r.sender_id);

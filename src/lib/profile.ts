@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createClient, type SupabaseServerClient } from "@/lib/supabase/server";
 import { asIsoDate, GENDER_VALUES, INTENT_VALUES } from "@/lib/validation";
 
@@ -80,7 +81,7 @@ export async function getActiveBan(
  * If profile is not yet in the DB (e.g. signup before trigger was applied),
  * it automatically recovers the data from user_metadata.
  */
-export async function getCurrentUserProfile() {
+export const getCurrentUserProfile = cache(async () => {
   const supabase = await createClient();
   const {
     data: { user },
@@ -176,4 +177,4 @@ export async function getCurrentUserProfile() {
     }) as Profile,
     supabase,
   };
-}
+});

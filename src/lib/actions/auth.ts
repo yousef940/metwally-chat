@@ -144,6 +144,7 @@ export async function signUp(
   });
 
   if (error) {
+    console.error("[sohba] signUp error:", error);
     if (
       error.message.includes("already registered") ||
       error.message.includes("User already registered")
@@ -152,6 +153,15 @@ export async function signUp(
     }
     if (error.message.includes("Password should be")) {
       return { error: "كلمة المرور يجب أن لا تقل عن 6 أحرف." };
+    }
+    if (
+      error.message.includes("rate limit") ||
+      error.message.includes("over_email_send_rate_limit")
+    ) {
+      return {
+        error:
+          "تنبيه: يجب تعطيل خيار 'Confirm email' في إعدادات Supabase Authentication حتى يتم التسجيل بالاسم المستعار مباشرة دون إرسال إيميلات.",
+      };
     }
     return {
       error: toSafeErrorMessage(

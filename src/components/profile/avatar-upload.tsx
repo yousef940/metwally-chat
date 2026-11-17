@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Avatar } from "@/components/ui/avatar";
+import { IconUser } from "@/components/ui/icons";
 
 interface AvatarUploadProps {
   userId: string;
@@ -92,7 +93,7 @@ export function AvatarUpload({
         size="xl"
         frameClassName="border-2 border-white/25 bg-[#2C2C2E] shadow-lg"
         fallbackClassName="text-3xl text-white/50"
-        fallback="👤"
+        fallback={<IconUser size={44} className="text-white/45" />}
       />
 
       <div className="space-y-1.5">

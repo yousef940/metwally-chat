@@ -1,7 +1,6 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import Link from "next/link";
 import { updateProfile, type ProfileActionState } from "@/lib/actions/profile";
 import { AvatarUpload } from "@/components/profile/avatar-upload";
 import { GenderBadge } from "@/components/profile/gender-badge";
@@ -66,9 +65,21 @@ export function ProfileEditForm({
   };
 
   return (
-    <form action={formAction} className="space-y-6">
-      {state?.error && <Alert tone="error">{state.error}</Alert>}
+    <form id="profile-edit-form" action={formAction} className="space-y-6">
+      {/* Top Card Header with Always-Visible Save Button */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.10] pb-4">
+        <div>
+          <h2 className="text-lg font-bold text-white">تعديل بيانات الملف الشخصي</h2>
+          <p className="mt-0.5 text-xs text-white/55">
+            عدّل صورتك ومعلوماتك واضغط حفظ في أي وقت
+          </p>
+        </div>
+        <Button type="submit" size="md" disabled={isPending}>
+          {isPending ? "جاري الحفظ..." : "حفظ التعديلات"}
+        </Button>
+      </div>
 
+      {state?.error && <Alert tone="error">{state.error}</Alert>}
       {state?.success && <Alert tone="success">{state.success}</Alert>}
 
       {/* Hidden inputs carrying the client side state */}
@@ -76,8 +87,8 @@ export function ProfileEditForm({
       <input type="hidden" name="interests" value={JSON.stringify(interests)} />
 
       {/* Avatar Section */}
-      <div className="rounded-xl border border-ink/10 bg-ink/[0.02] p-4">
-        <p className="mb-3 block text-sm font-semibold text-ink">
+      <div className="rounded-[22px] border border-white/[0.10] bg-white/[0.04] p-4">
+        <p className="mb-3 block text-sm font-semibold text-white">
           الصورة الشخصية
         </p>
         <AvatarUpload
@@ -123,7 +134,11 @@ export function ProfileEditForm({
       </div>
 
       {/* Birth Year Selector */}
-      <Field label="سنة الميلاد (السن)" htmlFor="birthYear" hint="تُحسب سنك تلقائياً وتظهر في بروفايلك.">
+      <Field
+        label="سنة الميلاد (السن)"
+        htmlFor="birthYear"
+        hint="تُحسب سنك تلقائياً وتظهر في بروفايلك."
+      >
         <select
           id="birthYear"
           name="birthYear"
@@ -192,7 +207,7 @@ export function ProfileEditForm({
       <div>
         <p
           id="interests-label"
-          className="mb-2 block text-sm font-semibold text-ink"
+          className="mb-2.5 block text-sm font-semibold text-white"
         >
           الاهتمامات والهوايات (اختر حتى 8)
         </p>
@@ -209,10 +224,10 @@ export function ProfileEditForm({
                 type="button"
                 onClick={() => toggleInterest(item)}
                 aria-pressed={isSelected}
-                className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral ${
+                className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF] ${
                   isSelected
-                    ? "bg-coral text-white shadow-sm"
-                    : "border border-ink/20 bg-white text-ink/80 hover:bg-ink/5"
+                    ? "ios-btn-primary text-white"
+                    : "ios-btn-glass text-white/80 hover:text-white"
                 }`}
               >
                 {isSelected ? `✓ ${item}` : `+ ${item}`}
@@ -222,17 +237,20 @@ export function ProfileEditForm({
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex flex-wrap items-center gap-3 pt-4">
-        <Button type="submit" size="lg" disabled={isPending}>
-          {isPending ? "جاري الحفظ..." : "حفظ التعديلات"}
-        </Button>
-        <Link
-          href="/profile"
-          className="inline-flex items-center justify-center rounded-xl border border-ink/20 bg-white px-6 py-3 text-base font-semibold text-ink transition-colors hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-        >
-          معاينة الملف الشخصي
-        </Link>
+      {/* Sticky Floating Liquid Glass Save Bar — Always Visible While Scrolling */}
+      <div className="sticky bottom-24 md:bottom-5 z-30 pt-2">
+        <div className="ios-glass-strong flex items-center justify-between gap-3 rounded-full px-4 py-2.5">
+          <span className="text-xs font-medium text-white/75 truncate ps-1">
+            {isPending
+              ? "جاري حفظ التعديلات..."
+              : state?.success
+              ? "✓ تم حفظ تعديلاتك بنجاح"
+              : "اضغط لحفظ تعديلات ملفك الشخصي"}
+          </span>
+          <Button type="submit" size="md" disabled={isPending} className="shrink-0">
+            {isPending ? "جاري الحفظ..." : "حفظ التعديلات"}
+          </Button>
+        </div>
       </div>
     </form>
   );

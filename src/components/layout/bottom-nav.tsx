@@ -108,10 +108,10 @@ export function BottomNav() {
       isActive: pathname.startsWith("/discover"),
     },
     {
-      href: "/settings",
-      label: "إعداداتي",
+      href: "/profile",
+      label: "ملفي",
       icon: IconSettings,
-      isActive: pathname.startsWith("/settings") || pathname.startsWith("/profile"),
+      isActive: pathname === "/profile" || pathname.startsWith("/settings"),
     },
   ];
 

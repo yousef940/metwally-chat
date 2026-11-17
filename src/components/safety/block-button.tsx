@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { blockUser, unblockUser } from "@/lib/actions/safety";
 import { Alert } from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
+import { IconBan, IconUnlock } from "@/components/ui/icons";
 
 interface BlockButtonProps {
   targetUserId: string;
@@ -75,7 +76,7 @@ export function BlockButton({
           } disabled:opacity-50`
         }
       >
-        <span aria-hidden="true">{isBlocked ? "🔓" : "🚫"}</span>
+        {isBlocked ? <IconUnlock size={14} /> : <IconBan size={14} />}
         <span>
           {isPending
             ? "جاري المعالجة..."
@@ -93,9 +94,9 @@ export function BlockButton({
       >
         <div
           aria-hidden="true"
-          className="mt-3 mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#FF453A]/30 bg-[#FF453A]/15 text-2xl text-[#FF453A]"
+          className="mt-3 mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#FF453A]/30 bg-[#FF453A]/15 text-[#FF453A]"
         >
-          🚫
+          <IconBan size={24} />
         </div>
 
         <p className="text-xs leading-relaxed text-white/70">

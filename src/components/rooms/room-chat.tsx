@@ -18,6 +18,7 @@ import {
   IconImage,
   IconSmile,
   IconSettings,
+  IconPin,
 } from "@/components/ui/icons";
 import { sendRoomMessage, deleteRoomMessage } from "@/lib/actions/rooms";
 import { toggleRoomMessageReaction, pinRoomMessage } from "@/lib/actions/reactions";
@@ -736,23 +737,23 @@ export function RoomChat({
       className="flex h-[100dvh] flex-col text-white overflow-hidden"
     >
       {/* iOS 27 Liquid Glass Room Header */}
-      <header className="ios-glass-bar flex items-center justify-between border-b px-4 py-2.5 sm:px-6 sm:py-3 shrink-0 z-20">
+      <header className="ios-glass-bar flex items-center justify-between gap-2 border-b px-3 py-2 sm:px-6 sm:py-3 shrink-0 z-20">
         {/* Brand & Room Info */}
-        <div className="flex items-center gap-2 min-w-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1 overflow-hidden">
           <Link
             href="/"
-            className="bg-gradient-to-l from-white via-[#F4E8D3] to-[#409CFF] bg-clip-text text-base sm:text-lg font-black text-transparent whitespace-nowrap hover:opacity-90"
+            className="bg-gradient-to-l from-white via-[#F4E8D3] to-[#409CFF] bg-clip-text text-xs sm:text-base font-black text-transparent whitespace-nowrap shrink-0 hover:opacity-90"
           >
             عائلة الحاج متولي
           </Link>
-          <span className="text-white/30 text-xs">•</span>
-          <h1 className="text-xs sm:text-sm font-semibold truncate text-white/90">
+          <span className="text-white/30 text-[10px] sm:text-xs shrink-0">•</span>
+          <h1 className="text-[11px] sm:text-sm font-semibold truncate text-white/85 min-w-0">
             {room.name}
           </h1>
         </div>
 
         {/* Minimal Action Controls: Online Presence & Report */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Online Counter Pill */}
           <button
             type="button"
@@ -760,9 +761,9 @@ export function RoomChat({
             aria-expanded={showMembers}
             aria-controls="room-members-panel"
             title="المتواجدون الآن في الشات"
-            className="ios-btn-glass flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-white transition-all active:scale-95"
+            className="ios-btn-glass flex items-center gap-1 sm:gap-1.5 rounded-full px-2 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-white whitespace-nowrap transition-all active:scale-95"
           >
-            <span aria-hidden="true" className="h-2 w-2 animate-pulse rounded-full bg-[#30D158] shadow-[0_0_8px_#30D158]" />
+            <span aria-hidden="true" className="h-1.5 w-1.5 sm:h-2 sm:w-2 animate-pulse rounded-full bg-[#30D158] shadow-[0_0_8px_#30D158] shrink-0" />
             <span>{onlineUsers.length || 1} متواجد</span>
           </button>
 
@@ -773,7 +774,7 @@ export function RoomChat({
             targetLabel={room.name}
             triggerButtonText=""
             triggerLabel="الإبلاغ عن الغرفة"
-            buttonClassName="ios-btn-glass rounded-full p-1.5 text-xs text-white/65 transition-all hover:border-[#FF453A]/50 hover:text-[#FF453A]"
+            buttonClassName="ios-btn-glass flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-xs text-white/65 transition-all hover:border-[#FF453A]/50 hover:text-[#FF453A]"
           />
         </div>
       </header>
@@ -791,7 +792,10 @@ export function RoomChat({
           className="flex items-center justify-between border-b border-white/[0.08] bg-[#1C1C1E]/85 backdrop-blur-xl px-4 py-2 text-xs cursor-pointer transition-colors hover:bg-[#2C2C2E]/85 shrink-0"
         >
           <div className="flex items-center gap-2 truncate">
-            <span className="text-[#FF9F0A] font-bold shrink-0">📌 رسالة مثبتة:</span>
+            <span className="inline-flex items-center gap-1 text-[#FF9F0A] font-bold shrink-0">
+              <IconPin size={13} />
+              <span>رسالة مثبتة:</span>
+            </span>
             <span className="font-semibold text-white/95 shrink-0">
               {pinnedMessage.profile?.nickname || "عضو"}:
             </span>
@@ -910,7 +914,7 @@ export function RoomChat({
                             pinnedMessageId === msg.id ? "text-[#FF9F0A] font-bold" : "text-white/50 hover:text-[#FF9F0A]"
                           }`}
                         >
-                          <span>📌</span>
+                          <IconPin size={12} />
                           <span>{pinnedMessageId === msg.id ? "مثبتة" : "تثبيت"}</span>
                         </button>
                       )}
@@ -1385,8 +1389,8 @@ export function RoomChat({
           </Link>
 
           <Link
-            href="/settings"
-            title="إعداداتي"
+            href="/profile"
+            title="ملفي الشخصي والإعدادات"
             className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
           >
             <IconSettings size={22} />
@@ -1476,7 +1480,7 @@ export function RoomChat({
                   }}
                   className="flex w-full items-center gap-3 rounded-2xl px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors text-start"
                 >
-                  <span className="text-base">📌</span>
+                  <IconPin size={17} className="text-[#FF9F0A]" />
                   <span>
                     {pinnedMessageId === contextMenuMsg.id
                       ? "إلغاء تثبيت الرسالة"

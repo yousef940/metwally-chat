@@ -16,6 +16,8 @@ import {
   IconUsers,
   IconSettings,
   IconSmile,
+  IconBell,
+  IconBellSlash,
 } from "@/components/ui/icons";
 import {
   sendPrivateMessage,
@@ -267,14 +269,14 @@ export function PrivateChat({
             onClick={handleToggleMute}
             aria-pressed={isMuted}
             title={isMuted ? "إلغاء كتم المحادثة" : "كتم الإشعارات"}
-            className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF] ${
+            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF] ${
               isMuted
                 ? "border-[#FF9F0A]/40 bg-[#FF9F0A]/20 text-[#FFD080]"
                 : "ios-btn-glass text-white/80"
             }`}
           >
-            <span aria-hidden="true">{isMuted ? "🔕" : "🔔"}</span>{" "}
-            {isMuted ? "مكتومة" : "كتم"}
+            {isMuted ? <IconBellSlash size={14} /> : <IconBell size={14} />}
+            <span>{isMuted ? "مكتومة" : "كتم"}</span>
           </button>
         </div>
       </header>
@@ -283,8 +285,8 @@ export function PrivateChat({
       <div className="flex flex-1 flex-col space-y-3 overflow-y-auto p-4 sm:p-6">
         {messages.length === 0 ? (
           <div className="my-auto text-center text-sm text-white/55">
-            <div aria-hidden="true" className="mb-2 text-3xl">
-              👋
+            <div className="ios-glass mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-[18px] text-[#409CFF]">
+              <IconDirectMessage size={26} />
             </div>
             <p>لا توجد رسائل سابقة. ابدأ المحادثة الآن!</p>
           </div>
@@ -446,8 +448,8 @@ export function PrivateChat({
           </Link>
 
           <Link
-            href="/settings"
-            title="إعداداتي"
+            href="/profile"
+            title="ملفي الشخصي والإعدادات"
             className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
           >
             <IconSettings size={22} />

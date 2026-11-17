@@ -6,6 +6,13 @@ import { useState } from "react";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { GenderBadge } from "@/components/profile/gender-badge";
 import { PwaInstallButton } from "@/components/layout/pwa-install-button";
+import {
+  IconHome,
+  IconUsers,
+  IconMessages,
+  IconDirectMessage,
+  IconUser,
+} from "@/components/ui/icons";
 import type { Profile } from "@/lib/profile";
 
 interface AppHeaderProps {
@@ -14,10 +21,10 @@ interface AppHeaderProps {
 }
 
 const NAV_LINKS = [
-  { href: "/", label: "الرئيسية" },
-  { href: "/discover", label: "الأعضاء" },
-  { href: "/rooms/main", label: "الدردشة الجماعية" },
-  { href: "/messages", label: "الرسائل الخاصة" },
+  { href: "/", label: "الرئيسية", icon: IconHome },
+  { href: "/discover", label: "الأعضاء", icon: IconUsers },
+  { href: "/rooms/main", label: "الدردشة الجماعية", icon: IconMessages },
+  { href: "/messages", label: "الرسائل الخاصة", icon: IconDirectMessage },
 ];
 
 const MOBILE_MENU_ID = "app-header-mobile-menu";
@@ -45,10 +52,10 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
     <header className="ios-glass-bar sticky top-0 z-40 w-full border-b px-4 py-2.5 sm:px-6">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
         {/* Brand and primary desktop links */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-3 sm:gap-5 min-w-0">
           <Link
             href="/"
-            className="bg-gradient-to-l from-white via-[#F4E8D3] to-[#409CFF] bg-clip-text text-lg sm:text-xl font-black text-transparent shrink-0 whitespace-nowrap transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
+            className="bg-gradient-to-l from-white via-[#F4E8D3] to-[#409CFF] bg-clip-text text-sm sm:text-xl font-black text-transparent shrink-0 whitespace-nowrap transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           >
             عائلة الحاج متولي
           </Link>
@@ -60,14 +67,16 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
           >
             {NAV_LINKS.map((link) => {
               const isActive = isLinkActive(link.href);
+              const Icon = link.icon;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   aria-current={isActive ? "page" : undefined}
-                  className={linkClasses(isActive, "sm")}
+                  className={`inline-flex items-center gap-1.5 ${linkClasses(isActive, "sm")}`}
                 >
-                  {link.label}
+                  <Icon size={14} className={isActive ? "text-[#409CFF]" : "opacity-75"} />
+                  <span>{link.label}</span>
                 </Link>
               );
             })}
@@ -82,22 +91,15 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
             <div className="flex items-center gap-2">
               <Link
                 href="/profile"
-                className="ios-btn-glass flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold text-white transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
+                aria-current={pathname === "/profile" ? "page" : undefined}
+                className={`flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF] ${
+                  pathname === "/profile"
+                    ? "bg-[#0A84FF]/20 text-[#409CFF] border border-[#0A84FF]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]"
+                    : "ios-btn-glass text-white"
+                }`}
               >
                 <span>{profile.nickname}</span>
                 <GenderBadge gender={profile.gender} showText={false} />
-              </Link>
-
-              <Link
-                href="/settings"
-                aria-current={pathname === "/settings" ? "page" : undefined}
-                className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF] ${
-                  pathname === "/settings"
-                    ? "bg-[#0A84FF]/20 text-[#409CFF] border border-[#0A84FF]/35"
-                    : "text-white/65 hover:bg-white/[0.08] hover:text-white"
-                }`}
-              >
-                الإعدادات
               </Link>
 
               <SignOutButton />
@@ -105,7 +107,7 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
           ) : user ? (
             <div className="flex items-center gap-2.5">
               <Link
-                href="/profile/edit"
+                href="/profile"
                 className="ios-btn-primary rounded-full px-4 py-1.5 text-xs font-semibold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               >
                 إكمال الملف الشخصي
@@ -131,13 +133,13 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
         </div>
 
         {/* Mobile menu toggle button */}
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-1.5 md:hidden shrink-0">
           {user && profile && (
             <Link
               href="/profile"
-              className="ios-btn-glass flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
+              className="ios-btn-glass flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold text-white max-w-[140px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
             >
-              <span>{profile.nickname}</span>
+              <span className="truncate">{profile.nickname}</span>
               <GenderBadge gender={profile.gender} showText={false} />
             </Link>
           )}
@@ -176,15 +178,17 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
           <nav aria-label="التنقل الرئيسي" className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => {
               const isActive = isLinkActive(link.href);
+              const Icon = link.icon;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   aria-current={isActive ? "page" : undefined}
-                  className={linkClasses(isActive, "md")}
+                  className={`inline-flex items-center gap-2.5 ${linkClasses(isActive, "md")}`}
                 >
-                  {link.label}
+                  <Icon size={16} className={isActive ? "text-[#409CFF]" : "opacity-75"} />
+                  <span>{link.label}</span>
                 </Link>
               );
             })}
@@ -198,17 +202,11 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
                 <Link
                   href="/profile"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-full px-4 py-2.5 text-sm font-semibold text-white/70 transition-colors hover:bg-white/[0.08] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
+                  aria-current={pathname === "/profile" ? "page" : undefined}
+                  className={`inline-flex items-center gap-2.5 ${linkClasses(pathname === "/profile", "md")}`}
                 >
-                  ملفي الشخصي
-                </Link>
-                <Link
-                  href="/settings"
-                  onClick={() => setMobileMenuOpen(false)}
-                  aria-current={pathname === "/settings" ? "page" : undefined}
-                  className="rounded-full px-4 py-2.5 text-sm font-semibold text-white/70 transition-colors hover:bg-white/[0.08] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
-                >
-                  الإعدادات
+                  <IconUser size={16} className={pathname === "/profile" ? "text-[#409CFF]" : "opacity-75"} />
+                  <span>ملفي الشخصي والإعدادات</span>
                 </Link>
                 <div className="pt-2 ps-2 border-t border-white/[0.08] mt-1">
                   <SignOutButton />

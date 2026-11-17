@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { reportTarget } from "@/lib/actions/safety";
 import { Alert } from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
+import { IconFlag, IconCheck } from "@/components/ui/icons";
 import {
   compactSelectClassName,
   compactTextareaClassName,
@@ -87,7 +88,7 @@ export function ReportModal({
         title="تقديم بلاغ لإدارة المنصة"
         aria-label={triggerLabel}
       >
-        <span aria-hidden="true">🚩</span>
+        <IconFlag size={14} />
         {triggerButtonText && <span>{triggerButtonText}</span>}
       </button>
 
@@ -103,9 +104,9 @@ export function ReportModal({
         icon={
           <span
             aria-hidden="true"
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#FF453A]/30 bg-[#FF453A]/15 text-lg"
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#FF453A]/30 bg-[#FF453A]/15 text-[#FF453A]"
           >
-            🚩
+            <IconFlag size={18} />
           </span>
         }
         showCloseButton
@@ -115,9 +116,9 @@ export function ReportModal({
           <div className="py-8 text-center">
             <div
               aria-hidden="true"
-              className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-[#30D158]/30 bg-[#30D158]/15 text-3xl text-[#30D158]"
+              className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-[#30D158]/30 bg-[#30D158]/15 text-[#30D158]"
             >
-              ✓
+              <IconCheck size={28} />
             </div>
             <h3 className="mt-3 text-base font-bold text-white">
               تم استلام بلاغك بنجاح

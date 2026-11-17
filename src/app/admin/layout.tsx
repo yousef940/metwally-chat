@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/admin";
 import { SignOutButton } from "@/components/auth/sign-out-button";
+import {
+  IconChartBar,
+  IconFlag,
+  IconBan,
+  IconMessages,
+  IconHome,
+} from "@/components/ui/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -40,27 +47,31 @@ export default async function AdminLayout({
               >
                 <Link
                   href="/admin"
-                  className="rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
+                  className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
-                  📊 نظرة عامة
+                  <IconChartBar size={14} />
+                  <span>نظرة عامة</span>
                 </Link>
                 <Link
                   href="/admin/reports"
-                  className="rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
+                  className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
-                  🚩 البلاغات
+                  <IconFlag size={14} />
+                  <span>البلاغات</span>
                 </Link>
                 <Link
                   href="/admin/bans"
-                  className="rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
+                  className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
-                  🚫 الحظر
+                  <IconBan size={14} />
+                  <span>الحظر</span>
                 </Link>
                 <Link
                   href="/admin/rooms"
-                  className="rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
+                  className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
-                  💬 الغرف
+                  <IconMessages size={14} />
+                  <span>الغرف</span>
                 </Link>
               </nav>
             </div>
@@ -68,9 +79,10 @@ export default async function AdminLayout({
             <div className="flex items-center gap-3">
               <Link
                 href="/"
-                className="ios-btn-glass rounded-full px-3.5 py-1.5 text-xs font-semibold text-white/85 transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
+                className="ios-btn-glass inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold text-white/85 transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               >
-                🏠 العودة للموقع
+                <IconHome size={14} />
+                <span>العودة للموقع</span>
               </Link>
               <div className="hidden text-xs font-bold text-white sm:block">
                 {profile?.nickname || user.email}

@@ -1,3 +1,5 @@
+import { IconShield } from "@/components/ui/icons";
+
 interface SafetyTipsBannerProps {
   /** When true the tips start collapsed (the banner is only a short notice). */
   compact?: boolean;
@@ -37,9 +39,7 @@ export function SafetyTipsBanner({ compact = false }: SafetyTipsBannerProps) {
     >
       <summary className="flex cursor-pointer list-none items-start justify-between gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF9F0A]">
         <span className="flex items-center gap-2">
-          <span aria-hidden="true" className="text-xl">
-            🛡️
-          </span>
+          <IconShield size={20} className="text-[#FF9F0A]" />
           <span className="text-sm font-bold text-[#FFD080]">
             إرشادات الأمان والحماية لمجتمع صحبة
           </span>

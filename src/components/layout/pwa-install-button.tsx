@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { IconDeviceMobile, IconDownload } from "@/components/ui/icons";
+import { IconDeviceMobile, IconDownload, IconShareIos, IconPlus } from "@/components/ui/icons";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -125,7 +125,7 @@ export function PwaInstallButton({
         aria-label="تثبيت التطبيق على جهازك"
         className={`inline-flex items-center gap-1.5 rounded-full border border-[#0A84FF]/35 bg-[#0A84FF]/15 px-3.5 py-1.5 text-xs font-bold text-[#409CFF] backdrop-blur-xl transition-all hover:bg-[#0A84FF] hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-[#0A84FF] ${className}`}
       >
-        <span>📱</span>
+        <IconDeviceMobile size={15} />
         <span>تثبيت التطبيق</span>
       </button>
 
@@ -137,12 +137,18 @@ export function PwaInstallButton({
         >
           <div className="ios-glass-strong w-full max-w-sm rounded-[30px] p-6 text-center animate-slideUp">
             <div className="mx-auto mb-3 ios-grabber" aria-hidden="true" />
-            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#0A84FF]/20 border border-[#0A84FF]/30 text-2xl">
-              📲
+            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#0A84FF]/20 border border-[#0A84FF]/30 text-[#409CFF]">
+              <IconDeviceMobile size={28} />
             </div>
             <h3 className="text-base font-bold text-white">تثبيت التطبيق على هاتفك</h3>
             <p className="mt-2 text-xs leading-relaxed text-white/65">
-              لتثبيت التطبيق على شاشة هاتفك: اضغط على زر المشاركة في المتصفح ثم اختر <span className="font-bold text-white">إضافة إلى الشاشة الرئيسية ➕</span>.
+              لتثبيت التطبيق على شاشة هاتفك: اضغط على زر المشاركة{" "}
+              <IconShareIos size={14} className="inline align-text-bottom text-[#409CFF]" />{" "}
+              في المتصفح ثم اختر{" "}
+              <span className="font-bold text-white">
+                إضافة إلى الشاشة الرئيسية{" "}
+                <IconPlus size={12} className="inline align-text-bottom text-[#409CFF]" />
+              </span>.
             </p>
             <button
               type="button"

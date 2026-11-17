@@ -1,5 +1,14 @@
 import Link from "next/link";
 import { getAdminStats, getAdminReports } from "@/lib/actions/admin";
+import {
+  IconUsers,
+  IconFlag,
+  IconBan,
+  IconMessages,
+  IconCheckSeal,
+  IconUser,
+  IconHome,
+} from "@/components/ui/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +34,7 @@ export default async function AdminDashboardPage() {
         <div className="ios-card rounded-[24px] p-5">
           <div className="flex items-center justify-between text-white/55 text-xs font-bold mb-2">
             <span>إجمالي الأعضاء</span>
-            <span className="text-lg">👥</span>
+            <IconUsers size={18} className="text-[#409CFF]" />
           </div>
           <p className="text-2xl sm:text-3xl font-black text-white">{stats.totalUsers}</p>
           <span className="text-[11px] text-white/45 mt-1 block">حساب موثق</span>
@@ -35,7 +44,7 @@ export default async function AdminDashboardPage() {
         <div className="rounded-[24px] border border-[#FF453A]/35 bg-[#FF453A]/12 backdrop-blur-xl p-5">
           <div className="flex items-center justify-between text-[#FF8982] text-xs font-bold mb-2">
             <span>بلاغات معلقة</span>
-            <span className="text-lg">🚩</span>
+            <IconFlag size={18} className="text-[#FF453A]" />
           </div>
           <p className="text-2xl sm:text-3xl font-black text-[#FF6961]">
             {stats.pendingReports}
@@ -52,7 +61,7 @@ export default async function AdminDashboardPage() {
         <div className="ios-card rounded-[24px] p-5">
           <div className="flex items-center justify-between text-white/55 text-xs font-bold mb-2">
             <span>الحسابات المحظورة</span>
-            <span className="text-lg">🚫</span>
+            <IconBan size={18} className="text-[#FF9F0A]" />
           </div>
           <p className="text-2xl sm:text-3xl font-black text-white">{stats.activeBans}</p>
           <Link
@@ -67,7 +76,7 @@ export default async function AdminDashboardPage() {
         <div className="ios-card rounded-[24px] p-5">
           <div className="flex items-center justify-between text-white/55 text-xs font-bold mb-2">
             <span>الغرف العامة</span>
-            <span className="text-lg">💬</span>
+            <IconMessages size={18} className="text-[#30D158]" />
           </div>
           <p className="text-2xl sm:text-3xl font-black text-white">{stats.totalRooms}</p>
           <Link
@@ -100,7 +109,9 @@ export default async function AdminDashboardPage() {
 
         {recentReports.length === 0 ? (
           <div className="py-12 text-center text-white/55">
-            <span className="text-4xl block mb-2">🎉</span>
+            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-[18px] border border-[#30D158]/30 bg-[#30D158]/15 text-[#30D158]">
+              <IconCheckSeal size={28} />
+            </div>
             <p className="font-bold text-sm text-white">لا توجد بلاغات معلقة حالياً!</p>
             <p className="text-xs text-white/45 mt-1">
               المجتمع آمن ولا توجد مخالفات جديدة مسجلة.
@@ -112,12 +123,23 @@ export default async function AdminDashboardPage() {
               <div key={report.id} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="rounded-full border border-[#FF453A]/35 bg-[#FF453A]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#FF8982]">
-                      {report.targetType === "user"
-                        ? "👤 مستخدم"
-                        : report.targetType === "message"
-                        ? "💬 رسالة"
-                        : "🏠 غرفة"}
+                    <span className="inline-flex items-center gap-1 rounded-full border border-[#FF453A]/35 bg-[#FF453A]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#FF8982]">
+                      {report.targetType === "user" ? (
+                        <>
+                          <IconUser size={12} />
+                          <span>مستخدم</span>
+                        </>
+                      ) : report.targetType === "message" ? (
+                        <>
+                          <IconMessages size={12} />
+                          <span>رسالة</span>
+                        </>
+                      ) : (
+                        <>
+                          <IconHome size={12} />
+                          <span>غرفة</span>
+                        </>
+                      )}
                     </span>
                     <span className="text-sm font-bold text-white">{report.reason}</span>
                   </div>

@@ -5,6 +5,7 @@ import { unbanUser, banUser, type BannedUserItem } from "@/lib/actions/admin";
 import { Alert } from "@/components/ui/alert";
 import { Avatar } from "@/components/ui/avatar";
 import { Modal } from "@/components/ui/modal";
+import { IconCheckSeal, IconBan } from "@/components/ui/icons";
 import {
   compactInputClassName,
   compactSelectClassName,
@@ -95,9 +96,9 @@ export function BannedUsersTable({ initialBans }: BannedUsersTableProps) {
       {/* Bans Table / List */}
       {bans.length === 0 ? (
         <div className="ios-card rounded-[28px] p-12 text-center text-white/55">
-          <span aria-hidden="true" className="mb-2 block text-4xl">
-            🕊️
-          </span>
+          <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-[18px] border border-[#30D158]/30 bg-[#30D158]/15 text-[#30D158]">
+            <IconCheckSeal size={28} />
+          </div>
           <p className="text-sm font-bold text-white">لا توجد حسابات محظورة حالياً</p>
           <p className="mt-1 text-xs text-white/45">
             جميع الأعضاء ملتزمون بالقواعد أو تم إلغاء حظرهم.
@@ -198,8 +199,8 @@ export function BannedUsersTable({ initialBans }: BannedUsersTableProps) {
         title="حظر مستخدم يدوياً"
         titleClassName="flex items-center gap-2 text-base font-bold text-red-600"
         icon={
-          <span aria-hidden="true" className="text-base">
-            🚫
+          <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#FF453A]/15 text-[#FF453A]">
+            <IconBan size={18} />
           </span>
         }
       >

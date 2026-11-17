@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getCurrentUserProfile } from "@/lib/profile";
 import { RoomChat } from "@/components/rooms/room-chat";
+import { IconMessages } from "@/components/ui/icons";
 import type { ChatMessage, Room } from "@/components/rooms/types";
 
 export const dynamic = "force-dynamic";
@@ -63,8 +64,8 @@ export default async function RoomPage({
     return (
       <div className="flex min-h-screen flex-col items-center justify-center px-4 text-center text-white">
         <div className="ios-glass max-w-md rounded-[30px] p-8">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[20px] border border-[#0A84FF]/30 bg-[#0A84FF]/20 text-3xl text-[#409CFF]">
-            💬
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[20px] border border-[#0A84FF]/30 bg-[#0A84FF]/20 text-[#409CFF]">
+            <IconMessages size={30} />
           </div>
           <h1 className="mb-2 text-2xl font-bold text-white">غرفة الدردشة الجماعية</h1>
           <p className="mb-6 text-sm leading-relaxed text-white/60">

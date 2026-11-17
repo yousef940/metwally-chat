@@ -6,6 +6,7 @@ import Link from "next/link";
 import { respondToChatRequest } from "@/lib/actions/messages";
 import { GenderBadge } from "@/components/profile/gender-badge";
 import { Avatar } from "@/components/ui/avatar";
+import { IconMapPin, IconClock } from "@/components/ui/icons";
 
 interface RequestItemProps {
   id: string;
@@ -72,8 +73,9 @@ export function RequestItem({
               <GenderBadge gender={user.gender} showText={false} />
             </div>
             {user.country && (
-              <span className="text-xs text-white/55">
-                <span aria-hidden="true">📍</span> {user.country}
+              <span className="inline-flex items-center gap-1 text-xs text-white/55">
+                <IconMapPin size={12} className="text-white/45" />
+                <span>{user.country}</span>
               </span>
             )}
           </div>
@@ -111,8 +113,9 @@ export function RequestItem({
           </button>
         </div>
       ) : (
-        <p className="text-end text-xs font-medium text-[#FF9F0A]">
-          <span aria-hidden="true">⏳</span> بانتظار رد الطرف الآخر...
+        <p className="inline-flex w-full items-center justify-end gap-1.5 text-xs font-medium text-[#FF9F0A]">
+          <IconClock size={14} />
+          <span>بانتظار رد الطرف الآخر...</span>
         </p>
       )}
     </article>

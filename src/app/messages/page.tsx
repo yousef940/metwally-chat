@@ -5,6 +5,7 @@ import { GenderBadge } from "@/components/profile/gender-badge";
 import { RequestItem } from "@/components/messages/request-item";
 import { AppHeader } from "@/components/layout/header";
 import { Avatar } from "@/components/ui/avatar";
+import { IconDirectMessage } from "@/components/ui/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -229,7 +230,9 @@ export default async function MessagesPage({
           <div className="space-y-3">
             {conversationItems.length === 0 ? (
               <div className="ios-glass rounded-[28px] p-12 text-center">
-                <div className="text-4xl mb-3">💬</div>
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[20px] border border-[#0A84FF]/30 bg-[#0A84FF]/15 text-[#409CFF]">
+                  <IconDirectMessage size={30} />
+                </div>
                 <h3 className="text-lg font-bold text-white">
                   لا توجد محادثات نشطة بعد
                 </h3>

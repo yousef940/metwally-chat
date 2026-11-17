@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { IconWifiSlash, IconRefresh } from "@/components/ui/icons";
 
 export default function OfflinePage() {
   return (
@@ -8,9 +9,9 @@ export default function OfflinePage() {
       <div className="ios-glass w-full max-w-md rounded-[30px] p-8">
         <div
           aria-hidden="true"
-          className="mb-4 mx-auto flex h-20 w-20 items-center justify-center rounded-[24px] border border-[#FF9F0A]/30 bg-[#FF9F0A]/15 text-4xl"
+          className="mb-4 mx-auto flex h-20 w-20 items-center justify-center rounded-[24px] border border-[#FF9F0A]/30 bg-[#FF9F0A]/15 text-[#FF9F0A]"
         >
-          📡
+          <IconWifiSlash size={36} />
         </div>
 
         <h1 className="text-2xl font-bold text-white sm:text-3xl">
@@ -25,9 +26,10 @@ export default function OfflinePage() {
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="ios-btn-primary rounded-full px-6 py-3 text-sm font-bold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
+            className="ios-btn-primary inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           >
-            <span aria-hidden="true">🔄</span> إعادة المحاولة
+            <IconRefresh size={16} />
+            <span>إعادة المحاولة</span>
           </button>
           <Link
             href="/"

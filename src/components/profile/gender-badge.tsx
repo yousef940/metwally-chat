@@ -1,3 +1,5 @@
+import { IconMale, IconFemale } from "@/components/ui/icons";
+
 interface GenderBadgeProps {
   gender?: "male" | "female" | null | string;
   /** When false only the symbol is shown, so an accessible label is added. */
@@ -6,8 +8,7 @@ interface GenderBadgeProps {
 }
 
 /**
- * Small badge that shows the member gender. When the text is hidden the badge
- * keeps an `aria-label` so screen readers still announce it.
+ * Small badge that shows the member gender using crisp iOS-style vector icons.
  */
 export function GenderBadge({
   gender,
@@ -21,11 +22,9 @@ export function GenderBadge({
       <span
         title="شاب / ذكر"
         aria-label={showText ? undefined : "ذكر"}
-        className={`inline-flex items-center gap-1.5 rounded-full border border-[#0A84FF]/30 bg-[#0A84FF]/15 px-2.5 py-0.5 text-xs font-semibold text-[#64D2FF] ${className}`}
+        className={`inline-flex items-center gap-1 rounded-full border border-[#0A84FF]/30 bg-[#0A84FF]/15 px-2.5 py-0.5 text-xs font-semibold text-[#64D2FF] ${className}`}
       >
-        <span aria-hidden="true" className="text-sm font-bold leading-none text-[#0A84FF]">
-          ♂
-        </span>
+        <IconMale size={13} className="text-[#0A84FF]" />
         {showText && <span>ذكر</span>}
       </span>
     );
@@ -35,11 +34,9 @@ export function GenderBadge({
     <span
       title="شابة / أنثى"
       aria-label={showText ? undefined : "أنثى"}
-      className={`inline-flex items-center gap-1.5 rounded-full border border-[#FF375F]/30 bg-[#FF375F]/15 px-2.5 py-0.5 text-xs font-semibold text-[#FF6482] ${className}`}
+      className={`inline-flex items-center gap-1 rounded-full border border-[#FF375F]/30 bg-[#FF375F]/15 px-2.5 py-0.5 text-xs font-semibold text-[#FF6482] ${className}`}
     >
-      <span aria-hidden="true" className="text-sm font-bold leading-none text-[#FF375F]">
-        ♀
-      </span>
+      <IconFemale size={13} className="text-[#FF375F]" />
       {showText && <span>أنثى</span>}
     </span>
   );

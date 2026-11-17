@@ -10,6 +10,7 @@ import { AppHeader } from "@/components/layout/header";
 import { AppFooter } from "@/components/ui/app-footer";
 import { Avatar } from "@/components/ui/avatar";
 import { BackLink } from "@/components/ui/back-link";
+import { IconLock, IconUser } from "@/components/ui/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -61,9 +62,9 @@ export default async function PublicProfilePage({
         <AppHeader user={user} profile={currentUserProfile} />
         <main className="mx-auto max-w-md px-4 py-16 text-center">
           <div className="ios-glass rounded-[30px] p-8">
-            <span aria-hidden="true" className="text-4xl">
-              🔒
-            </span>
+            <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-[20px] border border-white/15 bg-white/[0.08] text-white/75">
+              <IconLock size={30} />
+            </div>
             <h1 className="mt-3 text-xl font-bold text-white">الملف الشخصي غير متاح</h1>
             <p className="mt-2 text-sm text-white/60">
               عذراً، هذا الحساب غير متاح أو لا يمكن عرضه بسبب قيود الخصوصية أو الحظر.
@@ -157,7 +158,7 @@ export default async function PublicProfilePage({
                   size="2xl"
                   frameClassName="border-4 border-[#1C1C1E] bg-[#2C2C2E] shadow-xl"
                   fallbackClassName="text-4xl text-[#409CFF]"
-                  fallback="👤"
+                  fallback={<IconUser size={52} className="text-white/45" />}
                 />
 
                 <div className="flex items-center gap-2">

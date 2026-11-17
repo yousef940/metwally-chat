@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAdminReports } from "@/lib/actions/admin";
 import { ReportCard } from "@/components/admin/report-card";
+import { IconShield } from "@/components/ui/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -64,7 +65,9 @@ export default async function AdminReportsPage({ searchParams }: ReportsPageProp
       {/* Reports List */}
       {reports.length === 0 ? (
         <div className="ios-card rounded-[28px] p-12 text-center text-white/55">
-          <span className="text-4xl block mb-2">🛡️</span>
+          <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-[18px] border border-[#0A84FF]/30 bg-[#0A84FF]/15 text-[#409CFF]">
+            <IconShield size={28} />
+          </div>
           <p className="font-bold text-sm text-white">لا توجد بلاغات تطابق التصفية المحددة</p>
           <p className="text-xs text-white/45 mt-1">كل شيء هادئ ومنتظم.</p>
         </div>

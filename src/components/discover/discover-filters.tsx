@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useState, useTransition } from "react";
 import { ARAB_COUNTRIES, getCountryFlag } from "@/lib/constants";
+import { IconSearch, IconSliders } from "@/components/ui/icons";
 
 interface DiscoverFiltersProps {
   initialCountry?: string;
@@ -89,7 +90,7 @@ export function DiscoverFilters({
               aria-hidden="true"
               className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5 text-white/45"
             >
-              🔍
+              <IconSearch size={17} />
             </span>
             <input
               type="text"
@@ -109,7 +110,7 @@ export function DiscoverFilters({
               aria-controls="discover-advanced-filters"
               className="ios-btn-glass inline-flex items-center gap-1.5 rounded-full px-3.5 py-2.5 text-xs font-semibold sm:hidden"
             >
-              <span>⚙️</span>
+              <IconSliders size={15} />
               <span>{isExpanded ? "إخفاء الفلاتر" : "الفلاتر"}</span>
             </button>
 

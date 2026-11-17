@@ -9,6 +9,7 @@ import {
 } from "@/lib/actions/admin";
 import { Alert } from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
+import { IconUser, IconMessages, IconHome, IconTrash, IconBan } from "@/components/ui/icons";
 import {
   compactSelectClassName,
   compactTextareaClassName,
@@ -88,7 +89,7 @@ export function ReportCard({ report }: ReportCardProps) {
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.08] pb-3">
         <div className="flex items-center gap-2">
           <span
-            className={`rounded-full border px-2.5 py-0.5 text-xs font-bold ${
+            className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-bold ${
               report.targetType === "user"
                 ? "border-[#BF5AF2]/35 bg-[#BF5AF2]/15 text-[#DA8FFF]"
                 : report.targetType === "message"
@@ -96,11 +97,22 @@ export function ReportCard({ report }: ReportCardProps) {
                 : "border-[#FF9F0A]/35 bg-[#FF9F0A]/15 text-[#FFD080]"
             }`}
           >
-            {report.targetType === "user"
-              ? "👤 بلاغ عن مستخدم"
-              : report.targetType === "message"
-              ? "💬 بلاغ عن رسالة"
-              : "🏠 بلاغ عن غرفة"}
+            {report.targetType === "user" ? (
+              <>
+                <IconUser size={13} />
+                <span>بلاغ عن مستخدم</span>
+              </>
+            ) : report.targetType === "message" ? (
+              <>
+                <IconMessages size={13} />
+                <span>بلاغ عن رسالة</span>
+              </>
+            ) : (
+              <>
+                <IconHome size={13} />
+                <span>بلاغ عن غرفة</span>
+              </>
+            )}
           </span>
 
           <span
@@ -231,9 +243,10 @@ export function ReportCard({ report }: ReportCardProps) {
               type="button"
               disabled={isPending}
               onClick={handleDeleteMsg}
-              className="rounded-full border border-[#FF453A]/35 bg-[#FF453A]/15 px-3.5 py-1.5 text-xs font-bold text-[#FF8982] transition-all hover:bg-[#FF453A]/25 active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
+              className="inline-flex items-center gap-1.5 rounded-full border border-[#FF453A]/35 bg-[#FF453A]/15 px-3.5 py-1.5 text-xs font-bold text-[#FF8982] transition-all hover:bg-[#FF453A]/25 active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
             >
-              🗑 حذف الرسالة
+              <IconTrash size={14} />
+              <span>حذف الرسالة</span>
             </button>
           )}
 
@@ -241,9 +254,10 @@ export function ReportCard({ report }: ReportCardProps) {
             <button
               type="button"
               onClick={() => setShowBanModal(true)}
-              className="rounded-full bg-[#FF453A] px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-all hover:bg-[#FF6961] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#FF453A] px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-all hover:bg-[#FF6961] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
             >
-              🚫 حظر الحساب
+              <IconBan size={14} />
+              <span>حظر الحساب</span>
             </button>
           )}
         </div>
@@ -254,10 +268,10 @@ export function ReportCard({ report }: ReportCardProps) {
         isOpen={showBanModal}
         onClose={() => setShowBanModal(false)}
         title="حظر المستخدم المبلغ عنه"
-        titleClassName="flex items-center gap-2 text-base font-bold text-red-600"
+        titleClassName="flex items-center gap-2 text-base font-bold text-[#FF453A]"
         icon={
-          <span aria-hidden="true" className="text-base">
-            🚫
+          <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#FF453A]/15 text-[#FF453A]">
+            <IconBan size={18} />
           </span>
         }
         subtitle="سيتم منع المستخدم من تسجيل الدخول والمشاركة في المحادثات والغرف."

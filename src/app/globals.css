@@ -204,6 +204,14 @@ body {
   contain-intrinsic-size: auto 120px;
 }
 
+/* Disable native mobile long-press text selection & browser callout popups */
+.no-callout,
+.no-callout * {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+
 /* Safe area helper for iPhones */
 .pb-safe {
   padding-bottom: max(0.5rem, env(safe-area-inset-bottom));

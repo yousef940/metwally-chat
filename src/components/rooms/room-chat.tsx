@@ -450,11 +450,14 @@ export function RoomChat({
     touchStartPosRef.current = { x: touch.clientX, y: touch.clientY };
     if (longPressTimerRef.current) clearTimeout(longPressTimerRef.current);
     longPressTimerRef.current = setTimeout(() => {
+      if (typeof window !== "undefined") {
+        window.getSelection()?.removeAllRanges();
+      }
       if (typeof navigator !== "undefined" && navigator.vibrate) {
-        navigator.vibrate(40);
+        navigator.vibrate(35);
       }
       setContextMenuMsg(msg);
-    }, 450);
+    }, 420);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -478,6 +481,9 @@ export function RoomChat({
 
   const handleContextMenu = (msg: ChatMessage, e: React.MouseEvent) => {
     e.preventDefault();
+    if (typeof window !== "undefined") {
+      window.getSelection()?.removeAllRanges();
+    }
     setContextMenuMsg(msg);
   };
 
@@ -929,7 +935,7 @@ export function RoomChat({
                       onTouchEnd={handleTouchEnd}
                       onContextMenu={(e) => handleContextMenu(msg, e)}
                       title="اضغط مطولاً للمزيد من الخيارات والتفاعلات"
-                      className={`min-w-0 max-w-full break-words [overflow-wrap:anywhere] rounded-[22px] px-4 py-2.5 text-sm leading-relaxed transition-all select-none cursor-pointer ${
+                      className={`no-callout min-w-0 max-w-full break-words [overflow-wrap:anywhere] rounded-[22px] px-4 py-2.5 text-sm leading-relaxed transition-all select-none cursor-pointer ${
                         isMe
                           ? "ios-bubble-me rounded-se-[6px]"
                           : "ios-bubble-other rounded-ss-[6px]"
@@ -1331,7 +1337,10 @@ export function RoomChat({
 
       {/* iOS 27 Liquid Glass Long-Press Action Sheet */}
       {contextMenuMsg && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-2 sm:p-4 animate-fadeIn">
+        <div
+          onContextMenu={(e) => e.preventDefault()}
+          className="no-callout fixed inset-0 z-50 flex items-end sm:items-center justify-center p-2 sm:p-4 animate-fadeIn"
+        >
           {/* Backdrop with blur */}
           <div
             className="fixed inset-0 bg-black/65 backdrop-blur-md cursor-pointer"

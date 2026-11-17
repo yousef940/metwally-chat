@@ -297,7 +297,7 @@ export function PrivateChat({
                 className={`flex flex-col ${isMe ? "items-end" : "items-start"}`}
               >
                 <div
-                  className={`max-w-[85%] break-words rounded-[22px] px-4 py-2.5 text-sm leading-relaxed sm:max-w-[70%] ${
+                  className={`no-callout max-w-[85%] break-words rounded-[22px] px-4 py-2.5 text-sm leading-relaxed sm:max-w-[70%] ${
                     isMe
                       ? "ios-bubble-me rounded-se-[6px]"
                       : "ios-bubble-other rounded-ss-[6px]"

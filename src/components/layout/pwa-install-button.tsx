@@ -123,7 +123,7 @@ export function PwaInstallButton({
         type="button"
         onClick={handleInstallClick}
         aria-label="تثبيت التطبيق على جهازك"
-        className={`inline-flex items-center gap-1.5 rounded-full border border-[#0A84FF]/35 bg-[#0A84FF]/15 px-3.5 py-1.5 text-xs font-bold text-[#409CFF] backdrop-blur-xl transition-all hover:bg-[#0A84FF] hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-[#0A84FF] ${className}`}
+        className={`inline-flex items-center gap-1.5 rounded-full border border-[#0A84FF]/35 bg-[#0A84FF]/15 px-3.5 py-1.5 text-xs font-bold text-[#409CFF] transition-all hover:bg-[#0A84FF] hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-[#0A84FF] ${className}`}
       >
         <IconDeviceMobile size={15} />
         <span>تثبيت التطبيق</span>

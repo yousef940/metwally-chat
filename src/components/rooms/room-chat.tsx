@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { GenderBadge } from "@/components/profile/gender-badge";
 import { ReportModal } from "@/components/safety/report-modal";
+import { BottomNav } from "@/components/layout/bottom-nav";
 import { Avatar } from "@/components/ui/avatar";
 import {
   IconSend,
@@ -17,7 +18,6 @@ import {
   IconDirectMessage,
   IconImage,
   IconSmile,
-  IconSettings,
   IconPin,
 } from "@/components/ui/icons";
 import { sendRoomMessage, deleteRoomMessage } from "@/lib/actions/rooms";
@@ -122,7 +122,6 @@ export function RoomChat({
   const [typingUsers, setTypingUsers] = useState<
     { nickname: string; avatar_url?: string | null; userId: string }[]
   >([]);
-  const [unreadCount, setUnreadCount] = useState<number>(0);
   const [pinnedMessageId, setPinnedMessageId] = useState<string | null>(
     room.pinned_message_id || null
   );
@@ -307,70 +306,6 @@ export function RoomChat({
       supabase.removeChannel(presenceChannel);
     };
   }, [room.id, currentUser.id, currentProfile]);
-
-  // Listen for unread private messages & chat requests
-  useEffect(() => {
-    const supabase = createClient();
-
-    const fetchUnread = async () => {
-      try {
-        const { count: msgCount } = await supabase
-          .from("messages")
-          .select("id", { count: "exact", head: true })
-          .eq("is_read", false)
-          .neq("sender_id", currentUser.id);
-
-        const { count: reqCount } = await supabase
-          .from("chat_requests")
-          .select("id", { count: "exact", head: true })
-          .eq("receiver_id", currentUser.id)
-          .eq("status", "pending");
-
-        setUnreadCount((msgCount || 0) + (reqCount || 0));
-      } catch {
-        // fail silently for network hiccups
-      }
-    };
-
-    fetchUnread();
-
-    const channelName = `room_nav_unread_${currentUser.id}_${Date.now()}`;
-    const unreadChannel = supabase
-      .channel(channelName)
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "messages",
-        },
-        () => fetchUnread()
-      )
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "messages",
-        },
-        () => fetchUnread()
-      )
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: "chat_requests",
-          filter: `receiver_id=eq.${currentUser.id}`,
-        },
-        () => fetchUnread()
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(unreadChannel);
-    };
-  }, [currentUser.id]);
 
   // Fetch & listen to message reactions
   useEffect(() => {
@@ -736,18 +671,56 @@ export function RoomChat({
       data-theme="dark"
       className="flex h-[100dvh] flex-col text-white overflow-hidden"
     >
-      {/* iOS 27 Liquid Glass Room Header */}
-      <header className="ios-glass-bar flex items-center justify-between gap-2 border-b px-3 py-2 sm:px-6 sm:py-3 shrink-0 z-20">
-        {/* Brand & Room Info */}
-        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1 overflow-hidden">
+      {/* iOS 27 Liquid Glass Room Header — Consistent with AppHeader on Desktop & Compact on Mobile */}
+      <header className="ios-glass-bar flex items-center justify-between gap-2 border-b px-3 py-2 sm:px-6 sm:py-2.5 shrink-0 z-20">
+        {/* Brand, Desktop Nav Capsule & Room Info */}
+        <div className="flex items-center gap-1.5 sm:gap-4 min-w-0 flex-1 overflow-hidden">
           <Link
             href="/"
-            className="bg-gradient-to-l from-white via-[#F4E8D3] to-[#409CFF] bg-clip-text text-xs sm:text-base font-black text-transparent whitespace-nowrap shrink-0 hover:opacity-90"
+            className="bg-gradient-to-l from-white via-[#F4E8D3] to-[#409CFF] bg-clip-text text-xs sm:text-lg font-black text-transparent whitespace-nowrap shrink-0 hover:opacity-90"
           >
             عائلة الحاج متولي
           </Link>
-          <span className="text-white/30 text-[10px] sm:text-xs shrink-0">•</span>
-          <h1 className="text-[11px] sm:text-sm font-semibold truncate text-white/85 min-w-0">
+
+          {/* Same iOS 27 Segmented Nav Capsule on Desktop */}
+          <nav
+            aria-label="التنقل الرئيسي"
+            className="ios-segmented hidden md:flex items-center gap-1 rounded-full p-1 shrink-0"
+          >
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold text-white/65 hover:bg-white/[0.08] hover:text-white transition-all"
+            >
+              <IconHome size={14} className="opacity-75" />
+              <span>الرئيسية</span>
+            </Link>
+            <Link
+              href="/discover"
+              className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold text-white/65 hover:bg-white/[0.08] hover:text-white transition-all"
+            >
+              <IconUsers size={14} className="opacity-75" />
+              <span>الأعضاء</span>
+            </Link>
+            <Link
+              href="/rooms/main"
+              aria-current="page"
+              className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.15] px-3.5 py-1.5 text-xs font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] transition-all"
+            >
+              <IconMessages size={14} className="text-[#409CFF]" />
+              <span>الدردشة الجماعية</span>
+            </Link>
+            <Link
+              href="/messages"
+              className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold text-white/65 hover:bg-white/[0.08] hover:text-white transition-all"
+            >
+              <IconDirectMessage size={14} className="opacity-75" />
+              <span>الرسائل الخاصة</span>
+            </Link>
+          </nav>
+
+          {/* Compact room name on mobile */}
+          <span className="text-white/30 text-[10px] shrink-0 md:hidden">•</span>
+          <h1 className="text-[11px] font-semibold truncate text-white/85 min-w-0 md:hidden">
             {room.name}
           </h1>
         </div>
@@ -776,6 +749,14 @@ export function RoomChat({
             triggerLabel="الإبلاغ عن الغرفة"
             buttonClassName="ios-btn-glass flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-xs text-white/65 transition-all hover:border-[#FF453A]/50 hover:text-[#FF453A]"
           />
+
+          {/* Desktop Profile Pill */}
+          <Link
+            href="/profile"
+            className="ios-btn-glass hidden md:inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-white transition-all active:scale-95"
+          >
+            <span>{currentProfile.nickname}</span>
+          </Link>
         </div>
       </header>
 
@@ -789,7 +770,7 @@ export function RoomChat({
             el?.classList.add("ring-2", "ring-[#0A84FF]");
             setTimeout(() => el?.classList.remove("ring-2", "ring-[#0A84FF]"), 2500);
           }}
-          className="flex items-center justify-between border-b border-white/[0.08] bg-[#1C1C1E]/85 backdrop-blur-xl px-4 py-2 text-xs cursor-pointer transition-colors hover:bg-[#2C2C2E]/85 shrink-0"
+          className="flex items-center justify-between border-b border-white/[0.08] bg-[#1A1A1E] px-4 py-2 text-xs cursor-pointer transition-colors hover:bg-[#242429] shrink-0"
         >
           <div className="flex items-center gap-2 truncate">
             <span className="inline-flex items-center gap-1 text-[#FF9F0A] font-bold shrink-0">
@@ -827,7 +808,7 @@ export function RoomChat({
       {/* Body: Chat Area + Online Members Drawer */}
       <div className="relative flex flex-1 overflow-hidden">
         {/* Messages Stream */}
-        <div className="flex flex-1 flex-col space-y-4 overflow-y-auto p-4 sm:p-6">
+        <div className="ios-scroll flex flex-1 flex-col space-y-4 overflow-y-auto p-4 sm:p-6">
           {messages.length === 0 ? (
             <div className="my-auto text-center text-sm text-white/55">
               <div className="ios-glass mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-[18px] text-[#409CFF]">
@@ -1000,7 +981,7 @@ export function RoomChat({
                           key={r.emoji}
                           type="button"
                           onClick={() => handleToggleReaction(msg.id, r.emoji)}
-                          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs backdrop-blur-md transition-transform active:scale-90 ${
+                          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs transition-transform active:scale-90 ${
                             r.userReacted
                               ? "border border-[#0A84FF]/60 bg-[#0A84FF]/25 text-white font-bold"
                               : "border border-white/[0.12] bg-[#2C2C2E]/75 text-white/85 hover:bg-white/15"
@@ -1156,7 +1137,7 @@ export function RoomChat({
         <div
           role="alert"
           aria-live="assertive"
-          className="flex items-center justify-between border-t border-[#FF453A]/35 bg-[#FF453A]/15 backdrop-blur-xl px-4 py-2.5 text-xs text-[#FF9B95]"
+          className="flex items-center justify-between border-t border-[#FF453A]/35 bg-[#2A1415] px-4 py-2.5 text-xs text-[#FF9B95]"
         >
           <span>{errorMessage}</span>
           <button
@@ -1174,7 +1155,7 @@ export function RoomChat({
       <footer className="ios-glass-bar shrink-0 border-t p-2.5 sm:p-3.5">
         {/* Reply Preview Bar */}
         {replyingTo && (
-          <div className="mx-auto mb-2 flex max-w-4xl items-center justify-between rounded-2xl border border-white/[0.10] bg-white/[0.06] px-3.5 py-2 text-xs backdrop-blur-md">
+          <div className="mx-auto mb-2 flex max-w-4xl items-center justify-between rounded-2xl border border-white/[0.10] bg-[#222226] px-3.5 py-2 text-xs">
             <div className="flex items-center gap-2 truncate">
               <IconReply size={15} className="text-[#409CFF] shrink-0" />
               <span className="font-bold text-[#409CFF]">رد على {replyingTo.author}:</span>
@@ -1213,7 +1194,7 @@ export function RoomChat({
 
         {/* Pending Image Preview Box */}
         {pendingImage && (
-          <div className="mx-auto mb-2 flex max-w-4xl items-center justify-between rounded-2xl border border-[#0A84FF]/40 bg-[#0A84FF]/10 p-2 text-xs backdrop-blur-md">
+          <div className="mx-auto mb-2 flex max-w-4xl items-center justify-between rounded-2xl border border-[#0A84FF]/40 bg-[#102238] p-2 text-xs">
             <div className="flex items-center gap-2.5 truncate">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -1277,7 +1258,7 @@ export function RoomChat({
           </div>
 
           {/* iOS 27 Liquid Glass Pill Input */}
-          <div className="relative flex flex-1 items-center rounded-full border border-white/[0.14] bg-[#2C2C2E]/80 ps-4 pe-1.5 py-1 backdrop-blur-xl focus-within:border-[#0A84FF] focus-within:ring-2 focus-within:ring-[#0A84FF]/25 transition-all">
+          <div className="relative flex flex-1 items-center rounded-full border border-white/[0.14] bg-[#26262A] ps-4 pe-1.5 py-1 focus-within:border-[#0A84FF] focus-within:ring-2 focus-within:ring-[#0A84FF]/25 transition-colors">
             <label htmlFor="room-message-input" className="sr-only">
               اكتب رسالة
             </label>
@@ -1345,58 +1326,8 @@ export function RoomChat({
         </form>
       </footer>
 
-      {/* iOS 27 Translucent Bottom Bar */}
-      <nav
-        aria-label="شريط التنقل السفلي"
-        className="shrink-0 border-t border-white/[0.08] bg-black/85 backdrop-blur-2xl px-3 py-1.5 pb-safe"
-      >
-        <div className="mx-auto flex max-w-md items-center justify-around">
-          <Link
-            href="/"
-            title="الرئيسية"
-            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
-          >
-            <IconHome size={22} />
-          </Link>
-
-          <Link
-            href="/rooms/main"
-            title="الدردشة الجماعية"
-            className="flex flex-col items-center justify-center rounded-full bg-white/[0.12] px-3.5 py-2 text-[#0A84FF] transition-colors"
-          >
-            <IconMessages size={22} className="text-[#0A84FF]" />
-          </Link>
-
-          <Link
-            href="/discover"
-            title="الأعضاء"
-            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
-          >
-            <IconUsers size={22} />
-          </Link>
-
-          <Link
-            href="/messages"
-            title="الرسائل الخاصة"
-            className="relative flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
-          >
-            <IconDirectMessage size={22} />
-            {unreadCount > 0 && (
-              <span className="absolute top-1 end-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#FF453A] px-1 text-[10px] font-black text-white ring-2 ring-black">
-                {unreadCount > 99 ? "+99" : unreadCount}
-              </span>
-            )}
-          </Link>
-
-          <Link
-            href="/profile"
-            title="ملفي الشخصي والإعدادات"
-            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
-          >
-            <IconSettings size={22} />
-          </Link>
-        </div>
-      </nav>
+      {/* Same Unified Floating iOS 27 Bottom Tab Bar on Mobile */}
+      <BottomNav inline />
 
       {/* iOS 27 Liquid Glass Long-Press Action Sheet */}
       {contextMenuMsg && (

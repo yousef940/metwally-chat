@@ -24,12 +24,12 @@ export function DeleteAccountButton() {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="inline-flex items-center justify-center rounded-full border border-[#FF453A]/35 bg-[#FF453A]/15 px-5 py-2.5 text-sm font-semibold text-[#FF8982] backdrop-blur-xl transition-all hover:bg-[#FF453A]/25 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
+          className="inline-flex items-center justify-center rounded-full border border-[#FF453A]/35 bg-[#FF453A]/15 px-5 py-2.5 text-sm font-semibold text-[#FF8982] transition-all hover:bg-[#FF453A]/25 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
         >
           حذف الحساب نهائياً
         </button>
       ) : (
-        <div className="rounded-2xl border border-[#FF453A]/35 bg-[#FF453A]/12 backdrop-blur-xl p-4">
+        <div className="rounded-2xl border border-[#FF453A]/35 bg-[#2A1415] p-4">
           <h3 className="text-base font-bold text-[#FF6961]">
             هل أنت متأكد من رغبتك في حذف حسابك؟
           </h3>

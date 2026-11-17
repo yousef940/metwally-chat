@@ -205,7 +205,7 @@ export function MemberListView({
             return (
               <article
                 key={member.id}
-                className="ios-card group flex flex-col justify-between rounded-[24px] p-4.5 transition-all duration-200 hover:border-white/[0.20] hover:bg-[#242428]/85"
+                className="ios-card ios-list-item group flex flex-col justify-between rounded-[24px] p-4.5 transition-colors hover:border-white/[0.20] hover:bg-[#242428]"
               >
                 {/* Header: Avatar, Online Dot, Info */}
                 <div className="flex items-start gap-3.5">

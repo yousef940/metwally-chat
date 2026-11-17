@@ -64,81 +64,83 @@ html {
   background-color: #000000;
   color-scheme: dark;
   -webkit-tap-highlight-color: transparent;
+  scroll-behavior: auto;
 }
 
 body {
   background-color: #000000;
+  /* Static non-fixed subtle ambient glow: zero repaint cost while scrolling on mobile */
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(10, 132, 255, 0.14), transparent 65%),
-    radial-gradient(ellipse 60% 45% at 88% 12%, rgba(232, 213, 181, 0.08), transparent 60%),
-    radial-gradient(ellipse 55% 45% at 12% 85%, rgba(94, 92, 230, 0.09), transparent 60%);
-  background-attachment: fixed;
+    radial-gradient(ellipse 90% 420px at 50% 0%, rgba(10, 132, 255, 0.13), transparent 70%),
+    radial-gradient(ellipse 55% 320px at 85% 60px, rgba(232, 213, 181, 0.06), transparent 65%);
+  background-repeat: no-repeat;
   color: #FFFFFF;
   font-family: var(--font-alexandria), -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
   min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ==========================================================================
-   Apple iOS & iPadOS 27 — Liquid Glass Materials & Components
+   Apple iOS & iPadOS 27 — High-FPS Mobile-Optimized Liquid Glass
+   ==========================================================================
+   Performance rule: real backdrop-filter is strictly reserved for the few
+   fixed/sticky floating bars & modal sheets so scrolling lists stay 60-120fps
+   on every mobile phone. Scrolling cards & bubbles use zero-blur optical
+   specular glass surfaces.
    ========================================================================== */
 
-/* Standard Liquid Glass Surface (floating cards, panels, pills) */
+/* Scrolling Glass Surface (Hero, Profile, Feature cards) — Zero GPU Blur Cost */
 .ios-glass {
-  background: linear-gradient(
-    145deg,
-    rgba(44, 44, 48, 0.68) 0%,
-    rgba(24, 24, 28, 0.62) 100%
-  );
-  backdrop-filter: blur(28px) saturate(185%);
-  -webkit-backdrop-filter: blur(28px) saturate(185%);
+  background: linear-gradient(155deg, #222227 0%, #151519 100%);
   border: 1px solid rgba(255, 255, 255, 0.13);
   box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.18),
-    inset 0 -1px 0 0 rgba(255, 255, 255, 0.04),
-    0 12px 32px -10px rgba(0, 0, 0, 0.6);
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.16),
+    0 8px 24px -10px rgba(0, 0, 0, 0.55);
 }
 
-/* Strong Liquid Glass (Floating Tab Bar, Modal Sheets, Popovers, Action Sheets) */
+/* Floating Strong Liquid Glass (Bottom Tab Bar, Modal Sheets, Action Sheets, Sticky Save Bar) */
 .ios-glass-strong {
-  background: linear-gradient(
-    180deg,
-    rgba(52, 52, 58, 0.78) 0%,
-    rgba(26, 26, 30, 0.84) 100%
-  );
-  backdrop-filter: blur(36px) saturate(210%);
-  -webkit-backdrop-filter: blur(36px) saturate(210%);
+  background: rgba(26, 26, 31, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1px 0 0 rgba(255, 255, 255, 0.05),
-    0 20px 48px -12px rgba(0, 0, 0, 0.75);
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
+    0 12px 28px -10px rgba(0, 0, 0, 0.7);
+  transform: translateZ(0);
+  contain: layout style;
 }
 
-/* Scroll-Edge Navigation Bar Material */
+/* Sticky Top/Bottom Chrome Bar (single GPU composite layer) */
 .ios-glass-bar {
-  background: rgba(14, 14, 18, 0.72);
-  backdrop-filter: blur(30px) saturate(190%);
-  -webkit-backdrop-filter: blur(30px) saturate(190%);
+  background: rgba(14, 14, 18, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-color: rgba(255, 255, 255, 0.10);
   box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.06);
+  transform: translateZ(0);
+  contain: layout style;
 }
 
-/* iOS Grouped Inset Card */
+@media (max-width: 768px) {
+  .ios-glass-strong,
+  .ios-glass-bar {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+/* iOS Grouped Inset Card — Zero GPU Blur Cost for ultra-smooth list scrolling */
 .ios-card {
-  background: rgba(28, 28, 30, 0.76);
-  backdrop-filter: blur(22px) saturate(170%);
-  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  background: #1A1A1E;
   border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.10),
-    0 10px 28px -12px rgba(0, 0, 0, 0.55);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 /* iOS Segmented Control Container */
 .ios-segmented {
   background: rgba(118, 118, 128, 0.22);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -147,21 +149,19 @@ body {
   background: linear-gradient(180deg, #1E90FF 0%, #0A84FF 65%, #0071E3 100%);
   color: #FFFFFF;
   box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.32),
-    0 6px 20px -6px rgba(10, 132, 255, 0.55);
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+    0 4px 14px -5px rgba(10, 132, 255, 0.5);
 }
 
 .ios-btn-primary:hover {
   background: linear-gradient(180deg, #339BFF 0%, #1C8EFF 65%, #0A84FF 100%);
 }
 
-/* iOS Liquid Glass Neutral Pill */
+/* iOS Liquid Glass Neutral Pill — Zero GPU Blur Cost */
 .ios-btn-glass {
   background: rgba(255, 255, 255, 0.09);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
   color: #FFFFFF;
 }
 
@@ -170,23 +170,19 @@ body {
   border-color: rgba(255, 255, 255, 0.22);
 }
 
-/* iOS 27 Messages Bubbles */
+/* iOS 27 Messages Bubbles — Zero GPU Blur Cost for instant 60/120fps chat scrolling */
 .ios-bubble-me {
-  background: linear-gradient(180deg, #1F91FF 0%, #0A84FF 55%, #0070E0 100%);
+  background: linear-gradient(180deg, #1F91FF 0%, #0A84FF 60%, #0070E0 100%);
   color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.28),
-    0 6px 18px -6px rgba(10, 132, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.24);
 }
 
 .ios-bubble-other {
-  background: rgba(44, 44, 46, 0.84);
-  backdrop-filter: blur(18px) saturate(150%);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  background: #28282D;
   color: #FFFFFF;
   border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.07);
 }
 
 /* iOS Grabber Pill for Sheets & Modals */
@@ -197,37 +193,44 @@ body {
   background-color: rgba(255, 255, 255, 0.26);
 }
 
+/* Native-feeling touch scroll containers & list item paint virtualization */
+.ios-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+.ios-list-item {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 120px;
+}
+
 /* Safe area helper for iPhones */
 .pb-safe {
   padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 }
 
 /* ==========================================================================
-   Unified Surface & Border Overrides (Dark iOS 27 System)
+   Unified Surface & Border Overrides (Dark iOS 27 System — Zero Blur Cost)
    ========================================================================== */
 
 .bg-white {
-  background-color: rgba(28, 28, 30, 0.80) !important;
-  backdrop-filter: blur(22px) saturate(170%);
-  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  background-color: #1A1A1E !important;
 }
 
 .bg-white\/95 {
-  background-color: rgba(22, 22, 26, 0.85) !important;
-  backdrop-filter: blur(28px) saturate(185%);
-  -webkit-backdrop-filter: blur(28px) saturate(185%);
+  background-color: rgba(22, 22, 26, 0.94) !important;
 }
 
 .bg-white\/85 {
-  background-color: rgba(28, 28, 30, 0.78) !important;
+  background-color: rgba(28, 28, 30, 0.88) !important;
 }
 
 .bg-white\/60 {
-  background-color: rgba(28, 28, 30, 0.58) !important;
+  background-color: rgba(28, 28, 30, 0.65) !important;
 }
 
 .bg-white\/50 {
-  background-color: rgba(28, 28, 30, 0.48) !important;
+  background-color: rgba(28, 28, 30, 0.55) !important;
 }
 
 .border-ink\/10 {
@@ -252,35 +255,33 @@ select option {
   color: #FFFFFF;
 }
 
-/* Smooth iOS Spring Keyframes */
+/* Smooth GPU-composited Keyframes */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.97);
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.98);
+    transform: translate3d(0, 18px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: fadeIn 0.18s ease-out forwards;
 }
 
 .animate-slideUp {
-  animation: slideUp 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: slideUp 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Subtle Apple-style scrollbars */

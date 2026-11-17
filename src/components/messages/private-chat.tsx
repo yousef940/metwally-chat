@@ -7,14 +7,11 @@ import { GenderBadge } from "@/components/profile/gender-badge";
 import { CountryBadge } from "@/components/profile/country-badge";
 import { BlockButton } from "@/components/safety/block-button";
 import { ReportModal } from "@/components/safety/report-modal";
+import { BottomNav } from "@/components/layout/bottom-nav";
 import { Avatar } from "@/components/ui/avatar";
 import {
   IconSend,
-  IconHome,
-  IconMessages,
   IconDirectMessage,
-  IconUsers,
-  IconSettings,
   IconSmile,
   IconBell,
   IconBellSlash,
@@ -282,7 +279,7 @@ export function PrivateChat({
       </header>
 
       {/* Messages Stream */}
-      <div className="flex flex-1 flex-col space-y-3 overflow-y-auto p-4 sm:p-6">
+      <div className="ios-scroll flex flex-1 flex-col space-y-3 overflow-y-auto p-4 sm:p-6">
         {messages.length === 0 ? (
           <div className="my-auto text-center text-sm text-white/55">
             <div className="ios-glass mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-[18px] text-[#409CFF]">
@@ -336,7 +333,7 @@ export function PrivateChat({
         <div
           role="alert"
           aria-live="assertive"
-          className="flex items-center justify-between border-t border-[#FF453A]/35 bg-[#FF453A]/15 backdrop-blur-xl px-4 py-2.5 text-xs text-[#FF9B95]"
+          className="flex items-center justify-between border-t border-[#FF453A]/35 bg-[#2A1415] px-4 py-2.5 text-xs text-[#FF9B95]"
         >
           <span>{error}</span>
           <button
@@ -364,7 +361,7 @@ export function PrivateChat({
           </div>
 
           {/* iOS 27 Liquid Glass Capsule Input with Inner Send Button */}
-          <div className="relative flex flex-1 items-center rounded-full border border-white/[0.14] bg-[#2C2C2E]/80 ps-4 pe-1.5 py-1 backdrop-blur-xl focus-within:border-[#0A84FF] focus-within:ring-2 focus-within:ring-[#0A84FF]/25 transition-all">
+          <div className="relative flex flex-1 items-center rounded-full border border-white/[0.14] bg-[#26262A] ps-4 pe-1.5 py-1 focus-within:border-[#0A84FF] focus-within:ring-2 focus-within:ring-[#0A84FF]/25 transition-colors">
             <label htmlFor="private-message-input" className="sr-only">
               اكتب رسالة
             </label>
@@ -409,53 +406,8 @@ export function PrivateChat({
         </form>
       </footer>
 
-      {/* iOS 27 Translucent Bottom Bar */}
-      <nav
-        aria-label="شريط التنقل السفلي"
-        className="shrink-0 border-t border-white/[0.08] bg-black/85 backdrop-blur-2xl px-3 py-1.5 pb-safe"
-      >
-        <div className="mx-auto flex max-w-md items-center justify-around">
-          <Link
-            href="/"
-            title="الرئيسية"
-            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
-          >
-            <IconHome size={22} />
-          </Link>
-
-          <Link
-            href="/rooms/main"
-            title="الدردشة الجماعية"
-            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
-          >
-            <IconMessages size={22} />
-          </Link>
-
-          <Link
-            href="/discover"
-            title="الأعضاء"
-            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
-          >
-            <IconUsers size={22} />
-          </Link>
-
-          <Link
-            href="/messages"
-            title="الرسائل الخاصة"
-            className="flex flex-col items-center justify-center rounded-full bg-white/[0.12] px-3.5 py-2 text-[#0A84FF] transition-colors"
-          >
-            <IconDirectMessage size={22} className="text-[#0A84FF]" />
-          </Link>
-
-          <Link
-            href="/profile"
-            title="ملفي الشخصي والإعدادات"
-            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
-          >
-            <IconSettings size={22} />
-          </Link>
-        </div>
-      </nav>
+      {/* Same Unified Floating iOS 27 Bottom Tab Bar on Mobile */}
+      <BottomNav inline />
     </div>
   );
 }

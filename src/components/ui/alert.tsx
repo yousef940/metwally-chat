@@ -22,10 +22,10 @@ export interface AlertProps {
 }
 
 const TONE_STYLES: Record<AlertTone, string> = {
-  error: "border-[#FF453A]/35 bg-[#FF453A]/15 text-[#FF9B95] backdrop-blur-md",
-  success: "border-[#30D158]/35 bg-[#30D158]/15 text-[#7AE897] backdrop-blur-md",
-  warning: "border-[#FF9F0A]/35 bg-[#FF9F0A]/15 text-[#FFD080] backdrop-blur-md",
-  info: "border-[#0A84FF]/30 bg-[#0A84FF]/12 text-[#80C1FF] backdrop-blur-md",
+  error: "border-[#FF453A]/35 bg-[#FF453A]/15 text-[#FF9B95]",
+  success: "border-[#30D158]/35 bg-[#30D158]/15 text-[#7AE897]",
+  warning: "border-[#FF9F0A]/35 bg-[#FF9F0A]/15 text-[#FFD080]",
+  info: "border-[#0A84FF]/30 bg-[#0A84FF]/12 text-[#80C1FF]",
 };
 
 const SIZE_STYLES: Record<AlertSize, string> = {

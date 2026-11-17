@@ -9,10 +9,10 @@ import {
   IconMessages,
   IconDirectMessage,
   IconUsers,
-  IconSettings,
+  IconUser,
 } from "@/components/ui/icons";
 
-export function BottomNav() {
+export function BottomNav({ inline = false }: { inline?: boolean } = {}) {
   const pathname = usePathname() || "";
   const [unreadCount, setUnreadCount] = useState(0);
 
@@ -73,14 +73,18 @@ export function BottomNav() {
     };
   }, []);
 
-  // Hide bottom nav inside active chat rooms, active private conversations, and auth screens
-  if (
-    pathname.includes("/rooms") ||
-    (pathname.startsWith("/messages/") && pathname !== "/messages") ||
-    pathname.startsWith("/login") ||
-    pathname.startsWith("/register")
-  ) {
-    return null;
+  // When rendered globally in RootLayout, hide on auth screens and chat views
+  // (chat views render `<BottomNav inline />` inside their full-height flex container
+  // so it stays identically styled without covering the message composer).
+  if (!inline) {
+    if (
+      pathname.includes("/rooms") ||
+      (pathname.startsWith("/messages/") && pathname !== "/messages") ||
+      pathname.startsWith("/login") ||
+      pathname.startsWith("/register")
+    ) {
+      return null;
+    }
   }
   const navItems = [
     {
@@ -110,46 +114,58 @@ export function BottomNav() {
     {
       href: "/profile",
       label: "ملفي",
-      icon: IconSettings,
+      icon: IconUser,
       isActive: pathname === "/profile" || pathname.startsWith("/settings"),
     },
   ];
 
+  const capsule = (
+    <nav
+      aria-label="شريط التنقل السفلي"
+      className="ios-glass-strong pointer-events-auto mx-auto max-w-md rounded-full px-1.5 py-1.5"
+    >
+      <div className="grid grid-cols-5 items-center gap-0.5">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const active = item.isActive;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              prefetch={true}
+              className={`relative flex flex-col items-center justify-center rounded-full py-1.5 px-1 transition-all duration-200 select-none active:scale-95 ${
+                active
+                  ? "bg-white/[0.14] text-[#409CFF] font-bold shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]"
+                  : "text-white/60 hover:text-white"
+              }`}
+            >
+              <div className="relative flex items-center justify-center">
+                <Icon size={20} className={active ? "text-[#0A84FF]" : "text-white/70"} />
+                {item.href === "/messages" && unreadCount > 0 && (
+                  <span className="absolute -top-1.5 -end-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#FF453A] px-1 text-[10px] font-black text-white ring-2 ring-[#1C1C1E]">
+                    {unreadCount > 99 ? "+99" : unreadCount}
+                  </span>
+                )}
+              </div>
+              <span className="text-[10px] leading-tight mt-0.5">{item.label}</span>
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+
+  if (inline) {
+    return (
+      <div className="block md:hidden shrink-0 bg-black/95 px-3 pt-1.5 pb-2.5 pb-safe">
+        {capsule}
+      </div>
+    );
+  }
+
   return (
     <div className="pointer-events-none fixed bottom-0 inset-x-0 z-40 block md:hidden px-3 pb-3 pb-safe">
-      <nav
-        aria-label="شريط التنقل السفلي"
-        className="ios-glass-strong pointer-events-auto mx-auto max-w-md rounded-full px-1.5 py-1.5"
-      >
-        <div className="grid grid-cols-5 items-center gap-0.5">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const active = item.isActive;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                prefetch={true}
-                className={`relative flex flex-col items-center justify-center rounded-full py-1.5 px-1 transition-all duration-200 select-none active:scale-95 ${
-                  active
-                    ? "bg-white/[0.14] text-[#409CFF] font-bold shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]"
-                    : "text-white/60 hover:text-white"
-                }`}
-              >
-                <div className="relative flex items-center justify-center">
-                  <Icon size={20} className={active ? "text-[#0A84FF]" : "text-white/70"} />
-                  {item.href === "/messages" && unreadCount > 0 && (
-                    <span className="absolute -top-1.5 -end-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#FF453A] px-1 text-[10px] font-black text-white ring-2 ring-[#1C1C1E]">
-                      {unreadCount > 99 ? "+99" : unreadCount}
-                    </span>
-                  )}
-                </div>
-                <span className="text-[10px] leading-tight mt-0.5">{item.label}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
+      {capsule}
     </div>
   );
 }

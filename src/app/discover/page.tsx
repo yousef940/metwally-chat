@@ -111,7 +111,7 @@ export default async function DiscoverPage() {
           {error && (
             <div
               role="alert"
-              className="mb-6 rounded-2xl border border-[#FF453A]/35 bg-[#FF453A]/15 p-4 text-xs text-[#FF9B95] backdrop-blur-md"
+              className="mb-6 rounded-2xl border border-[#FF453A]/35 bg-[#2A1415] p-4 text-xs text-[#FF9B95]"
             >
               حدث خطأ أثناء تحميل قائمة الأعضاء: {error.message}
             </div>

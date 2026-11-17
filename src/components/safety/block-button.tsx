@@ -69,7 +69,7 @@ export function BlockButton({
         disabled={isPending}
         className={
           buttonClassName ||
-          `inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold backdrop-blur-xl transition-all active:scale-95 ${
+          `inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold transition-all active:scale-95 ${
             isBlocked
               ? "border-[#30D158]/35 bg-[#30D158]/15 text-[#7AE897] hover:bg-[#30D158]/25"
               : "border-[#FF453A]/35 bg-[#FF453A]/15 text-[#FF8982] hover:bg-[#FF453A]/25"

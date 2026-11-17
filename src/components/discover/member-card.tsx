@@ -21,7 +21,7 @@ export function MemberCard({
   const profileHref = `/profile/${member.id}`;
 
   return (
-    <article className="ios-card group flex flex-col justify-between overflow-hidden rounded-[24px] p-5 transition-all hover:border-white/[0.20] hover:bg-[#242428]/85">
+    <article className="ios-card ios-list-item group flex flex-col justify-between overflow-hidden rounded-[24px] p-5 transition-colors hover:border-white/[0.20] hover:bg-[#242428]">
       {/* Top Section: Avatar & Details */}
       <div>
         <div className="flex items-start gap-3.5">

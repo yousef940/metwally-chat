@@ -41,7 +41,7 @@ export default async function AdminDashboardPage() {
         </div>
 
         {/* Pending Reports */}
-        <div className="rounded-[24px] border border-[#FF453A]/35 bg-[#FF453A]/12 backdrop-blur-xl p-5">
+        <div className="rounded-[24px] border border-[#FF453A]/35 bg-[#2A1415] p-5">
           <div className="flex items-center justify-between text-[#FF8982] text-xs font-bold mb-2">
             <span>بلاغات معلقة</span>
             <IconFlag size={18} className="text-[#FF453A]" />

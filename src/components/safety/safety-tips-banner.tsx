@@ -35,7 +35,7 @@ export function SafetyTipsBanner({ compact = false }: SafetyTipsBannerProps) {
   return (
     <details
       open={!compact}
-      className="group mb-6 overflow-hidden rounded-[22px] border border-[#FF9F0A]/30 bg-[#FF9F0A]/12 backdrop-blur-xl p-4 text-white/90"
+      className="group mb-6 overflow-hidden rounded-[22px] border border-[#FF9F0A]/30 bg-[#251E12] p-4 text-white/90"
     >
       <summary className="flex cursor-pointer list-none items-start justify-between gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF9F0A]">
         <span className="flex items-center gap-2">

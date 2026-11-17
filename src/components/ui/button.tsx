@@ -19,7 +19,7 @@ const VARIANT_STYLES: Record<ButtonVariant, string> = {
   primary:
     "ios-btn-primary text-white focus-visible:outline-[#0A84FF]",
   outline:
-    "border border-[#0A84FF]/40 bg-[#0A84FF]/12 text-[#409CFF] backdrop-blur-xl hover:bg-[#0A84FF]/22 hover:border-[#0A84FF]/60 focus-visible:outline-[#0A84FF]",
+    "border border-[#0A84FF]/40 bg-[#0A84FF]/12 text-[#409CFF] hover:bg-[#0A84FF]/22 hover:border-[#0A84FF]/60 focus-visible:outline-[#0A84FF]",
   ghost:
     "text-white/80 hover:bg-white/10 hover:text-white focus-visible:outline-white/40",
   subtle:

@@ -127,7 +127,7 @@ export default async function AdminLayout({
         <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">{children}</main>
       </div>
 
-      <footer className="border-t border-white/[0.08] bg-black/50 backdrop-blur-xl py-6 text-center text-xs text-white/45">
+      <footer className="border-t border-white/[0.08] bg-[#09090B] py-6 text-center text-xs text-white/45">
         لوحة تحكم منصة صحبة • المشرفون والإدارة
       </footer>
     </div>

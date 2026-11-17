@@ -116,42 +116,40 @@ export function BottomNav() {
   ];
 
   return (
-    <nav
-      aria-label="شريط التنقل السفلي"
-      className="fixed bottom-0 inset-x-0 z-40 block md:hidden border-t border-[#20454E] bg-[#122A31]/95 backdrop-blur-lg pb-safe"
-    >
-      <div className="grid grid-cols-5 h-16 max-w-lg mx-auto items-center px-1">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const active = item.isActive;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              prefetch={true}
-              className={`flex flex-col items-center justify-center py-1 transition-all select-none active:scale-95 ${
-                active
-                  ? "text-coral font-bold"
-                  : "text-white/60 hover:text-white"
-              }`}
-            >
-              <div
-                className={`relative flex items-center justify-center p-1.5 rounded-xl transition-all ${
-                  active ? "bg-coral/15" : ""
+    <div className="pointer-events-none fixed bottom-0 inset-x-0 z-40 block md:hidden px-3 pb-3 pb-safe">
+      <nav
+        aria-label="شريط التنقل السفلي"
+        className="ios-glass-strong pointer-events-auto mx-auto max-w-md rounded-full px-1.5 py-1.5"
+      >
+        <div className="grid grid-cols-5 items-center gap-0.5">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const active = item.isActive;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                prefetch={true}
+                className={`relative flex flex-col items-center justify-center rounded-full py-1.5 px-1 transition-all duration-200 select-none active:scale-95 ${
+                  active
+                    ? "bg-white/[0.14] text-[#409CFF] font-bold shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]"
+                    : "text-white/60 hover:text-white"
                 }`}
               >
-                <Icon size={20} className={active ? "text-coral" : "text-white/70"} />
-                {item.href === "/messages" && unreadCount > 0 && (
-                  <span className="absolute -top-1 -end-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-black text-white ring-2 ring-[#122A31] animate-pulse">
-                    {unreadCount > 99 ? "+99" : unreadCount}
-                  </span>
-                )}
-              </div>
-              <span className="text-[11px] leading-tight mt-0.5">{item.label}</span>
-            </Link>
-          );
-        })}
-      </div>
-    </nav>
+                <div className="relative flex items-center justify-center">
+                  <Icon size={20} className={active ? "text-[#0A84FF]" : "text-white/70"} />
+                  {item.href === "/messages" && unreadCount > 0 && (
+                    <span className="absolute -top-1.5 -end-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#FF453A] px-1 text-[10px] font-black text-white ring-2 ring-[#1C1C1E]">
+                      {unreadCount > 99 ? "+99" : unreadCount}
+                    </span>
+                  )}
+                </div>
+                <span className="text-[10px] leading-tight mt-0.5">{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+    </div>
   );
 }

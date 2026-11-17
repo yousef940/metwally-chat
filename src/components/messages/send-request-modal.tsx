@@ -33,7 +33,7 @@ export function SendRequestModal({
       <button
         type="button"
         onClick={() => router.push(`/messages/${hasExistingConversation}`)}
-        className="inline-flex items-center gap-1.5 justify-center rounded-xl bg-coral px-4 py-2 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-coral-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+        className="ios-btn-primary inline-flex items-center gap-1.5 justify-center rounded-full px-4 py-2 text-xs font-semibold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
       >
         <IconDirectMessage size={14} />
         <span>متابعة المحادثة</span>
@@ -44,7 +44,7 @@ export function SendRequestModal({
   // If request is already pending
   if (hasPendingRequest) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs font-semibold text-amber-300">
+      <span className="inline-flex items-center gap-1 rounded-full border border-[#FF9F0A]/35 bg-[#FF9F0A]/15 px-3.5 py-2 text-xs font-semibold text-[#FFD080]">
         <span>طلب معلق</span>
       </span>
     );
@@ -79,7 +79,7 @@ export function SendRequestModal({
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center gap-1.5 justify-center rounded-xl bg-coral px-4 py-2 text-xs font-bold text-white shadow-sm transition-colors hover:bg-coral-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+        className="ios-btn-primary inline-flex items-center gap-1.5 justify-center rounded-full px-4 py-2 text-xs font-bold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
       >
         <IconDirectMessage size={14} />
         <span>محادثة خاصة</span>
@@ -91,26 +91,26 @@ export function SendRequestModal({
         title={`بدء محادثة خاصة مع ${receiverNickname}`}
       >
         {success ? (
-          <div className="space-y-4 py-2 text-center">
+          <div className="space-y-4 py-3 text-center">
             <Alert tone="success">
               تم إرسال طلب المحادثة إلى <strong>{receiverNickname}</strong> بنجاح!
             </Alert>
-            <p className="text-xs text-ink/70">
+            <p className="text-xs text-white/65">
               سيتم إشعارك فور قبول الطرف الآخر للطلب للبدء في تبادل الرسائل المباشرة.
             </p>
             <div className="pt-2">
               <button
                 type="button"
                 onClick={handleClose}
-                className="rounded-xl bg-coral px-6 py-2.5 text-xs font-bold text-white transition-colors hover:bg-coral-hover"
+                className="ios-btn-primary rounded-full px-6 py-2.5 text-xs font-bold active:scale-95"
               >
                 حسناً
               </button>
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <p className="text-xs text-ink/70 leading-relaxed">
+          <form onSubmit={handleSubmit} className="space-y-4 pt-3">
+            <p className="text-xs text-white/65 leading-relaxed">
               أرسل رسالة ترحيبية لـ <strong>{receiverNickname}</strong> لبدء المحادثة بينكما.
             </p>
 
@@ -123,9 +123,9 @@ export function SendRequestModal({
             <div>
               <label
                 htmlFor="req-message"
-                className="mb-1 block text-xs font-semibold text-ink"
+                className="mb-1.5 block text-xs font-semibold text-white"
               >
-                رسالتك التمهيدية <span className="text-coral">*</span>
+                رسالتك التمهيدية <span className="text-[#0A84FF]">*</span>
               </label>
               <textarea
                 id="req-message"
@@ -135,26 +135,26 @@ export function SendRequestModal({
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder={`مرحباً ${receiverNickname}...`}
-                className="w-full rounded-2xl border border-ink/20 p-3 text-sm text-ink transition-colors placeholder:text-ink/40 focus:border-coral focus:outline-none focus:ring-1 focus:ring-coral"
+                className="w-full rounded-2xl border border-white/[0.12] bg-[#2C2C2E]/80 p-3.5 text-sm text-white transition-all placeholder:text-white/35 focus:border-[#0A84FF] focus:outline-none focus:ring-2 focus:ring-[#0A84FF]/25"
               />
-              <div className="mt-1 text-end text-[11px] text-ink/50">
+              <div className="mt-1 text-end text-[11px] text-white/45">
                 {message.length} / 1000
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-2">
+            <div className="flex items-center justify-end gap-2.5 pt-2">
               <button
                 type="button"
                 onClick={handleClose}
                 disabled={isPending}
-                className="rounded-xl border border-ink/20 px-4 py-2.5 text-xs font-semibold text-ink transition-colors hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                className="ios-btn-glass rounded-full px-4 py-2.5 text-xs font-semibold active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
               >
                 إلغاء
               </button>
               <button
                 type="submit"
                 disabled={isPending || !message.trim()}
-                className="rounded-xl bg-coral px-6 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-coral-hover disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                className="ios-btn-primary rounded-full px-6 py-2.5 text-xs font-bold transition-all active:scale-95 disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               >
                 {isPending ? "جاري الإرسال..." : "إرسال الطلب"}
               </button>

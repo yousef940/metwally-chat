@@ -93,17 +93,17 @@ export default async function DiscoverPage() {
   const { data: members, error } = await query;
 
   return (
-    <div className="min-h-screen bg-[#0B1E24] flex flex-col justify-between">
+    <div className="min-h-screen flex flex-col justify-between">
       <div>
         <AppHeader user={user} profile={profile} />
 
-        <main className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 pb-24 md:pb-8">
+        <main className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 pb-28 md:pb-10">
           {/* Header Banner */}
-          <div className="mb-6 rounded-2xl border border-[#20454E] bg-[#122A31] p-5 text-white shadow-sm sm:p-6">
-            <h1 className="text-xl font-bold tracking-tight sm:text-2xl">
+          <div className="ios-glass mb-6 rounded-[26px] p-5 text-white sm:p-6">
+            <h1 className="text-2xl font-black tracking-tight sm:text-3xl">
               الأعضاء
             </h1>
-            <p className="mt-1 text-xs text-[#9CB3B8] leading-relaxed">
+            <p className="mt-1 text-xs text-white/60 leading-relaxed">
               تواصل مع أصدقائك وتعرف على المتواجدين الآن في الشات
             </p>
           </div>
@@ -111,7 +111,7 @@ export default async function DiscoverPage() {
           {error && (
             <div
               role="alert"
-              className="mb-6 rounded-2xl border border-red-500/40 bg-red-950/50 p-4 text-xs text-red-200"
+              className="mb-6 rounded-2xl border border-[#FF453A]/35 bg-[#FF453A]/15 p-4 text-xs text-[#FF9B95] backdrop-blur-md"
             >
               حدث خطأ أثناء تحميل قائمة الأعضاء: {error.message}
             </div>

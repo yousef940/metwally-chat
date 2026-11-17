@@ -15,23 +15,23 @@ export default function LoginPage() {
         <div className="mb-8 text-center">
           <Link
             href="/"
-            className="inline-block text-2xl sm:text-3xl font-black text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            className="inline-block bg-gradient-to-l from-white via-[#F4E8D3] to-[#409CFF] bg-clip-text text-2xl sm:text-3xl font-black text-transparent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           >
             عائلة الحاج متولي
           </Link>
           <h1 className="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">
             مرحباً بك مجدداً
           </h1>
-          <p className="mt-2 text-sm text-[#9CB3B8]">
+          <p className="mt-2 text-sm text-white/60">
             أدخل اسمك المستعار وكلمة المرور للمتابعة إلى الشات
           </p>
         </div>
 
         {/* Card */}
-        <div className="rounded-2xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8">
+        <div className="ios-glass rounded-[30px] p-6 sm:p-8">
           <Suspense
             fallback={
-              <div className="py-8 text-center text-sm text-ink/60">جاري التحميل...</div>
+              <div className="py-8 text-center text-sm text-white/60">جاري التحميل...</div>
             }
           >
             <LoginForm />

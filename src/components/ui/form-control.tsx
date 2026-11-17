@@ -8,19 +8,19 @@
  */
 
 export const inputClassName =
-  "mt-1 block w-full rounded-xl border border-ink/20 bg-white px-3.5 py-2.5 text-base text-ink transition-colors placeholder:text-ink/40 focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20";
+  "mt-1.5 block w-full rounded-2xl border border-white/[0.12] bg-[#2C2C2E]/75 px-4 py-3 text-base text-white backdrop-blur-md transition-all placeholder:text-white/35 focus:border-[#0A84FF] focus:bg-[#2C2C2E] focus:outline-none focus:ring-2 focus:ring-[#0A84FF]/25";
 
 export const selectClassName =
-  "mt-1 block w-full rounded-xl border border-ink/20 bg-white px-3.5 py-2.5 text-base text-ink transition-colors focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20";
+  "mt-1.5 block w-full rounded-2xl border border-white/[0.12] bg-[#2C2C2E]/75 px-4 py-3 text-base text-white backdrop-blur-md transition-all focus:border-[#0A84FF] focus:bg-[#2C2C2E] focus:outline-none focus:ring-2 focus:ring-[#0A84FF]/25";
 
 export const textareaClassName =
-  "mt-1 block w-full rounded-xl border border-ink/20 bg-white p-3.5 text-base text-ink transition-colors placeholder:text-ink/40 focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20";
+  "mt-1.5 block w-full rounded-2xl border border-white/[0.12] bg-[#2C2C2E]/75 p-4 text-base text-white backdrop-blur-md transition-all placeholder:text-white/35 focus:border-[#0A84FF] focus:bg-[#2C2C2E] focus:outline-none focus:ring-2 focus:ring-[#0A84FF]/25";
 
 export const compactInputClassName =
-  "w-full rounded-xl border border-ink/15 bg-cream/20 px-3 py-2.5 text-xs text-ink transition-colors placeholder:text-ink/40 focus:border-coral focus:outline-none focus:ring-1 focus:ring-coral";
+  "w-full rounded-2xl border border-white/[0.12] bg-[#2C2C2E]/80 px-3.5 py-2.5 text-xs text-white transition-all placeholder:text-white/35 focus:border-[#0A84FF] focus:outline-none focus:ring-2 focus:ring-[#0A84FF]/25";
 
 export const compactSelectClassName =
-  "w-full rounded-xl border border-ink/15 bg-cream/20 px-3 py-2.5 text-xs text-ink transition-colors focus:border-coral focus:outline-none focus:ring-1 focus:ring-coral";
+  "w-full rounded-2xl border border-white/[0.12] bg-[#2C2C2E]/80 px-3.5 py-2.5 text-xs text-white transition-all focus:border-[#0A84FF] focus:outline-none focus:ring-2 focus:ring-[#0A84FF]/25";
 
 export const compactTextareaClassName =
-  "w-full rounded-xl border border-ink/15 bg-cream/20 p-2.5 text-xs text-ink transition-colors placeholder:text-ink/40 focus:border-coral focus:outline-none focus:ring-1 focus:ring-coral";
+  "w-full rounded-2xl border border-white/[0.12] bg-[#2C2C2E]/80 p-3 text-xs text-white transition-all placeholder:text-white/35 focus:border-[#0A84FF] focus:outline-none focus:ring-2 focus:ring-[#0A84FF]/25";

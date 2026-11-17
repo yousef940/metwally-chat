@@ -18,11 +18,11 @@ export default async function ProfileEditPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
+    <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 pb-28 md:pb-12">
       <div className="mb-6 flex items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-ink">تعديل الملف الشخصي</h1>
-          <p className="mt-1 text-sm text-ink/70">
+          <h1 className="text-3xl font-black tracking-tight text-white">تعديل الملف الشخصي</h1>
+          <p className="mt-1 text-sm text-white/60">
             حدّث صورتك الشخصية ومعلوماتك واهتماماتك
           </p>
         </div>
@@ -31,7 +31,7 @@ export default async function ProfileEditPage() {
         </BackLink>
       </div>
 
-      <div className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8">
+      <div className="ios-glass rounded-[30px] p-6 sm:p-8">
         <ProfileEditForm userId={user.id} profile={profile} />
       </div>
     </div>

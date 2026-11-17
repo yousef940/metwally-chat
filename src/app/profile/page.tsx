@@ -21,7 +21,7 @@ export default async function ProfilePage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 pb-24 md:pb-8">
+    <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 pb-28 md:pb-10">
       {/* Top Navigation */}
       <div className="mb-6 flex items-center justify-between gap-3">
         <BackLink href="/" className="text-sm">
@@ -29,16 +29,16 @@ export default async function ProfilePage() {
         </BackLink>
         <Link
           href="/profile/edit"
-          className="rounded-xl bg-coral px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-coral-hover focus-visible:outline-2 focus-visible:outline-coral"
+          className="ios-btn-primary rounded-full px-4.5 py-2 text-sm font-semibold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-[#0A84FF]"
         >
           تعديل الملف الشخصي
         </Link>
       </div>
 
-      {/* Main Profile Card */}
-      <div className="overflow-hidden rounded-3xl border border-[#20454E] bg-[#122A31] shadow-lg">
-        {/* Cover / Header Banner */}
-        <div className="h-28 bg-gradient-to-r from-coral/25 via-[#16353D] to-coral/15" />
+      {/* Main iOS 27 Glass Profile Card */}
+      <div className="ios-glass overflow-hidden rounded-[30px]">
+        {/* Sculptural iOS 27 Cover Banner */}
+        <div className="h-32 bg-gradient-to-br from-[#0A84FF]/35 via-[#2B2F3D]/70 to-[#E8D5B5]/25" />
 
         <div className="px-6 pb-8 pt-0 sm:px-8">
           {/* Avatar & Badges */}
@@ -47,15 +47,15 @@ export default async function ProfilePage() {
               src={profile.avatar_url}
               name={profile.nickname}
               size="2xl"
-              frameClassName="border-4 border-[#122A31] bg-[#16353D] shadow-md"
-              fallbackClassName="text-4xl text-coral"
+              frameClassName="border-4 border-[#1C1C1E] bg-[#2C2C2E] shadow-xl"
+              fallbackClassName="text-4xl text-[#409CFF]"
               fallback="👤"
             />
 
             <div className="flex items-center gap-2">
               <GenderBadge gender={profile.gender} />
               {profile.age && (
-                <span className="rounded-lg border border-[#20454E] bg-[#16353D] px-3 py-1 text-xs font-bold text-coral">
+                <span className="rounded-full border border-white/[0.12] bg-white/[0.08] px-3 py-1 text-xs font-semibold text-[#E8D5B5]">
                   السن: {profile.age} سنة
                 </span>
               )}
@@ -74,11 +74,11 @@ export default async function ProfilePage() {
 
           {/* Bio */}
           {profile.bio && (
-            <div className="mt-6 border-t border-[#20454E] pt-5">
-              <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-[#9CB3B8]">
+            <div className="mt-6 border-t border-white/[0.09] pt-5">
+              <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-white/50">
                 نبذة شخصية
               </h2>
-              <p className="whitespace-pre-line text-sm leading-relaxed text-white/90">
+              <p className="whitespace-pre-line text-sm leading-relaxed text-white/85">
                 {profile.bio}
               </p>
             </div>
@@ -86,15 +86,15 @@ export default async function ProfilePage() {
 
           {/* Interests */}
           {profile.interests && profile.interests.length > 0 && (
-            <div className="mt-6 border-t border-[#20454E] pt-5">
-              <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-[#9CB3B8]">
+            <div className="mt-6 border-t border-white/[0.09] pt-5">
+              <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-white/50">
                 الاهتمامات
               </h2>
               <ul className="flex flex-wrap gap-2">
                 {profile.interests.map((interest) => (
                   <li
                     key={interest}
-                    className="rounded-xl border border-[#20454E] bg-[#0E252D] px-3 py-1 text-xs font-medium text-white/90"
+                    className="rounded-full border border-white/[0.10] bg-white/[0.06] px-3.5 py-1 text-xs font-medium text-white/90"
                   >
                     #{interest}
                   </li>

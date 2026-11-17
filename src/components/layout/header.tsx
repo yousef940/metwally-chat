@@ -23,8 +23,7 @@ const NAV_LINKS = [
 const MOBILE_MENU_ID = "app-header-mobile-menu";
 
 /**
- * Standard top application navbar for عائلة الحاج متولي.
- * Sleek, dark mode, mobile-first design.
+ * Top application navigation bar styled with Apple iOS & iPadOS 27 Liquid Glass.
  */
 export function AppHeader({ user, profile }: AppHeaderProps) {
   const pathname = usePathname();
@@ -34,28 +33,31 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
     pathname === href || (href !== "/" && pathname?.startsWith(href));
 
   const linkClasses = (isActive: boolean, size: "sm" | "md") =>
-    `rounded-xl ${
-      size === "sm" ? "px-3.5 py-1.5 text-sm" : "px-4 py-2.5 text-sm"
-    } font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral ${
+    `rounded-full ${
+      size === "sm" ? "px-4 py-1.5 text-xs" : "px-4 py-2.5 text-sm"
+    } font-semibold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF] ${
       isActive
-        ? "bg-coral/20 text-coral font-bold"
-        : "text-[#9CB3B8] hover:bg-[#16353D] hover:text-white"
+        ? "bg-white/[0.15] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] font-bold"
+        : "text-white/65 hover:bg-white/[0.08] hover:text-white"
     }`;
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#20454E] bg-[#0E252D]/95 px-4 py-3 backdrop-blur-md sm:px-6">
-      <div className="mx-auto flex max-w-6xl items-center justify-between">
+    <header className="ios-glass-bar sticky top-0 z-40 w-full border-b px-4 py-2.5 sm:px-6">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
         {/* Brand and primary desktop links */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-5">
           <Link
             href="/"
-            className="text-lg sm:text-xl font-black text-coral shrink-0 whitespace-nowrap transition-colors hover:text-coral-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            className="bg-gradient-to-l from-white via-[#F4E8D3] to-[#409CFF] bg-clip-text text-lg sm:text-xl font-black text-transparent shrink-0 whitespace-nowrap transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           >
             عائلة الحاج متولي
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav aria-label="التنقل الرئيسي" className="hidden md:flex md:items-center md:gap-1">
+          {/* Desktop Navigation Links inside iOS 27 Liquid Glass Capsule */}
+          <nav
+            aria-label="التنقل الرئيسي"
+            className="ios-segmented hidden md:flex md:items-center md:gap-1 rounded-full p-1"
+          >
             {NAV_LINKS.map((link) => {
               const isActive = isLinkActive(link.href);
               return (
@@ -73,14 +75,14 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
         </div>
 
         {/* User Account / Actions */}
-        <div className="hidden md:flex md:items-center md:gap-3">
+        <div className="hidden md:flex md:items-center md:gap-2.5">
           <PwaInstallButton />
 
           {user && profile ? (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <Link
                 href="/profile"
-                className="flex items-center gap-2 rounded-xl border border-[#20454E] bg-[#16353D] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:border-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                className="ios-btn-glass flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold text-white transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               >
                 <span>{profile.nickname}</span>
                 <GenderBadge gender={profile.gender} showText={false} />
@@ -89,10 +91,10 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
               <Link
                 href="/settings"
                 aria-current={pathname === "/settings" ? "page" : undefined}
-                className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral ${
+                className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF] ${
                   pathname === "/settings"
-                    ? "bg-coral/20 text-coral"
-                    : "text-[#9CB3B8] hover:bg-[#16353D] hover:text-white"
+                    ? "bg-[#0A84FF]/20 text-[#409CFF] border border-[#0A84FF]/35"
+                    : "text-white/65 hover:bg-white/[0.08] hover:text-white"
                 }`}
               >
                 الإعدادات
@@ -101,10 +103,10 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
               <SignOutButton />
             </div>
           ) : user ? (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <Link
                 href="/profile/edit"
-                className="rounded-xl bg-coral px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-coral-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                className="ios-btn-primary rounded-full px-4 py-1.5 text-xs font-semibold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               >
                 إكمال الملف الشخصي
               </Link>
@@ -114,13 +116,13 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
             <div className="flex items-center gap-2">
               <Link
                 href="/login"
-                className="rounded-xl border border-[#20454E] px-4 py-1.5 text-xs font-bold text-white transition-colors hover:bg-[#16353D] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                className="ios-btn-glass rounded-full px-4 py-1.5 text-xs font-semibold text-white transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               >
                 تسجيل الدخول
               </Link>
               <Link
                 href="/register"
-                className="rounded-xl bg-coral px-4 py-1.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-coral-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                className="ios-btn-primary rounded-full px-4 py-1.5 text-xs font-bold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               >
                 إنشاء حساب
               </Link>
@@ -133,7 +135,7 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
           {user && profile && (
             <Link
               href="/profile"
-              className="flex items-center gap-1.5 rounded-lg border border-[#20454E] bg-[#16353D] px-2 py-1 text-xs font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+              className="ios-btn-glass flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
             >
               <span>{profile.nickname}</span>
               <GenderBadge gender={profile.gender} showText={false} />
@@ -143,14 +145,14 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="inline-flex items-center justify-center rounded-xl p-2 text-[#9CB3B8] transition-colors hover:bg-[#16353D] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            className="ios-btn-glass inline-flex h-9 w-9 items-center justify-center rounded-full text-white/80 transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
             aria-label="القائمة الرئيسية"
             aria-expanded={mobileMenuOpen}
             aria-controls={MOBILE_MENU_ID}
           >
             <svg
               aria-hidden="true"
-              className="h-6 w-6"
+              className="h-5 w-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -165,11 +167,11 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Glass Drawer */}
       {mobileMenuOpen && (
         <div
           id={MOBILE_MENU_ID}
-          className="mt-3 border-t border-[#20454E] pt-3 md:hidden"
+          className="ios-glass-strong mt-3 rounded-[24px] p-3 md:hidden animate-fadeIn"
         >
           <nav aria-label="التنقل الرئيسي" className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => {
@@ -187,7 +189,7 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
               );
             })}
 
-            <div className="py-2 px-2">
+            <div className="py-2 px-1">
               <PwaInstallButton className="w-full justify-center py-2" />
             </div>
 
@@ -196,7 +198,7 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
                 <Link
                   href="/profile"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-xl px-4 py-2.5 text-sm font-semibold text-[#9CB3B8] transition-colors hover:bg-[#16353D] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                  className="rounded-full px-4 py-2.5 text-sm font-semibold text-white/70 transition-colors hover:bg-white/[0.08] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
                   ملفي الشخصي
                 </Link>
@@ -204,27 +206,27 @@ export function AppHeader({ user, profile }: AppHeaderProps) {
                   href="/settings"
                   onClick={() => setMobileMenuOpen(false)}
                   aria-current={pathname === "/settings" ? "page" : undefined}
-                  className="rounded-xl px-4 py-2.5 text-sm font-semibold text-[#9CB3B8] transition-colors hover:bg-[#16353D] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                  className="rounded-full px-4 py-2.5 text-sm font-semibold text-white/70 transition-colors hover:bg-white/[0.08] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
                   الإعدادات
                 </Link>
-                <div className="pt-2 ps-2">
+                <div className="pt-2 ps-2 border-t border-white/[0.08] mt-1">
                   <SignOutButton />
                 </div>
               </>
             ) : (
-              <div className="mt-2 flex flex-col gap-2 border-t border-[#20454E] pt-2">
+              <div className="mt-2 flex flex-col gap-2 border-t border-white/[0.10] pt-3">
                 <Link
                   href="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full rounded-xl border border-coral py-2 text-center text-sm font-bold text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                  className="ios-btn-glass w-full rounded-full py-2.5 text-center text-sm font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
                   تسجيل الدخول
                 </Link>
                 <Link
                   href="/register"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full rounded-xl bg-coral py-2 text-center text-sm font-bold text-white shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                  className="ios-btn-primary w-full rounded-full py-2.5 text-center text-sm font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
                   إنشاء حساب جديد
                 </Link>

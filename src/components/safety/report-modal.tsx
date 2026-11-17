@@ -103,7 +103,7 @@ export function ReportModal({
         icon={
           <span
             aria-hidden="true"
-            className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-100 text-lg"
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#FF453A]/30 bg-[#FF453A]/15 text-lg"
           >
             🚩
           </span>
@@ -115,14 +115,14 @@ export function ReportModal({
           <div className="py-8 text-center">
             <div
               aria-hidden="true"
-              className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-3xl"
+              className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-[#30D158]/30 bg-[#30D158]/15 text-3xl text-[#30D158]"
             >
               ✓
             </div>
-            <h3 className="mt-3 text-base font-bold text-ink">
+            <h3 className="mt-3 text-base font-bold text-white">
               تم استلام بلاغك بنجاح
             </h3>
-            <p className="mt-1 text-xs text-ink/70">
+            <p className="mt-1 text-xs text-white/65">
               شكراً لمساهمتك في الحفاظ على أمان مجتمع صحبة. سنقوم بفحص الواقعة واتخاذ الإجراء اللازم.
             </p>
           </div>
@@ -137,7 +137,7 @@ export function ReportModal({
             <div>
               <label
                 htmlFor="report-reason"
-                className="mb-1.5 block text-xs font-bold text-ink/80"
+                className="mb-1.5 block text-xs font-bold text-white/85"
               >
                 سبب البلاغ *
               </label>
@@ -159,7 +159,7 @@ export function ReportModal({
             <div>
               <label
                 htmlFor="report-details"
-                className="mb-1.5 block text-xs font-bold text-ink/80"
+                className="mb-1.5 block text-xs font-bold text-white/85"
               >
                 تفاصيل إضافية توضح المخالفة (اختياري)
               </label>
@@ -172,23 +172,23 @@ export function ReportModal({
                 placeholder="اكتب أي معلومات قد تفيد المشرفين في التحقيق..."
                 className={compactTextareaClassName}
               />
-              <div className="mt-1 text-end text-[10px] text-ink/40">
+              <div className="mt-1 text-end text-[10px] text-white/40">
                 {details.length}/1000 حرف
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 border-t border-ink/10 pt-2">
+            <div className="flex items-center justify-end gap-2 border-t border-white/[0.10] pt-3">
               <button
                 type="button"
                 onClick={handleClose}
-                className="rounded-xl border border-ink/15 px-4 py-2 text-xs font-semibold text-ink/70 transition-colors hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                className="ios-btn-glass rounded-full px-4 py-2 text-xs font-semibold text-white/80 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
               >
                 إلغاء
               </button>
               <button
                 type="submit"
                 disabled={isPending}
-                className="rounded-xl bg-red-600 px-5 py-2 text-xs font-bold text-white shadow-sm transition-colors hover:bg-red-700 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                className="rounded-full bg-[#FF453A] px-5 py-2 text-xs font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.28)] transition-all hover:bg-[#FF6961] active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
               >
                 {isPending ? "جاري الإرسال..." : "إرسال البلاغ"}
               </button>

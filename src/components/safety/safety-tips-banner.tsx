@@ -33,34 +33,34 @@ export function SafetyTipsBanner({ compact = false }: SafetyTipsBannerProps) {
   return (
     <details
       open={!compact}
-      className="group mb-6 overflow-hidden rounded-2xl border border-amber-200 bg-amber-50/70 p-4 text-amber-900 shadow-sm"
+      className="group mb-6 overflow-hidden rounded-[22px] border border-[#FF9F0A]/30 bg-[#FF9F0A]/12 backdrop-blur-xl p-4 text-white/90"
     >
-      <summary className="flex cursor-pointer list-none items-start justify-between gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">
+      <summary className="flex cursor-pointer list-none items-start justify-between gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF9F0A]">
         <span className="flex items-center gap-2">
           <span aria-hidden="true" className="text-xl">
             🛡️
           </span>
-          <span className="text-sm font-bold text-amber-950">
+          <span className="text-sm font-bold text-[#FFD080]">
             إرشادات الأمان والحماية لمجتمع صحبة
           </span>
         </span>
-        <span className="text-xs font-semibold text-amber-700 group-open:hidden">
+        <span className="text-xs font-semibold text-[#FF9F0A] group-open:hidden">
           عرض النصائح ▼
         </span>
-        <span className="hidden text-xs font-semibold text-amber-700 group-open:inline">
+        <span className="hidden text-xs font-semibold text-[#FF9F0A] group-open:inline">
           إخفاء النصائح ▲
         </span>
       </summary>
 
-      <div className="mt-3 space-y-2 border-t border-amber-200/60 pt-3 text-xs leading-relaxed text-amber-900/90">
+      <div className="mt-3 space-y-2 border-t border-[#FF9F0A]/20 pt-3 text-xs leading-relaxed text-white/80">
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {SAFETY_TIPS.map((tip) => (
             <div key={tip.title} className="flex items-start gap-2">
-              <span aria-hidden="true" className="font-bold text-coral">
+              <span aria-hidden="true" className="font-bold text-[#FF9F0A]">
                 •
               </span>
               <p>
-                <strong>{tip.title}</strong> {tip.body}
+                <strong className="text-white">{tip.title}</strong> {tip.body}
               </p>
             </div>
           ))}

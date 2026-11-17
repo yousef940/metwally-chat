@@ -29,7 +29,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#0B1E24",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -39,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" className={alexandria.variable} data-theme="dark">
-      <body className={`${alexandria.className} flex min-h-screen flex-col antialiased bg-[#0B1E24] text-[#FFF7EF]`}>
+      <body className={`${alexandria.className} flex min-h-screen flex-col antialiased bg-black text-white selection:bg-[#0A84FF]/35 selection:text-white`}>
         {children}
         <BottomNav />
         <ServiceWorkerRegister />

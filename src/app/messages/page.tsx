@@ -173,26 +173,33 @@ export default async function MessagesPage({
   const incomingCount = incomingReqs?.length || 0;
 
   return (
-    <div className="min-h-screen bg-[#0B1E24] text-[#FFF7EF]">
+    <div className="min-h-screen text-white">
       {/* Top Navbar */}
       <AppHeader user={user} profile={profile} />
 
       {/* Main Container */}
-      <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 pb-24 md:pb-8">
-        {/* Navigation Tabs */}
+      <main className="mx-auto max-w-4xl px-4 py-7 sm:px-6 pb-28 md:pb-10">
+        {/* Page Title */}
+        <div className="mb-5">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+            الرسائل
+          </h1>
+        </div>
+
+        {/* iOS 27 Segmented Control Tabs */}
         <div
           role="tablist"
           aria-label="أقسام الرسائل"
-          className="mb-6 flex gap-6 border-b border-[#20454E]"
+          className="ios-segmented mb-6 inline-flex w-full sm:w-auto items-center gap-1 rounded-full p-1"
         >
           <Link
             href="/messages?tab=chats"
             role="tab"
             aria-selected={tab === "chats"}
-            className={`relative pb-3 text-sm font-bold transition-all ${
+            className={`flex-1 sm:flex-initial text-center rounded-full px-5 py-2 text-xs sm:text-sm font-bold transition-all ${
               tab === "chats"
-                ? "border-b-2 border-coral text-coral"
-                : "text-[#9CB3B8] hover:text-white"
+                ? "bg-white/[0.16] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.24)]"
+                : "text-white/60 hover:text-white"
             }`}
           >
             المحادثات النشطة ({conversationItems.length})
@@ -202,15 +209,15 @@ export default async function MessagesPage({
             href="/messages?tab=requests"
             role="tab"
             aria-selected={tab === "requests"}
-            className={`relative flex items-center gap-1.5 pb-3 text-sm font-bold transition-all ${
+            className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 rounded-full px-5 py-2 text-xs sm:text-sm font-bold transition-all ${
               tab === "requests"
-                ? "border-b-2 border-coral text-coral"
-                : "text-[#9CB3B8] hover:text-white"
+                ? "bg-white/[0.16] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.24)]"
+                : "text-white/60 hover:text-white"
             }`}
           >
             <span>طلبات المحادثة</span>
             {incomingCount > 0 && (
-              <span className="rounded-full bg-coral px-2 py-0.5 text-[11px] font-bold text-white">
+              <span className="rounded-full bg-[#FF453A] px-2 py-0.5 text-[11px] font-bold text-white">
                 {incomingCount}
               </span>
             )}
@@ -221,90 +228,92 @@ export default async function MessagesPage({
         {tab === "chats" && (
           <div className="space-y-3">
             {conversationItems.length === 0 ? (
-              <div className="rounded-2xl border border-[#20454E] bg-[#122A31] p-12 text-center shadow-sm">
+              <div className="ios-glass rounded-[28px] p-12 text-center">
                 <div className="text-4xl mb-3">💬</div>
                 <h3 className="text-lg font-bold text-white">
                   لا توجد محادثات نشطة بعد
                 </h3>
-                <p className="mt-1 text-sm text-[#9CB3B8] max-w-md mx-auto leading-relaxed">
+                <p className="mt-1.5 text-sm text-white/60 max-w-md mx-auto leading-relaxed">
                   تصفح قائمة الأعضاء أو ادخل الغرفة العامة لإرسال رسائل والبدء في التواصل مباشرة.
                 </p>
-                <div className="mt-6 flex justify-center gap-3">
+                <div className="mt-6 flex flex-wrap justify-center gap-3">
                   <Link
                     href="/rooms/main"
-                    className="rounded-xl bg-coral px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-coral-hover"
+                    className="ios-btn-primary rounded-full px-5 py-2.5 text-xs font-bold transition-all active:scale-95"
                   >
                     دخول الدردشة الجماعية
                   </Link>
                   <Link
                     href="/discover"
-                    className="rounded-xl border border-[#20454E] bg-[#16353D] px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:border-coral"
+                    className="ios-btn-glass rounded-full px-5 py-2.5 text-xs font-bold transition-all active:scale-95"
                   >
                     تصفح الأعضاء
                   </Link>
                 </div>
               </div>
             ) : (
-              conversationItems.map((conv) => {
-                const formattedTime = new Date(
-                  conv.lastMessage?.created_at || conv.updated_at
-                ).toLocaleDateString("ar-EG", {
-                  month: "short",
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                });
+              <div className="ios-card overflow-hidden rounded-[24px] divide-y divide-white/[0.08]">
+                {conversationItems.map((conv) => {
+                  const formattedTime = new Date(
+                    conv.lastMessage?.created_at || conv.updated_at
+                  ).toLocaleDateString("ar-EG", {
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  });
 
-                return (
-                  <Link
-                    key={conv.id}
-                    href={`/messages/${conv.id}`}
-                    className="group flex items-center justify-between gap-4 rounded-2xl border border-[#20454E] bg-[#122A31] p-4 shadow-sm transition-all hover:border-coral/50 hover:bg-[#16353D] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
-                  >
-                    <div className="flex min-w-0 items-center gap-3.5">
-                      {/* Avatar */}
-                      <Avatar
-                        src={conv.otherUser.avatar_url}
-                        name={conv.otherUser.nickname}
-                        size="md"
-                        frameClassName="border border-[#20454E] bg-[#16353D]"
-                        fallbackClassName="font-bold text-white/50"
-                      />
+                  return (
+                    <Link
+                      key={conv.id}
+                      href={`/messages/${conv.id}`}
+                      className="group flex items-center justify-between gap-4 p-4 transition-colors hover:bg-white/[0.06] active:bg-white/[0.09] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#0A84FF]"
+                    >
+                      <div className="flex min-w-0 items-center gap-3.5">
+                        {/* Avatar */}
+                        <Avatar
+                          src={conv.otherUser.avatar_url}
+                          name={conv.otherUser.nickname}
+                          size="md"
+                          frameClassName="border border-white/[0.14] bg-[#2C2C2E]"
+                          fallbackClassName="font-bold text-white/60"
+                        />
 
-                      {/* Info & Last message */}
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2">
-                          <span className="truncate text-base font-bold text-white transition-colors group-hover:text-coral">
-                            {conv.otherUser.nickname}
-                          </span>
-                          <GenderBadge gender={conv.otherUser.gender} showText={false} />
-                        </div>
-
-                        <p className="mt-0.5 max-w-md truncate text-xs text-[#9CB3B8]">
-                          {conv.lastMessage ? (
-                            conv.lastMessage.content
-                          ) : (
-                            <span className="italic text-[#9CB3B8]/60">
-                              تم بدء المحادثة
+                        {/* Info & Last message */}
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="truncate text-base font-bold text-white transition-colors group-hover:text-[#409CFF]">
+                              {conv.otherUser.nickname}
                             </span>
-                          )}
-                        </p>
-                      </div>
-                    </div>
+                            <GenderBadge gender={conv.otherUser.gender} showText={false} />
+                          </div>
 
-                    {/* Time & Unread Badge */}
-                    <div className="flex shrink-0 flex-col items-end gap-1.5">
-                      <span className="text-[11px] text-[#9CB3B8]/60">{formattedTime}</span>
-                      {conv.unreadCount > 0 && (
-                        <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-coral px-1.5 text-[11px] font-bold text-white shadow-sm">
-                          {conv.unreadCount}
-                          <span className="sr-only"> رسالة غير مقروءة</span>
-                        </span>
-                      )}
-                    </div>
-                  </Link>
-                );
-              })
+                          <p className="mt-0.5 max-w-md truncate text-xs text-white/60">
+                            {conv.lastMessage ? (
+                              conv.lastMessage.content
+                            ) : (
+                              <span className="italic text-white/40">
+                                تم بدء المحادثة
+                              </span>
+                            )}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Time & Unread Badge */}
+                      <div className="flex shrink-0 flex-col items-end gap-1.5">
+                        <span className="text-[11px] text-white/45">{formattedTime}</span>
+                        {conv.unreadCount > 0 && (
+                          <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#0A84FF] px-1.5 text-[11px] font-bold text-white shadow-sm">
+                            {conv.unreadCount}
+                            <span className="sr-only"> رسالة غير مقروءة</span>
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
             )}
           </div>
         )}
@@ -319,7 +328,7 @@ export default async function MessagesPage({
               </h2>
 
               {incomingCount === 0 ? (
-                <div className="rounded-2xl border border-[#20454E] bg-[#122A31] p-8 text-center text-sm text-[#9CB3B8]">
+                <div className="ios-card rounded-[24px] p-8 text-center text-sm text-white/60">
                   لا توجد طلبات محادثة واردة جديدة حالياً.
                 </div>
               ) : (
@@ -346,13 +355,13 @@ export default async function MessagesPage({
             </div>
 
             {/* Outgoing Requests */}
-            <div className="pt-4 border-t border-[#20454E]">
+            <div className="pt-4 border-t border-white/[0.10]">
               <h2 className="text-base font-bold text-white mb-3">
                 الطلبات الصادرة بانتظار الرد ({outgoingReqs?.length || 0})
               </h2>
 
               {(!outgoingReqs || outgoingReqs.length === 0) ? (
-                <div className="rounded-2xl border border-[#20454E] bg-[#122A31] p-6 text-center text-xs text-[#9CB3B8]">
+                <div className="ios-card rounded-[24px] p-6 text-center text-xs text-white/55">
                   لم ترسل أي طلبات محادثة معلقة حالياً.
                 </div>
               ) : (

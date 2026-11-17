@@ -19,7 +19,7 @@ export function CountryBadge({
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-lg border border-[#20454E] bg-[#16353D] px-2.5 py-1 text-xs font-medium text-[#FFF7EF] ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-white/[0.10] bg-white/[0.07] px-2.5 py-1 text-xs font-medium text-white/90 ${className}`}
       title={`${country}${city ? ` - ${city}` : ""}`}
     >
       <span className="text-sm" aria-hidden="true">
@@ -29,7 +29,7 @@ export function CountryBadge({
       {showCity && city && (
         <>
           <span className="text-white/30">•</span>
-          <span className="text-white/80">{city}</span>
+          <span className="text-white/65">{city}</span>
         </>
       )}
     </span>

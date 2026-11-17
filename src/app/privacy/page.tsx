@@ -8,11 +8,11 @@ export const metadata = {
 export default function PrivacyPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-      <div className="rounded-2xl border border-ink/10 bg-white p-6 shadow-sm sm:p-10">
-        <h1 className="text-3xl font-bold text-ink">سياسة الخصوصية</h1>
-        <p className="mt-2 text-sm text-ink/60">آخر تحديث: نوفمبر 2026</p>
+      <div className="ios-glass rounded-[30px] p-6 sm:p-10">
+        <h1 className="text-3xl font-black text-white">سياسة الخصوصية</h1>
+        <p className="mt-2 text-sm text-white/55">آخر تحديث: نوفمبر 2026</p>
 
-        <div className="mt-8 space-y-6 text-base leading-relaxed text-ink/80">
+        <div className="mt-8 space-y-6 text-base leading-relaxed text-white/80">
           <section>
             <h2 className="text-xl font-semibold text-ink">1. حماية بياناتك الحساسة</h2>
             <p className="mt-2">
@@ -52,10 +52,10 @@ export default function PrivacyPage() {
           </section>
         </div>
 
-        <div className="mt-10 border-t border-ink/10 pt-6">
+        <div className="mt-10 border-t border-white/[0.10] pt-6">
           <Link
             href="/register"
-            className="inline-flex items-center justify-center rounded-xl bg-coral px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-coral-hover"
+            className="ios-btn-primary inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold transition-all active:scale-95"
           >
             العودة إلى التسجيل
           </Link>

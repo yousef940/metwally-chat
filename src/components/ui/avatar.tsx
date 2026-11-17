@@ -46,8 +46,8 @@ export function Avatar({
   size = "md",
   shape = "circle",
   className = "",
-  frameClassName = "border border-ink/10 bg-cream",
-  fallbackClassName = "font-bold text-ink/40",
+  frameClassName = "border border-white/[0.12] bg-[#2C2C2E]",
+  fallbackClassName = "font-bold text-white/60",
   fallback,
 }: AvatarProps) {
   return (

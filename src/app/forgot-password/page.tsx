@@ -13,19 +13,19 @@ export default function ForgotPasswordPage() {
         <div className="mb-8 text-center">
           <Link
             href="/"
-            className="inline-block text-3xl font-extrabold text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            className="inline-block bg-gradient-to-l from-white via-[#F4E8D3] to-[#409CFF] bg-clip-text text-3xl font-black text-transparent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           >
             صحبة
           </Link>
-          <h1 className="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+          <h1 className="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">
             استعادة كلمة المرور
           </h1>
-          <p className="mt-2 text-sm text-ink/70">
+          <p className="mt-2 text-sm text-white/60">
             أدخل بريدك الإلكتروني وسنساعدك في استعادة حسابك
           </p>
         </div>
 
-        <div className="rounded-2xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8">
+        <div className="ios-glass rounded-[30px] p-6 sm:p-8">
           <ForgotPasswordForm />
         </div>
       </div>

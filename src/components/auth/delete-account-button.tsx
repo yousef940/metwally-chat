@@ -24,23 +24,23 @@ export function DeleteAccountButton() {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="inline-flex items-center justify-center rounded-xl border border-red-300 bg-white px-5 py-2.5 text-sm font-semibold text-red-600 transition-colors hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+          className="inline-flex items-center justify-center rounded-full border border-[#FF453A]/35 bg-[#FF453A]/15 px-5 py-2.5 text-sm font-semibold text-[#FF8982] backdrop-blur-xl transition-all hover:bg-[#FF453A]/25 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
         >
           حذف الحساب نهائياً
         </button>
       ) : (
-        <div className="rounded-xl border border-red-200 bg-red-50/70 p-4">
-          <h3 className="text-base font-bold text-red-800">
+        <div className="rounded-2xl border border-[#FF453A]/35 bg-[#FF453A]/12 backdrop-blur-xl p-4">
+          <h3 className="text-base font-bold text-[#FF6961]">
             هل أنت متأكد من رغبتك في حذف حسابك؟
           </h3>
-          <p className="mt-1 text-sm text-red-700">
+          <p className="mt-1 text-sm text-white/75">
             هذا الإجراء نهائي ولا يمكن التراجع عنه. سيتم حذف جميع بيانات ملفك الشخصي ومحادثاتك ورسائلك بالكامل من خوادم صحبة.
           </p>
 
           {error && (
             <p
               role="alert"
-              className="mt-3 rounded-lg bg-red-100 p-2.5 text-sm font-medium text-red-800"
+              className="mt-3 rounded-xl border border-[#FF453A]/40 bg-[#FF453A]/20 p-2.5 text-sm font-medium text-[#FF9B95]"
             >
               {error}
             </p>
@@ -51,7 +51,7 @@ export function DeleteAccountButton() {
               type="button"
               disabled={isPending}
               onClick={handleDelete}
-              className="inline-flex items-center justify-center rounded-xl bg-red-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-red-700 disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+              className="inline-flex items-center justify-center rounded-full bg-[#FF453A] px-5 py-2 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.28)] transition-all hover:bg-[#FF6961] active:scale-95 disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
             >
               {isPending ? "جاري الحذف..." : "نعم، احذف حسابي الآن"}
             </button>
@@ -59,7 +59,7 @@ export function DeleteAccountButton() {
               type="button"
               disabled={isPending}
               onClick={() => setIsOpen(false)}
-              className="inline-flex items-center justify-center rounded-xl border border-ink/20 bg-white px-5 py-2 text-sm font-semibold text-ink transition-colors hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+              className="ios-btn-glass inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
             >
               إلغاء
             </button>

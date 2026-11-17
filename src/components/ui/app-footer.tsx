@@ -6,7 +6,7 @@ export interface AppFooterProps {
 export function AppFooter({ className = "" }: AppFooterProps) {
   return (
     <footer
-      className={`mt-12 border-t border-[#20454E] bg-[#0E252D]/80 py-6 text-center text-xs text-[#9CB3B8] ${className}`}
+      className={`mt-12 border-t border-white/[0.08] bg-black/50 backdrop-blur-xl py-6 text-center text-xs text-white/45 ${className}`}
     >
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3 px-4">
         <span>© {new Date().getFullYear()} متولي شات</span>

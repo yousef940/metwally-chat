@@ -90,16 +90,16 @@ export function MemberListView({
 
   return (
     <div className="space-y-6">
-      {/* Search & Tabs Controls */}
-      <div className="rounded-2xl border border-[#20454E] bg-[#122A31] p-4 shadow-sm">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      {/* iOS 27 Search & Segmented Control Bar */}
+      <div className="ios-card rounded-[24px] p-4">
+        <div className="flex flex-col gap-3.5 sm:flex-row sm:items-center sm:justify-between">
           {/* Search Input */}
           <div className="relative flex-1">
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5 text-[#9CB3B8]"
+              className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5 text-white/45"
             >
-              <IconSearch size={18} />
+              <IconSearch size={17} />
             </span>
             <input
               type="text"
@@ -107,19 +107,19 @@ export function MemberListView({
               onChange={(e) => setSearch(e.target.value)}
               placeholder="ابحث عن عضو..."
               aria-label="البحث عن أعضاء"
-              className="w-full rounded-xl border border-[#20454E] bg-[#0E252D] py-2.5 pe-4 ps-10 text-sm text-white placeholder-[#6B858D] focus:border-coral focus:outline-none"
+              className="w-full rounded-full border border-white/[0.12] bg-[#2C2C2E]/80 py-2.5 pe-4 ps-10 text-sm text-white placeholder-white/40 transition-all focus:border-[#0A84FF] focus:outline-none focus:ring-2 focus:ring-[#0A84FF]/25"
             />
           </div>
 
-          {/* Filter Status Tabs */}
-          <div className="flex items-center gap-1.5 rounded-xl border border-[#20454E] bg-[#0E252D] p-1 self-start sm:self-auto">
+          {/* iOS 27 Segmented Control */}
+          <div className="ios-segmented flex items-center gap-1 rounded-full p-1 self-start sm:self-auto">
             <button
               type="button"
               onClick={() => setFilterTab("all")}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+              className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
                 filterTab === "all"
-                  ? "bg-coral text-white shadow-sm"
-                  : "text-[#9CB3B8] hover:text-white"
+                  ? "bg-white/[0.16] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]"
+                  : "text-white/60 hover:text-white"
               }`}
             >
               الكل ({members.length})
@@ -128,26 +128,26 @@ export function MemberListView({
             <button
               type="button"
               onClick={() => setFilterTab("online")}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
                 filterTab === "online"
-                  ? "bg-emerald-600 text-white shadow-sm"
-                  : "text-[#9CB3B8] hover:text-white"
+                  ? "bg-[#30D158]/25 text-[#7AE897] border border-[#30D158]/40 shadow-xs"
+                  : "text-white/60 hover:text-white"
               }`}
             >
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="h-2 w-2 rounded-full bg-[#30D158] animate-pulse" />
               <span>المتصلين ({onlineCount})</span>
             </button>
 
             <button
               type="button"
               onClick={() => setFilterTab("offline")}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
                 filterTab === "offline"
-                  ? "bg-[#20454E] text-white shadow-sm"
-                  : "text-[#9CB3B8] hover:text-white"
+                  ? "bg-white/[0.14] text-white shadow-xs"
+                  : "text-white/60 hover:text-white"
               }`}
             >
-              <span className="h-2 w-2 rounded-full bg-white/40" />
+              <span className="h-2 w-2 rounded-full bg-white/35" />
               <span>غير متصل ({offlineCount})</span>
             </button>
           </div>
@@ -156,14 +156,14 @@ export function MemberListView({
 
       {/* Members Grid or Empty State */}
       {filteredMembers.length === 0 ? (
-        <div className="rounded-2xl border border-[#20454E] bg-[#122A31] p-8 sm:p-12 text-center shadow-sm">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0E252D] text-[#9CB3B8]">
+        <div className="ios-glass rounded-[28px] p-8 sm:p-12 text-center">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-[18px] bg-white/[0.08] text-white/60 border border-white/[0.12]">
             <IconUsers size={28} />
           </div>
           <h3 className="mt-4 text-base font-bold text-white">
             {members.length === 0 ? "أهلاً بك في عائلة الحاج متولي" : "لا توجد نتائج مطابقة"}
           </h3>
-          <p className="mt-1 text-xs text-[#9CB3B8] max-w-sm mx-auto leading-relaxed">
+          <p className="mt-1 text-xs text-white/60 max-w-sm mx-auto leading-relaxed">
             {members.length === 0
               ? "أنت أول المسجلين! شارك رابط الشات مع أصدقائك لينضموا إليك في الغرف والمحادثات."
               : search.trim()
@@ -175,7 +175,7 @@ export function MemberListView({
           {members.length === 0 ? (
             <Link
               href="/rooms/main"
-              className="mt-4 inline-flex items-center justify-center rounded-xl bg-coral px-5 py-2.5 text-xs font-bold text-white transition-colors hover:bg-coral-hover"
+              className="ios-btn-primary mt-5 inline-flex items-center justify-center rounded-full px-5 py-2.5 text-xs font-bold transition-all active:scale-95"
             >
               الدخول إلى غرفة الدردشة الجماعية
             </Link>
@@ -187,7 +187,7 @@ export function MemberListView({
                   setSearch("");
                   setFilterTab("all");
                 }}
-                className="mt-4 inline-flex items-center justify-center rounded-xl bg-coral px-4 py-2 text-xs font-bold text-white transition-colors hover:bg-coral-hover"
+                className="ios-btn-primary mt-5 inline-flex items-center justify-center rounded-full px-5 py-2 text-xs font-bold transition-all active:scale-95"
               >
                 عرض جميع الأعضاء
               </button>
@@ -205,7 +205,7 @@ export function MemberListView({
             return (
               <article
                 key={member.id}
-                className="group flex flex-col justify-between rounded-2xl border border-[#20454E] bg-[#122A31] p-4 shadow-sm transition-all hover:border-coral/50 hover:bg-[#16353D]"
+                className="ios-card group flex flex-col justify-between rounded-[24px] p-4.5 transition-all duration-200 hover:border-white/[0.20] hover:bg-[#242428]/85"
               >
                 {/* Header: Avatar, Online Dot, Info */}
                 <div className="flex items-start gap-3.5">
@@ -215,13 +215,13 @@ export function MemberListView({
                       name={member.nickname}
                       size="lg"
                       shape="rounded"
-                      frameClassName="border-2 border-[#20454E] bg-[#0E252D]"
-                      fallbackClassName="text-lg font-bold text-coral"
+                      frameClassName="border border-white/15 bg-[#2C2C2E]"
+                      fallbackClassName="text-lg font-bold text-[#409CFF]"
                     />
                     <span
                       title={isOnline ? "متصل الآن" : "غير متصل"}
-                      className={`absolute bottom-0 end-0 h-3 w-3 rounded-full ring-2 ring-[#122A31] ${
-                        isOnline ? "bg-emerald-500" : "bg-gray-500"
+                      className={`absolute -bottom-0.5 -end-0.5 h-3.5 w-3.5 rounded-full ring-2 ring-[#1C1C1E] ${
+                        isOnline ? "bg-[#30D158] shadow-[0_0_8px_#30D158]" : "bg-[#636366]"
                       }`}
                     />
                   </Link>
@@ -230,25 +230,25 @@ export function MemberListView({
                     <div className="flex items-center justify-between gap-1">
                       <Link
                         href={profileHref}
-                        className="truncate font-bold text-white transition-colors group-hover:text-coral"
+                        className="truncate font-bold text-white transition-colors group-hover:text-[#409CFF]"
                       >
                         {member.nickname}
                       </Link>
                       <GenderBadge gender={member.gender} showText={false} />
                     </div>
 
-                    <div className="mt-1 flex flex-wrap items-center gap-1.5">
+                    <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                       <CountryBadge country={member.country} city={member.city} />
                       {member.age && (
-                        <span className="rounded-lg border border-[#20454E] bg-[#0E252D] px-2 py-0.5 text-xs font-semibold text-coral">
+                        <span className="rounded-full border border-white/[0.10] bg-white/[0.06] px-2.5 py-0.5 text-xs font-semibold text-[#E8D5B5]">
                           {member.age} سنة
                         </span>
                       )}
                     </div>
 
-                    <div className="mt-1.5 text-[11px] text-[#9CB3B8]">
+                    <div className="mt-1.5 text-[11px] text-white/50">
                       {isOnline ? (
-                        <span className="font-semibold text-emerald-400">متصل الآن</span>
+                        <span className="font-semibold text-[#30D158]">متصل الآن</span>
                       ) : (
                         <span>غير متصل</span>
                       )}
@@ -258,16 +258,16 @@ export function MemberListView({
 
                 {/* Bio snippet if any */}
                 {member.bio && (
-                  <p className="mt-3 line-clamp-2 text-xs text-white/70 leading-relaxed">
+                  <p className="mt-3 line-clamp-2 text-xs text-white/65 leading-relaxed">
                     {member.bio}
                   </p>
                 )}
 
                 {/* Action button */}
-                <div className="mt-4 flex items-center justify-between gap-2 border-t border-[#20454E] pt-3">
+                <div className="mt-4 flex items-center justify-between gap-2 border-t border-white/[0.08] pt-3">
                   <Link
                     href={profileHref}
-                    className="flex-1 rounded-xl border border-[#20454E] bg-[#0E252D] px-3 py-2 text-center text-xs font-semibold text-white/90 transition-colors hover:border-coral/40 hover:bg-[#16353D] hover:text-white"
+                    className="ios-btn-glass flex-1 rounded-full px-3 py-2 text-center text-xs font-semibold text-white/90 transition-all active:scale-95"
                   >
                     الملف الشخصي
                   </Link>

@@ -22,10 +22,10 @@ export interface AlertProps {
 }
 
 const TONE_STYLES: Record<AlertTone, string> = {
-  error: "border-red-200 bg-red-50 text-red-700",
-  success: "border-emerald-200 bg-emerald-50 text-emerald-800",
-  warning: "border-amber-200 bg-amber-50 text-amber-900",
-  info: "border-ink/15 bg-cream/60 text-ink/80",
+  error: "border-[#FF453A]/35 bg-[#FF453A]/15 text-[#FF9B95] backdrop-blur-md",
+  success: "border-[#30D158]/35 bg-[#30D158]/15 text-[#7AE897] backdrop-blur-md",
+  warning: "border-[#FF9F0A]/35 bg-[#FF9F0A]/15 text-[#FFD080] backdrop-blur-md",
+  info: "border-[#0A84FF]/30 bg-[#0A84FF]/12 text-[#80C1FF] backdrop-blur-md",
 };
 
 const SIZE_STYLES: Record<AlertSize, string> = {
@@ -57,7 +57,7 @@ export function Alert({
     <div
       role={role}
       aria-live={tone === "error" ? "assertive" : "polite"}
-      className={`rounded-xl border ${TONE_STYLES[tone]} ${SIZE_STYLES[size]} ${WEIGHT_STYLES[weight]} ${className}`}
+      className={`rounded-2xl border ${TONE_STYLES[tone]} ${SIZE_STYLES[size]} ${WEIGHT_STYLES[weight]} ${className}`}
     >
       {children}
     </div>

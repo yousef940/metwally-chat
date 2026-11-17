@@ -69,13 +69,13 @@ export function BannedUsersTable({ initialBans }: BannedUsersTableProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-bold text-ink/70">
+        <span className="text-xs font-bold text-white/70">
           إجمالي الحسابات المحظورة: {bans.length}
         </span>
         <button
           type="button"
           onClick={() => setShowManualModal(true)}
-          className="rounded-xl bg-red-600 px-4 py-2 text-xs font-bold text-white shadow-xs transition-colors hover:bg-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+          className="rounded-full bg-[#FF453A] px-4 py-2 text-xs font-bold text-white shadow-xs transition-all hover:bg-[#FF6961] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
         >
           + حظر مستخدم يدوياً
         </button>
@@ -94,22 +94,22 @@ export function BannedUsersTable({ initialBans }: BannedUsersTableProps) {
 
       {/* Bans Table / List */}
       {bans.length === 0 ? (
-        <div className="rounded-3xl border border-ink/10 bg-white p-12 text-center text-ink/50 shadow-xs">
+        <div className="ios-card rounded-[28px] p-12 text-center text-white/55">
           <span aria-hidden="true" className="mb-2 block text-4xl">
             🕊️
           </span>
-          <p className="text-sm font-bold">لا توجد حسابات محظورة حالياً</p>
-          <p className="mt-1 text-xs text-ink/40">
+          <p className="text-sm font-bold text-white">لا توجد حسابات محظورة حالياً</p>
+          <p className="mt-1 text-xs text-white/45">
             جميع الأعضاء ملتزمون بالقواعد أو تم إلغاء حظرهم.
           </p>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-3xl border border-ink/10 bg-white shadow-xs">
+        <div className="ios-card overflow-x-auto rounded-[28px]">
           <table className="w-full text-start text-xs">
             <caption className="sr-only">
               الحسابات المحظورة في منصة صحبة
             </caption>
-            <thead className="border-b border-ink/10 bg-cream/40 font-bold text-ink/70">
+            <thead className="border-b border-white/[0.10] bg-white/[0.04] font-bold text-white/65">
               <tr>
                 <th scope="col" className="px-5 py-3 text-start">
                   المستخدم
@@ -128,11 +128,11 @@ export function BannedUsersTable({ initialBans }: BannedUsersTableProps) {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ink/5">
+            <tbody className="divide-y divide-white/[0.08]">
               {bans.map((ban) => (
                 <tr
                   key={ban.id}
-                  className="transition-colors hover:bg-cream/20"
+                  className="transition-colors hover:bg-white/[0.04]"
                 >
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
@@ -140,28 +140,28 @@ export function BannedUsersTable({ initialBans }: BannedUsersTableProps) {
                         src={ban.avatarUrl}
                         name={ban.nickname}
                         size="xs"
-                        fallbackClassName="text-xs font-bold text-coral"
+                        fallbackClassName="text-xs font-bold text-[#409CFF]"
                       />
                       <div>
-                        <p className="font-bold text-ink">{ban.nickname}</p>
-                        <p className="font-mono text-[10px] text-ink/40">
+                        <p className="font-bold text-white">{ban.nickname}</p>
+                        <p className="font-mono text-[10px] text-white/40">
                           {ban.userId.slice(0, 8)}...
                         </p>
                       </div>
                     </div>
                   </td>
 
-                  <td className="max-w-xs px-5 py-4 font-medium text-ink/80">
+                  <td className="max-w-xs px-5 py-4 font-medium text-white/80">
                     {ban.reason}
                   </td>
 
                   <td className="px-5 py-4">
                     {ban.isPermanent ? (
-                      <span className="rounded-md bg-red-100 px-2 py-0.5 text-[11px] font-bold text-red-700">
+                      <span className="rounded-full border border-[#FF453A]/35 bg-[#FF453A]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#FF8982]">
                         حظر دائم
                       </span>
                     ) : (
-                      <span className="rounded-md bg-amber-100 px-2 py-0.5 text-[11px] font-bold text-amber-800">
+                      <span className="rounded-full border border-[#FF9F0A]/35 bg-[#FF9F0A]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#FFD080]">
                         مؤقت حتى{" "}
                         {ban.bannedUntil
                           ? new Date(ban.bannedUntil).toLocaleDateString("ar-EG")
@@ -170,7 +170,7 @@ export function BannedUsersTable({ initialBans }: BannedUsersTableProps) {
                     )}
                   </td>
 
-                  <td className="px-5 py-4 text-ink/60">
+                  <td className="px-5 py-4 text-white/55">
                     {new Date(ban.createdAt).toLocaleDateString("ar-EG")}
                   </td>
 
@@ -179,7 +179,7 @@ export function BannedUsersTable({ initialBans }: BannedUsersTableProps) {
                       type="button"
                       disabled={isPending}
                       onClick={() => handleUnban(ban.userId)}
-                      className="rounded-xl border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-800 transition-colors hover:bg-emerald-100 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                      className="rounded-full border border-[#30D158]/35 bg-[#30D158]/15 px-3.5 py-1.5 text-xs font-bold text-[#7AE897] transition-all hover:bg-[#30D158]/25 active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#30D158]"
                     >
                       إلغاء الحظر
                     </button>

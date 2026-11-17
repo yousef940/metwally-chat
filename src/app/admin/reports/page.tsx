@@ -39,7 +39,7 @@ export default async function AdminReportsPage({ searchParams }: ReportsPageProp
       <div
         role="tablist"
         aria-label="تصفية البلاغات حسب الحالة"
-        className="flex flex-wrap gap-2 border-b border-ink/10 pb-3"
+        className="ios-segmented inline-flex flex-wrap gap-1 rounded-full p-1"
       >
         {tabs.map((tab) => {
           const isActive = status === tab.key;
@@ -49,10 +49,10 @@ export default async function AdminReportsPage({ searchParams }: ReportsPageProp
               href={`/admin/reports?status=${tab.key}`}
               role="tab"
               aria-selected={isActive}
-              className={`rounded-xl px-4 py-2 text-xs font-bold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral ${
+              className={`rounded-full px-4 py-2 text-xs font-bold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF] ${
                 isActive
-                  ? "bg-coral text-white shadow-xs"
-                  : "border border-ink/10 bg-white text-ink/70 hover:bg-cream"
+                  ? "bg-white/[0.16] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]"
+                  : "text-white/60 hover:text-white"
               }`}
             >
               {tab.label}
@@ -63,10 +63,10 @@ export default async function AdminReportsPage({ searchParams }: ReportsPageProp
 
       {/* Reports List */}
       {reports.length === 0 ? (
-        <div className="rounded-3xl border border-ink/10 bg-white p-12 text-center text-ink/50 shadow-xs">
+        <div className="ios-card rounded-[28px] p-12 text-center text-white/55">
           <span className="text-4xl block mb-2">🛡️</span>
-          <p className="font-bold text-sm">لا توجد بلاغات تطابق التصفية المحددة</p>
-          <p className="text-xs text-ink/40 mt-1">كل شيء هادئ ومنتظم.</p>
+          <p className="font-bold text-sm text-white">لا توجد بلاغات تطابق التصفية المحددة</p>
+          <p className="text-xs text-white/45 mt-1">كل شيء هادئ ومنتظم.</p>
         </div>
       ) : (
         <div className="space-y-4">

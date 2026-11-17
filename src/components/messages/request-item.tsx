@@ -50,43 +50,43 @@ export function RequestItem({
   });
 
   return (
-    <article className="flex flex-col gap-4 rounded-2xl border border-[#20454E] bg-[#122A31] p-5 shadow-sm transition-all hover:border-coral/40">
+    <article className="ios-card flex flex-col gap-4 rounded-[24px] p-5 transition-all hover:border-white/[0.18]">
       <div className="flex items-start justify-between gap-3">
         <Link
           href={`/profile/${user.id}`}
-          className="group flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+          className="group flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
         >
           <Avatar
             src={user.avatar_url}
             name={user.nickname}
             size="md"
-            frameClassName="border border-[#20454E] bg-[#16353D]"
-            fallbackClassName="text-base font-bold text-white/40"
+            frameClassName="border border-white/[0.14] bg-[#2C2C2E]"
+            fallbackClassName="text-base font-bold text-white/60"
           />
 
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-white transition-colors group-hover:text-coral">
+              <span className="font-bold text-white transition-colors group-hover:text-[#409CFF]">
                 {user.nickname}
               </span>
               <GenderBadge gender={user.gender} showText={false} />
             </div>
             {user.country && (
-              <span className="text-xs text-[#9CB3B8]">
+              <span className="text-xs text-white/55">
                 <span aria-hidden="true">📍</span> {user.country}
               </span>
             )}
           </div>
         </Link>
 
-        <span className="whitespace-nowrap text-xs text-[#9CB3B8]">
+        <span className="whitespace-nowrap text-xs text-white/45">
           {formattedDate}
         </span>
       </div>
 
       {/* Message content */}
-      <div className="rounded-xl border border-[#20454E] bg-[#0E252D] p-3 text-sm leading-relaxed text-white/90">
-        <p className="mb-1 text-xs font-medium text-coral">الرسالة التمهيدية:</p>
+      <div className="rounded-2xl border border-white/[0.08] bg-white/[0.05] p-3.5 text-sm leading-relaxed text-white/90">
+        <p className="mb-1 text-xs font-semibold text-[#409CFF]">الرسالة التمهيدية:</p>
         <p className="whitespace-pre-line break-words">{initialMessage}</p>
       </div>
 
@@ -97,7 +97,7 @@ export function RequestItem({
             type="button"
             disabled={isPending}
             onClick={() => handleAction("decline")}
-            className="rounded-xl border border-[#20454E] bg-[#16353D] px-4 py-2 text-xs font-semibold text-white/80 transition-colors hover:bg-white/10 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            className="ios-btn-glass rounded-full px-4 py-2 text-xs font-semibold text-white/85 transition-all active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           >
             رفض الطلب
           </button>
@@ -105,13 +105,13 @@ export function RequestItem({
             type="button"
             disabled={isPending}
             onClick={() => handleAction("accept")}
-            className="rounded-xl bg-coral px-5 py-2 text-xs font-bold text-white shadow-sm transition-colors hover:bg-coral-hover disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            className="ios-btn-primary rounded-full px-5 py-2 text-xs font-bold transition-all active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           >
             {isPending ? "جاري القبول..." : "قبول وبدء المحادثة"}
           </button>
         </div>
       ) : (
-        <p className="text-end text-xs font-medium text-amber-400">
+        <p className="text-end text-xs font-medium text-[#FF9F0A]">
           <span aria-hidden="true">⏳</span> بانتظار رد الطرف الآخر...
         </p>
       )}

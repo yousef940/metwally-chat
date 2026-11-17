@@ -37,8 +37,8 @@ function renderMessageTextWithMentions(text: string, currentNickname: string) {
           key={index}
           className={`inline-block font-bold rounded-lg px-1.5 py-0.5 mx-0.5 transition-all ${
             isMe
-              ? "bg-coral/30 text-white ring-1 ring-coral font-black shadow-sm"
-              : "bg-coral/15 text-coral"
+              ? "bg-white/25 text-white ring-1 ring-white/50 font-black shadow-sm"
+              : "bg-white/15 text-[#F4E8D3]"
           }`}
         >
           {part}
@@ -733,15 +733,15 @@ export function RoomChat({
   return (
     <div
       data-theme="dark"
-      className="flex h-[100dvh] flex-col bg-[#0B1E24] text-[#FFF7EF] overflow-hidden"
+      className="flex h-[100dvh] flex-col text-white overflow-hidden"
     >
-      {/* Clean Room Header - No Clutter */}
-      <header className="flex items-center justify-between border-b border-[#20454E] bg-[#0E252D] px-4 py-2.5 sm:px-6 sm:py-3 shrink-0">
+      {/* iOS 27 Liquid Glass Room Header */}
+      <header className="ios-glass-bar flex items-center justify-between border-b px-4 py-2.5 sm:px-6 sm:py-3 shrink-0 z-20">
         {/* Brand & Room Info */}
         <div className="flex items-center gap-2 min-w-0">
           <Link
             href="/"
-            className="text-base sm:text-lg font-black text-coral whitespace-nowrap hover:opacity-90"
+            className="bg-gradient-to-l from-white via-[#F4E8D3] to-[#409CFF] bg-clip-text text-base sm:text-lg font-black text-transparent whitespace-nowrap hover:opacity-90"
           >
             عائلة الحاج متولي
           </Link>
@@ -753,16 +753,16 @@ export function RoomChat({
 
         {/* Minimal Action Controls: Online Presence & Report */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Online Counter Button */}
+          {/* Online Counter Pill */}
           <button
             type="button"
             onClick={() => setShowMembers(!showMembers)}
             aria-expanded={showMembers}
             aria-controls="room-members-panel"
             title="المتواجدون الآن في الشات"
-            className="flex items-center gap-1.5 rounded-full border border-[#20454E] bg-[#16353D] px-2.5 py-1 text-xs font-semibold text-[#FFF7EF] transition-colors hover:border-coral"
+            className="ios-btn-glass flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-white transition-all active:scale-95"
           >
-            <span aria-hidden="true" className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+            <span aria-hidden="true" className="h-2 w-2 animate-pulse rounded-full bg-[#30D158] shadow-[0_0_8px_#30D158]" />
             <span>{onlineUsers.length || 1} متواجد</span>
           </button>
 
@@ -773,7 +773,7 @@ export function RoomChat({
             targetLabel={room.name}
             triggerButtonText=""
             triggerLabel="الإبلاغ عن الغرفة"
-            buttonClassName="rounded-full border border-[#20454E] bg-[#16353D] p-1.5 text-xs text-[#9CB3B8] transition-colors hover:border-red-400/40 hover:text-red-400"
+            buttonClassName="ios-btn-glass rounded-full p-1.5 text-xs text-white/65 transition-all hover:border-[#FF453A]/50 hover:text-[#FF453A]"
           />
         </div>
       </header>
@@ -785,14 +785,14 @@ export function RoomChat({
           onClick={() => {
             const el = document.getElementById(`msg-${pinnedMessage.id}`);
             el?.scrollIntoView({ behavior: "smooth", block: "center" });
-            el?.classList.add("ring-2", "ring-coral");
-            setTimeout(() => el?.classList.remove("ring-2", "ring-coral"), 2500);
+            el?.classList.add("ring-2", "ring-[#0A84FF]");
+            setTimeout(() => el?.classList.remove("ring-2", "ring-[#0A84FF]"), 2500);
           }}
-          className="flex items-center justify-between border-b border-[#20454E]/70 bg-[#122830] px-4 py-2 text-xs cursor-pointer transition-colors hover:bg-[#16353F] shrink-0"
+          className="flex items-center justify-between border-b border-white/[0.08] bg-[#1C1C1E]/85 backdrop-blur-xl px-4 py-2 text-xs cursor-pointer transition-colors hover:bg-[#2C2C2E]/85 shrink-0"
         >
           <div className="flex items-center gap-2 truncate">
-            <span className="text-amber-400 font-bold shrink-0">📌 رسالة مثبتة:</span>
-            <span className="font-semibold text-white/90 shrink-0">
+            <span className="text-[#FF9F0A] font-bold shrink-0">📌 رسالة مثبتة:</span>
+            <span className="font-semibold text-white/95 shrink-0">
               {pinnedMessage.profile?.nickname || "عضو"}:
             </span>
             <span className="truncate text-white/70">
@@ -801,7 +801,7 @@ export function RoomChat({
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-[11px] text-coral hover:underline font-semibold">انتقال</span>
+            <span className="text-[11px] text-[#409CFF] hover:underline font-semibold">انتقال</span>
             {isAdmin && (
               <button
                 type="button"
@@ -809,7 +809,7 @@ export function RoomChat({
                   e.stopPropagation();
                   await handleTogglePin(pinnedMessage.id);
                 }}
-                className="text-white/40 hover:text-red-400 p-1 transition-colors"
+                className="text-white/40 hover:text-[#FF453A] p-1 transition-colors"
                 title="إلغاء التثبيت"
                 aria-label="إلغاء التثبيت"
               >
@@ -825,8 +825,8 @@ export function RoomChat({
         {/* Messages Stream */}
         <div className="flex flex-1 flex-col space-y-4 overflow-y-auto p-4 sm:p-6">
           {messages.length === 0 ? (
-            <div className="my-auto text-center text-sm text-[#9CB3B8]">
-              <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#16353D] text-[#9CB3B8]">
+            <div className="my-auto text-center text-sm text-white/55">
+              <div className="ios-glass mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-[18px] text-[#409CFF]">
                 <IconMessages size={24} />
               </div>
               <p>الدردشة هادئة حالياً. كن أول من يرحب بالحاضرين ويبدأ الحوار!</p>
@@ -853,14 +853,14 @@ export function RoomChat({
                   {/* Sender Avatar */}
                   <Link
                     href={isMe ? "/profile" : `/profile/${sender.id}`}
-                    className="shrink-0 rounded-full transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                    className="shrink-0 rounded-full transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                   >
                     <Avatar
                       src={sender.avatar_url}
                       name={sender.nickname}
                       size="sm"
-                      frameClassName="border border-[#20454E] bg-[#16353D]"
-                      fallbackClassName="text-xs font-bold text-[#FFF7EF]"
+                      frameClassName="border border-white/15 bg-[#2C2C2E]"
+                      fallbackClassName="text-xs font-bold text-white/80"
                     />
                   </Link>
 
@@ -871,10 +871,10 @@ export function RoomChat({
                     }`}
                   >
                     {/* Header info (Name, Badge, Time, Actions) */}
-                    <div className="mb-1 flex items-center gap-1.5 text-xs text-[#9CB3B8]">
+                    <div className="mb-1 flex items-center gap-1.5 text-xs text-white/50">
                       <Link
                         href={isMe ? "/profile" : `/profile/${sender.id}`}
-                        className="font-bold text-[#FFF7EF] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                        className="font-bold text-white/95 hover:text-[#409CFF] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                       >
                         {isMe ? "أنت" : sender.nickname}
                       </Link>
@@ -894,7 +894,7 @@ export function RoomChat({
                           inputRef.current?.focus();
                         }}
                         title="الرد على الرسالة"
-                        className="ms-1 flex items-center gap-0.5 text-[11px] text-[#9CB3B8] transition-colors hover:text-blue-400"
+                        className="ms-1 flex items-center gap-0.5 text-[11px] text-white/50 transition-colors hover:text-[#409CFF]"
                       >
                         <IconReply size={13} />
                         <span>رد</span>
@@ -907,7 +907,7 @@ export function RoomChat({
                           onClick={() => handleTogglePin(msg.id)}
                           title={pinnedMessageId === msg.id ? "إلغاء تثبيت الرسالة" : "تثبيت الرسالة في أعلى الروم"}
                           className={`ms-1 flex items-center gap-0.5 text-[11px] transition-colors ${
-                            pinnedMessageId === msg.id ? "text-amber-400 font-bold" : "text-[#9CB3B8] hover:text-amber-400"
+                            pinnedMessageId === msg.id ? "text-[#FF9F0A] font-bold" : "text-white/50 hover:text-[#FF9F0A]"
                           }`}
                         >
                           <span>📌</span>
@@ -921,7 +921,7 @@ export function RoomChat({
                           onClick={() => handleDeleteMessage(msg.id)}
                           aria-label="حذف الرسالة"
                           title="حذف الرسالة"
-                          className="ms-1 text-[#9CB3B8] transition-colors hover:text-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                          className="ms-1 text-white/45 transition-colors hover:text-[#FF453A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                         >
                           <IconClose size={13} />
                         </button>
@@ -932,28 +932,34 @@ export function RoomChat({
                           targetLabel={`رسالة ${sender.nickname}`}
                           triggerButtonText=""
                           triggerLabel="الإبلاغ عن الرسالة"
-                          buttonClassName="ms-1 text-[11px] text-[#9CB3B8] transition-colors hover:text-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                          buttonClassName="ms-1 text-[11px] text-white/45 transition-colors hover:text-[#FF453A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                         />
                       )}
                     </div>
 
-                    {/* Modern sleek bubble with Long-Press support and unbroken text wrapping */}
+                    {/* iOS 27 Messages Bubble */}
                     <div
                       onTouchStart={(e) => handleTouchStart(msg, e)}
                       onTouchMove={handleTouchMove}
                       onTouchEnd={handleTouchEnd}
                       onContextMenu={(e) => handleContextMenu(msg, e)}
                       title="اضغط مطولاً للمزيد من الخيارات والتفاعلات"
-                      className={`min-w-0 max-w-full break-all [overflow-wrap:anywhere] rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-sm transition-all select-none cursor-pointer ${
+                      className={`min-w-0 max-w-full break-all [overflow-wrap:anywhere] rounded-[22px] px-4 py-2.5 text-sm leading-relaxed transition-all select-none cursor-pointer ${
                         isMe
-                          ? "rounded-se-none border border-coral/30 bg-[#16363E] text-white"
-                          : "rounded-ss-none border border-white/5 bg-[#1F2933] text-[#F3F4F6]"
+                          ? "ios-bubble-me rounded-se-[6px]"
+                          : "ios-bubble-other rounded-ss-[6px]"
                       }`}
                     >
                       {/* Quoted message display */}
                       {parsed.hasQuote && (
-                        <div className="mb-2.5 rounded-xl border-s-4 border-sky-400 bg-[#14232E] px-3.5 py-2 text-xs">
-                          <div className="font-bold text-sky-400 mb-0.5 text-xs">
+                        <div className={`mb-2.5 rounded-2xl border-s-4 px-3.5 py-2 text-xs ${
+                          isMe
+                            ? "border-white/70 bg-black/20"
+                            : "border-[#0A84FF] bg-black/35"
+                        }`}>
+                          <div className={`font-bold mb-0.5 text-xs ${
+                            isMe ? "text-white" : "text-[#409CFF]"
+                          }`}>
                             {parsed.quoteAuthor}
                           </div>
                           <div className="text-white/80 line-clamp-2 leading-relaxed">
@@ -964,14 +970,14 @@ export function RoomChat({
 
                       {/* Image display with Lightbox click */}
                       {parsed.imageUrl && (
-                        <div className="my-1.5 overflow-hidden rounded-xl bg-black/30">
+                        <div className="my-1.5 overflow-hidden rounded-2xl bg-black/30">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={parsed.imageUrl}
                             alt="صورة في الشات"
                             loading="lazy"
                             onClick={() => setActiveLightboxImage(parsed.imageUrl)}
-                            className="max-h-72 w-auto max-w-full rounded-xl object-cover cursor-pointer transition-transform hover:scale-[1.01] active:scale-95"
+                            className="max-h-72 w-auto max-w-full rounded-2xl object-cover cursor-pointer transition-transform hover:scale-[1.01] active:scale-95"
                           />
                         </div>
                       )}
@@ -983,17 +989,17 @@ export function RoomChat({
                       )}
                     </div>
 
-                    {/* Reactions Bar Below Message */}
-                    <div className="mt-1 flex flex-wrap items-center gap-1">
+                    {/* iOS Tapback Reactions Bar Below Message */}
+                    <div className="mt-1.5 flex flex-wrap items-center gap-1">
                       {(reactionsMap[msg.id] || []).map((r) => (
                         <button
                           key={r.emoji}
                           type="button"
                           onClick={() => handleToggleReaction(msg.id, r.emoji)}
-                          className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs transition-transform active:scale-90 ${
+                          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs backdrop-blur-md transition-transform active:scale-90 ${
                             r.userReacted
-                              ? "border border-coral/60 bg-coral/20 text-white font-bold"
-                              : "border border-white/10 bg-[#16252E] text-white/80 hover:bg-white/10"
+                              ? "border border-[#0A84FF]/60 bg-[#0A84FF]/25 text-white font-bold"
+                              : "border border-white/[0.12] bg-[#2C2C2E]/75 text-white/85 hover:bg-white/15"
                           }`}
                         >
                           <span>{r.emoji}</span>
@@ -1010,16 +1016,15 @@ export function RoomChat({
                               activeReactionPickerMsgId === msg.id ? null : msg.id
                             )
                           }
-                          className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/10 bg-[#16252E] text-white/60 hover:text-white hover:bg-white/15 text-xs transition-colors"
+                          className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/[0.12] bg-[#2C2C2E]/75 text-white/65 hover:text-white hover:bg-white/15 text-xs transition-colors"
                           title="إضافة تفاعل"
                         >
                           <span>+</span>
                         </button>
 
-                        {/* Floating Reaction Picker Popup with Click-Outside dismiss */}
+                        {/* Floating Liquid Glass Tapback Picker */}
                         {activeReactionPickerMsgId === msg.id && (
                           <>
-                            {/* Backdrop click outside */}
                             <div
                               className="fixed inset-0 z-20 cursor-default"
                               onClick={(e) => {
@@ -1032,9 +1037,9 @@ export function RoomChat({
                               }}
                             />
                             <div
-                              className={`absolute bottom-full mb-1.5 ${
+                              className={`ios-glass-strong absolute bottom-full mb-1.5 ${
                                 isMe ? "end-0" : "start-0"
-                              } z-30 flex items-center gap-1 rounded-full border border-[#20454E] bg-[#0E252D] p-1 shadow-2xl animate-fadeIn`}
+                              } z-30 flex items-center gap-1 rounded-full p-1 animate-fadeIn`}
                             >
                               {["❤️", "😂", "🔥", "👍", "👏"].map((emoji) => (
                                 <button
@@ -1044,7 +1049,7 @@ export function RoomChat({
                                     handleToggleReaction(msg.id, emoji);
                                     setActiveReactionPickerMsgId(null);
                                   }}
-                                  className="flex h-8 w-8 items-center justify-center rounded-full text-base transition-transform hover:scale-125 active:scale-95 hover:bg-white/10"
+                                  className="flex h-8 w-8 items-center justify-center rounded-full text-base transition-transform hover:scale-125 active:scale-95 hover:bg-white/12"
                                 >
                                   {emoji}
                                 </button>
@@ -1059,71 +1064,71 @@ export function RoomChat({
               );
             })
           )}
-          {/* Typing Indicator matching Screenshot */}
+          {/* Typing Indicator */}
           {typingUsers.length > 0 && (
             <div className="flex items-center gap-2 px-2 py-1.5 text-xs text-white/70 animate-pulse">
               <div className="flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-coral animate-bounce" />
-                <span className="h-1.5 w-1.5 rounded-full bg-coral animate-bounce [animation-delay:0.2s]" />
-                <span className="h-1.5 w-1.5 rounded-full bg-coral animate-bounce [animation-delay:0.4s]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#0A84FF] animate-bounce" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#0A84FF] animate-bounce [animation-delay:0.2s]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#0A84FF] animate-bounce [animation-delay:0.4s]" />
               </div>
               <span className="text-white/60">
                 {typingUsers.length === 1
-                  ? `${typingUsers[0]} يكتب الآن...`
-                  : `${typingUsers.join("، ")} يكتبون الآن...`}
+                  ? `${typingUsers[0]?.nickname} يكتب الآن...`
+                  : `${typingUsers.map((u) => u.nickname).join("، ")} يكتبون الآن...`}
               </span>
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Online Members Sidebar (Desktop always / Mobile drawer) */}
+        {/* Online Members Liquid Glass Sidebar */}
         {showMembers && (
           <aside
             id="room-members-panel"
             aria-label="المتواجدون الآن"
-            className="flex w-64 flex-col justify-between overflow-y-auto border-s border-[#20454E] bg-[#0E252D] p-4"
+            className="ios-glass-strong flex w-64 flex-col justify-between overflow-y-auto border-s border-white/[0.10] p-4 animate-fadeIn"
           >
             <div>
-              <div className="mb-3 flex items-center justify-between border-b border-[#20454E] pb-3">
-                <h2 className="text-sm font-bold">
+              <div className="mb-3 flex items-center justify-between border-b border-white/[0.10] pb-3">
+                <h2 className="text-sm font-bold text-white">
                   المتواجدون الآن ({onlineUsers.length})
                 </h2>
                 <button
                   type="button"
                   onClick={() => setShowMembers(false)}
                   aria-label="إغلاق قائمة المتواجدين"
-                  className="text-xs text-[#9CB3B8] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                  className="flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.08] text-white/70 transition-colors hover:bg-white/[0.15] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
-                  <IconClose size={16} />
+                  <IconClose size={14} />
                 </button>
               </div>
 
-              <ul className="space-y-2">
+              <ul className="space-y-1.5">
                 {onlineUsers.map((onlineUser) => {
                   const isCurrent = onlineUser.user_id === currentUser.id;
                   return (
                     <li key={onlineUser.user_id}>
                       <Link
                         href={isCurrent ? "/profile" : `/profile/${onlineUser.user_id}`}
-                        className="flex items-center gap-2.5 rounded-xl p-2 transition-colors hover:bg-[#16353D] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                        className="flex items-center gap-2.5 rounded-2xl p-2 transition-colors hover:bg-white/[0.08] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                       >
                         <div className="relative shrink-0">
                           <Avatar
                             src={onlineUser.avatar_url}
                             name={onlineUser.nickname}
                             size="xxs"
-                            frameClassName="border border-[#20454E] bg-[#16353D]"
+                            frameClassName="border border-white/15 bg-[#2C2C2E]"
                             fallbackClassName="text-xs font-bold"
                           />
                           <span
                             aria-hidden="true"
-                            className="absolute bottom-0 end-0 h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-[#0E252D]"
+                            className="absolute bottom-0 end-0 h-2.5 w-2.5 rounded-full bg-[#30D158] ring-2 ring-[#1C1C1E]"
                           />
                         </div>
 
                         <div className="flex min-w-0 flex-1 items-center justify-between">
-                          <span className="truncate text-xs font-semibold text-[#FFF7EF]">
+                          <span className="truncate text-xs font-semibold text-white">
                             {onlineUser.nickname} {isCurrent && "(أنت)"}
                           </span>
                           <GenderBadge gender={onlineUser.gender} showText={false} />
@@ -1135,7 +1140,7 @@ export function RoomChat({
               </ul>
             </div>
 
-            <div className="border-t border-[#20454E] pt-4 text-center text-xs text-[#9CB3B8]">
+            <div className="border-t border-white/[0.10] pt-4 text-center text-xs text-white/45">
               متولي شات • محادثات فورية
             </div>
           </aside>
@@ -1147,34 +1152,34 @@ export function RoomChat({
         <div
           role="alert"
           aria-live="assertive"
-          className="flex items-center justify-between border-t border-red-500/50 bg-red-950/90 px-4 py-2.5 text-xs text-red-200"
+          className="flex items-center justify-between border-t border-[#FF453A]/35 bg-[#FF453A]/15 backdrop-blur-xl px-4 py-2.5 text-xs text-[#FF9B95]"
         >
           <span>{errorMessage}</span>
           <button
             type="button"
             onClick={() => setErrorMessage(null)}
             aria-label="إغلاق رسالة الخطأ"
-            className="ms-2 font-bold text-red-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            className="ms-2 font-bold text-[#FF6961] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           >
             <IconClose size={16} />
           </button>
         </div>
       )}
 
-      {/* Input Bar Footer - Matching Substack Chat style */}
-      <footer className="shrink-0 border-t border-[#20454E] bg-[#0E252D] p-2 sm:p-3.5 pb-safe">
+      {/* iOS 27 Liquid Glass Composer Footer */}
+      <footer className="ios-glass-bar shrink-0 border-t p-2.5 sm:p-3.5">
         {/* Reply Preview Bar */}
         {replyingTo && (
-          <div className="mx-auto mb-2 flex max-w-4xl items-center justify-between rounded-xl border border-[#20454E] bg-[#14232c] px-3.5 py-1.5 text-xs">
+          <div className="mx-auto mb-2 flex max-w-4xl items-center justify-between rounded-2xl border border-white/[0.10] bg-white/[0.06] px-3.5 py-2 text-xs backdrop-blur-md">
             <div className="flex items-center gap-2 truncate">
-              <IconReply size={15} className="text-sky-400 shrink-0" />
-              <span className="font-bold text-sky-400">رد على {replyingTo.author}:</span>
-              <span className="truncate text-white/70">{replyingTo.text}</span>
+              <IconReply size={15} className="text-[#409CFF] shrink-0" />
+              <span className="font-bold text-[#409CFF]">رد على {replyingTo.author}:</span>
+              <span className="truncate text-white/75">{replyingTo.text}</span>
             </div>
             <button
               type="button"
               onClick={() => setReplyingTo(null)}
-              className="ms-2 rounded p-1 text-white/50 hover:bg-white/10 hover:text-white"
+              className="ms-2 rounded-full p-1 text-white/50 hover:bg-white/10 hover:text-white"
               aria-label="إلغاء الرد"
             >
               <IconClose size={14} />
@@ -1184,8 +1189,8 @@ export function RoomChat({
 
         {/* Mention Autocomplete Popover (@) */}
         {mentionQuery !== null && mentionCandidates.length > 0 && (
-          <div className="mx-auto mb-2 max-w-4xl rounded-2xl border border-[#20454E] bg-[#122A31] p-1.5 shadow-2xl animate-fadeIn max-h-48 overflow-y-auto">
-            <div className="text-[11px] font-bold text-coral px-2.5 py-1">الإشارة إلى عضو (@):</div>
+          <div className="ios-glass-strong mx-auto mb-2 max-w-4xl rounded-[22px] p-1.5 animate-fadeIn max-h-48 overflow-y-auto">
+            <div className="text-[11px] font-bold text-[#409CFF] px-2.5 py-1">الإشارة إلى عضو (@):</div>
             <div className="space-y-0.5">
               {mentionCandidates.slice(0, 6).map((candidate) => (
                 <button
@@ -1204,7 +1209,7 @@ export function RoomChat({
 
         {/* Pending Image Preview Box */}
         {pendingImage && (
-          <div className="mx-auto mb-2 flex max-w-4xl items-center justify-between rounded-2xl border border-coral/40 bg-[#14232E] p-2 text-xs">
+          <div className="mx-auto mb-2 flex max-w-4xl items-center justify-between rounded-2xl border border-[#0A84FF]/40 bg-[#0A84FF]/10 p-2 text-xs backdrop-blur-md">
             <div className="flex items-center gap-2.5 truncate">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -1213,14 +1218,14 @@ export function RoomChat({
                 className="h-12 w-12 rounded-xl object-cover border border-white/20 shrink-0"
               />
               <div className="truncate">
-                <div className="font-bold text-coral text-xs">صورة جاهزة للإرسال</div>
+                <div className="font-bold text-[#409CFF] text-xs">صورة جاهزة للإرسال</div>
                 <div className="text-white/60 text-[11px] truncate max-w-xs">{pendingImage.file.name}</div>
               </div>
             </div>
             <button
               type="button"
               onClick={() => setPendingImage(null)}
-              className="rounded-full p-1.5 text-white/50 hover:bg-white/10 hover:text-white"
+              className="rounded-full p-1.5 text-white/55 hover:bg-white/10 hover:text-white"
               aria-label="إلغاء الصورة"
               title="إلغاء الصورة"
             >
@@ -1229,7 +1234,7 @@ export function RoomChat({
           </div>
         )}
 
-        {/* Real-time Typing Indicator Bar - Matching Screenshot */}
+        {/* Real-time Typing Indicator Bar */}
         {typingUsers.length > 0 && (
           <div className="mx-auto mb-1.5 flex max-w-4xl items-center gap-2 px-2 text-xs text-white/75">
             {typingUsers[0]?.avatar_url ? (
@@ -1240,7 +1245,7 @@ export function RoomChat({
                 frameClassName="border border-white/20"
               />
             ) : (
-              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-coral/30 text-[9px] font-bold text-coral">
+              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[#0A84FF]/30 text-[9px] font-bold text-[#409CFF]">
                 {typingUsers[0]?.nickname?.[0]}
               </div>
             )}
@@ -1249,26 +1254,26 @@ export function RoomChat({
             </span>
             <span className="text-white/50">• يكتب الآن...</span>
             <div className="flex items-center gap-0.5 ms-1">
-              <span className="h-1 w-1 rounded-full bg-coral animate-bounce" />
-              <span className="h-1 w-1 rounded-full bg-coral animate-bounce [animation-delay:0.2s]" />
-              <span className="h-1 w-1 rounded-full bg-coral animate-bounce [animation-delay:0.4s]" />
+              <span className="h-1 w-1 rounded-full bg-[#0A84FF] animate-bounce" />
+              <span className="h-1 w-1 rounded-full bg-[#0A84FF] animate-bounce [animation-delay:0.2s]" />
+              <span className="h-1 w-1 rounded-full bg-[#0A84FF] animate-bounce [animation-delay:0.4s]" />
             </div>
           </div>
         )}
 
         <form onSubmit={handleSendMessage} className="mx-auto flex max-w-4xl items-center gap-2">
-          {/* User's Avatar (always visible like Substack) */}
+          {/* User's Avatar */}
           <div className="shrink-0">
             <Avatar
               src={currentProfile.avatar_url}
               name={currentProfile.nickname}
               size="sm"
-              frameClassName="border border-[#20454E] bg-[#16353D]"
+              frameClassName="border border-white/15 bg-[#2C2C2E]"
             />
           </div>
 
-          {/* Substack-style Pill Input with Inner Circular Send Arrow */}
-          <div className="relative flex flex-1 items-center rounded-full border border-[#20454E] bg-[#16353D] ps-3.5 pe-1.5 py-1 focus-within:border-coral focus-within:ring-1 focus-within:ring-coral transition-colors">
+          {/* iOS 27 Liquid Glass Pill Input */}
+          <div className="relative flex flex-1 items-center rounded-full border border-white/[0.14] bg-[#2C2C2E]/80 ps-4 pe-1.5 py-1 backdrop-blur-xl focus-within:border-[#0A84FF] focus-within:ring-2 focus-within:ring-[#0A84FF]/25 transition-all">
             <label htmlFor="room-message-input" className="sr-only">
               اكتب رسالة
             </label>
@@ -1281,15 +1286,15 @@ export function RoomChat({
               disabled={isSending}
               placeholder={replyingTo ? `الرد على ${replyingTo.author}...` : "اكتب رسالة..."}
               maxLength={2000}
-              className="flex-1 bg-transparent py-1.5 text-sm text-[#FFF7EF] placeholder:text-[#9CB3B8]/60 focus:outline-none min-w-0"
+              className="flex-1 bg-transparent py-1.5 text-sm text-white placeholder:text-white/40 focus:outline-none min-w-0"
             />
 
-            {/* Circular Send Arrow Button Inside Pill */}
+            {/* Circular iOS Blue Send Button */}
             <button
               type="submit"
               disabled={isSending || isUploadingImage || (!inputText.trim() && !pendingImage)}
               aria-label="إرسال"
-              className="inline-flex h-8 w-8 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full bg-coral text-white shadow-sm transition-all hover:bg-coral-hover active:scale-95 disabled:opacity-20 disabled:pointer-events-none"
+              className="ios-btn-primary inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all active:scale-90 disabled:opacity-25 disabled:pointer-events-none"
             >
               {isUploadingImage ? (
                 <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -1299,8 +1304,8 @@ export function RoomChat({
             </button>
           </div>
 
-          {/* Outer Media & Emoji Icons like Substack */}
-          <div className="flex items-center gap-0.5 sm:gap-1 text-[#9CB3B8] shrink-0">
+          {/* Outer Media & Emoji Icons */}
+          <div className="flex items-center gap-0.5 sm:gap-1 text-white/60 shrink-0">
             <input
               type="file"
               ref={fileInputRef}
@@ -1314,8 +1319,8 @@ export function RoomChat({
               onClick={() => fileInputRef.current?.click()}
               title="إرفاق صورة من الكاميرا أو المعرض"
               aria-label="إرفاق صورة"
-              className={`rounded-full p-2 transition-colors hover:bg-white/10 hover:text-white ${
-                pendingImage ? "text-coral bg-coral/15" : ""
+              className={`rounded-full p-2 transition-all hover:bg-white/10 hover:text-white active:scale-95 ${
+                pendingImage ? "text-[#409CFF] bg-[#0A84FF]/20" : ""
               }`}
             >
               <IconImage size={20} />
@@ -1328,7 +1333,7 @@ export function RoomChat({
               }}
               title="رموز تعبيرية"
               aria-label="رموز تعبيرية"
-              className="rounded-full p-2 transition-colors hover:bg-white/10 hover:text-white"
+              className="rounded-full p-2 transition-all hover:bg-white/10 hover:text-white active:scale-95"
             >
               <IconSmile size={20} />
             </button>
@@ -1336,80 +1341,75 @@ export function RoomChat({
         </form>
       </footer>
 
-      {/* Substack-style Bottom Navigation Bar - Exactly matching Screenshot */}
+      {/* iOS 27 Translucent Bottom Bar */}
       <nav
         aria-label="شريط التنقل السفلي"
-        className="shrink-0 border-t border-[#20454E]/70 bg-[#0A1B20] px-3 py-1 sm:py-1.5 pb-safe"
+        className="shrink-0 border-t border-white/[0.08] bg-black/85 backdrop-blur-2xl px-3 py-1.5 pb-safe"
       >
         <div className="mx-auto flex max-w-md items-center justify-around">
-          {/* 1. الرئيسية */}
           <Link
             href="/"
             title="الرئيسية"
-            className="flex flex-col items-center justify-center p-2 text-white/50 transition-colors hover:text-white"
+            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
           >
             <IconHome size={22} />
           </Link>
 
-          {/* 2. الدردشة الجماعية (Active) */}
           <Link
             href="/rooms/main"
             title="الدردشة الجماعية"
-            className="flex flex-col items-center justify-center p-2 text-coral transition-colors"
+            className="flex flex-col items-center justify-center rounded-full bg-white/[0.12] px-3.5 py-2 text-[#0A84FF] transition-colors"
           >
-            <IconMessages size={22} className="text-coral" />
+            <IconMessages size={22} className="text-[#0A84FF]" />
           </Link>
 
-          {/* 3. الأعضاء (Discover) */}
           <Link
             href="/discover"
             title="الأعضاء"
-            className="flex flex-col items-center justify-center p-2 text-white/50 transition-colors hover:text-white"
+            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
           >
             <IconUsers size={22} />
           </Link>
 
-          {/* 4. الرسائل الخاصة (with Unread Badge) */}
           <Link
             href="/messages"
             title="الرسائل الخاصة"
-            className="relative flex flex-col items-center justify-center p-2 text-white/50 transition-colors hover:text-white"
+            className="relative flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
           >
             <IconDirectMessage size={22} />
             {unreadCount > 0 && (
-              <span className="absolute top-1 end-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-black text-white ring-2 ring-[#0A1B20] animate-pulse">
+              <span className="absolute top-1 end-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#FF453A] px-1 text-[10px] font-black text-white ring-2 ring-black">
                 {unreadCount > 99 ? "+99" : unreadCount}
               </span>
             )}
           </Link>
 
-          {/* 5. إعداداتي */}
           <Link
             href="/settings"
             title="إعداداتي"
-            className="flex flex-col items-center justify-center p-2 text-white/50 transition-colors hover:text-white"
+            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
           >
             <IconSettings size={22} />
           </Link>
         </div>
       </nav>
 
-      {/* Mobile Long-Press Context Menu Modal */}
+      {/* iOS 27 Liquid Glass Long-Press Action Sheet */}
       {contextMenuMsg && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center animate-fadeIn">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-2 sm:p-4 animate-fadeIn">
           {/* Backdrop with blur */}
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
+            className="fixed inset-0 bg-black/65 backdrop-blur-md cursor-pointer"
             onClick={() => setContextMenuMsg(null)}
           />
 
           {/* Action Sheet Panel */}
-          <div className="relative w-full max-w-sm rounded-t-3xl sm:rounded-3xl border border-[#20454E] bg-[#122A31] p-4 text-white shadow-2xl z-10 animate-slideUp">
-            {/* Top drag bar */}
-            <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-white/20 sm:hidden" />
+          <div className="ios-glass-strong relative w-full max-w-sm rounded-[30px] p-4 text-white z-10 animate-slideUp">
+            {/* iOS Grabber Pill */}
+            <div className="mx-auto mb-3.5 ios-grabber" />
 
-            {/* Quick Emoji Reaction Row */}
-            <div className="mb-3 flex items-center justify-around rounded-2xl border border-[#20454E] bg-[#0E252D] p-1.5">
+            {/* Quick Tapback Emoji Row */}
+            <div className="mb-3 flex items-center justify-around rounded-full border border-white/[0.10] bg-white/[0.06] p-1.5">
               {["❤️", "😂", "🔥", "👍", "👏", "😮", "😢", "🙏"].map((emoji) => (
                 <button
                   key={emoji}
@@ -1418,7 +1418,7 @@ export function RoomChat({
                     handleToggleReaction(contextMenuMsg.id, emoji);
                     setContextMenuMsg(null);
                   }}
-                  className="flex h-9 w-9 items-center justify-center rounded-full text-xl transition-transform hover:scale-125 active:scale-95 hover:bg-white/10"
+                  className="flex h-9 w-9 items-center justify-center rounded-full text-xl transition-transform hover:scale-125 active:scale-95 hover:bg-white/12"
                 >
                   {emoji}
                 </button>
@@ -1426,8 +1426,8 @@ export function RoomChat({
             </div>
 
             {/* Preview of selected message */}
-            <div className="mb-3 rounded-xl border border-white/5 bg-[#0E252D]/60 p-2.5 text-xs text-[#9CB3B8] line-clamp-2">
-              <span className="font-bold text-coral">
+            <div className="mb-3 rounded-2xl border border-white/[0.08] bg-black/35 p-3 text-xs text-white/70 line-clamp-2">
+              <span className="font-bold text-[#409CFF]">
                 {contextMenuMsg.user_id === currentUser.id
                   ? "رسالتك"
                   : contextMenuMsg.profile?.nickname || "رسالة"}:
@@ -1437,7 +1437,6 @@ export function RoomChat({
 
             {/* Action Buttons List */}
             <div className="space-y-1">
-              {/* 1. Reply */}
               <button
                 type="button"
                 onClick={() => {
@@ -1453,23 +1452,21 @@ export function RoomChat({
                   setContextMenuMsg(null);
                   inputRef.current?.focus();
                 }}
-                className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors text-start"
+                className="flex w-full items-center gap-3 rounded-2xl px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors text-start"
               >
-                <IconReply size={18} className="text-sky-400" />
+                <IconReply size={18} className="text-[#409CFF]" />
                 <span>رد على هذه الرسالة</span>
               </button>
 
-              {/* 2. Copy Text */}
               <button
                 type="button"
                 onClick={() => handleCopyMessageText(contextMenuMsg.content)}
-                className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors text-start"
+                className="flex w-full items-center gap-3 rounded-2xl px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors text-start"
               >
-                <IconCopy size={18} className="text-emerald-400" />
+                <IconCopy size={18} className="text-[#30D158]" />
                 <span>{copySuccess ? "تم نسخ النص بنجاح ✓" : "نسخ النص"}</span>
               </button>
 
-              {/* 3. Admin Pin */}
               {isAdmin && (
                 <button
                   type="button"
@@ -1477,7 +1474,7 @@ export function RoomChat({
                     handleTogglePin(contextMenuMsg.id);
                     setContextMenuMsg(null);
                   }}
-                  className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors text-start"
+                  className="flex w-full items-center gap-3 rounded-2xl px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors text-start"
                 >
                   <span className="text-base">📌</span>
                   <span>
@@ -1488,7 +1485,6 @@ export function RoomChat({
                 </button>
               )}
 
-              {/* 4. Delete */}
               {(contextMenuMsg.user_id === currentUser.id || isAdmin) && (
                 <button
                   type="button"
@@ -1497,18 +1493,17 @@ export function RoomChat({
                     setContextMenuMsg(null);
                     handleDeleteMessage(id);
                   }}
-                  className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-400 hover:bg-red-500/10 transition-colors text-start"
+                  className="flex w-full items-center gap-3 rounded-2xl px-3.5 py-2.5 text-sm font-semibold text-[#FF453A] hover:bg-[#FF453A]/15 transition-colors text-start"
                 >
-                  <IconClose size={18} className="text-red-400" />
+                  <IconClose size={18} className="text-[#FF453A]" />
                   <span>حذف الرسالة</span>
                 </button>
               )}
 
-              {/* Cancel Button */}
               <button
                 type="button"
                 onClick={() => setContextMenuMsg(null)}
-                className="mt-2 flex w-full items-center justify-center rounded-xl border border-[#20454E] bg-[#16353D] py-2.5 text-xs font-bold text-[#9CB3B8] hover:text-white transition-colors"
+                className="ios-btn-glass mt-2 flex w-full items-center justify-center rounded-full py-2.5 text-xs font-bold text-white/85 active:scale-95 transition-all"
               >
                 إلغاء
               </button>

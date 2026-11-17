@@ -90,13 +90,13 @@ export function AvatarUpload({
         src={avatarUrl}
         name="الصورة الشخصية"
         size="xl"
-        frameClassName="border-2 border-coral/30 bg-cream"
-        fallbackClassName="text-3xl text-ink/30"
+        frameClassName="border-2 border-white/25 bg-[#2C2C2E] shadow-lg"
+        fallbackClassName="text-3xl text-white/50"
         fallback="👤"
       />
 
-      <div className="space-y-1">
-        <label className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-ink/5 px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-ink/10 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ink">
+      <div className="space-y-1.5">
+        <label className="ios-btn-glass inline-flex cursor-pointer items-center justify-center rounded-full px-4.5 py-2 text-sm font-semibold text-white transition-all active:scale-95 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[#0A84FF]">
           {uploading ? "جاري رفع الصورة..." : "تغيير الصورة الشخصية"}
           <input
             type="file"
@@ -106,11 +106,11 @@ export function AvatarUpload({
             className="sr-only"
           />
         </label>
-        <p className="text-xs text-ink/60">
+        <p className="text-xs text-white/55">
           صيغ JPEG أو PNG أو WebP بحد أقصى 4 ميغابايت.
         </p>
         {error && (
-          <p role="alert" className="text-xs font-semibold text-red-600">
+          <p role="alert" className="text-xs font-semibold text-[#FF6961]">
             {error}
           </p>
         )}

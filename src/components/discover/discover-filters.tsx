@@ -80,14 +80,14 @@ export function DiscoverFilters({
     maxAge < MAX_AGE;
 
   return (
-    <div className="mb-6 rounded-2xl border border-[#20454E] bg-[#122A31] p-4 shadow-sm">
+    <div className="ios-card mb-6 rounded-[24px] p-4">
       <form onSubmit={applyFilters} className="space-y-4">
         {/* Search & Actions Bar */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative flex-1">
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3 text-[#9CB3B8]"
+              className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5 text-white/45"
             >
               🔍
             </span>
@@ -97,7 +97,7 @@ export function DiscoverFilters({
               onChange={(e) => setSearch(e.target.value)}
               placeholder="ابحث بالاسم المستعار أو الاهتمامات..."
               aria-label="البحث عن أعضاء"
-              className="w-full rounded-xl border border-[#20454E] bg-[#0E252D] py-2.5 pe-4 ps-10 text-sm text-white placeholder-[#6B858D] focus:border-coral focus:outline-none"
+              className="w-full rounded-full border border-white/[0.12] bg-[#2C2C2E]/80 py-2.5 pe-4 ps-10 text-sm text-white placeholder-white/40 focus:border-[#0A84FF] focus:outline-none focus:ring-2 focus:ring-[#0A84FF]/25"
             />
           </div>
 
@@ -107,7 +107,7 @@ export function DiscoverFilters({
               onClick={() => setIsExpanded(!isExpanded)}
               aria-expanded={isExpanded}
               aria-controls="discover-advanced-filters"
-              className="inline-flex items-center gap-1.5 rounded-xl border border-[#20454E] bg-[#16353D] px-3.5 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#1C424D] sm:hidden"
+              className="ios-btn-glass inline-flex items-center gap-1.5 rounded-full px-3.5 py-2.5 text-xs font-semibold sm:hidden"
             >
               <span>⚙️</span>
               <span>{isExpanded ? "إخفاء الفلاتر" : "الفلاتر"}</span>
@@ -116,7 +116,7 @@ export function DiscoverFilters({
             <button
               type="submit"
               disabled={isPending}
-              className="inline-flex items-center gap-1.5 rounded-xl bg-coral px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-coral-hover focus-visible:outline-2 focus-visible:outline-coral disabled:opacity-50"
+              className="ios-btn-primary inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-xs font-bold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-[#0A84FF] disabled:opacity-50"
             >
               <span>تطبيق</span>
             </button>
@@ -125,7 +125,7 @@ export function DiscoverFilters({
               <button
                 type="button"
                 onClick={resetFilters}
-                className="rounded-xl border border-[#20454E] px-3 py-2.5 text-xs font-medium text-[#9CB3B8] transition-colors hover:bg-[#16353D] hover:text-white"
+                className="ios-btn-glass rounded-full px-3.5 py-2.5 text-xs font-medium text-white/75"
               >
                 إلغاء
               </button>
@@ -136,13 +136,13 @@ export function DiscoverFilters({
         {/* Filters */}
         <div
           id="discover-advanced-filters"
-          className={`grid grid-cols-1 gap-4 border-t border-[#20454E] pt-3 sm:grid-cols-3 ${isExpanded ? "block" : "hidden sm:grid"}`}
+          className={`grid grid-cols-1 gap-4 border-t border-white/[0.08] pt-3.5 sm:grid-cols-3 ${isExpanded ? "block" : "hidden sm:grid"}`}
         >
           {/* Gender Filter */}
           <div>
             <label
               htmlFor="discover-gender"
-              className="mb-1.5 block text-xs font-bold text-[#FFF7EF]"
+              className="mb-1.5 block text-xs font-bold text-white/90"
             >
               الجنس
             </label>
@@ -150,7 +150,7 @@ export function DiscoverFilters({
               id="discover-gender"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-              className="w-full rounded-xl border border-[#20454E] bg-[#0E252D] px-3 py-2 text-xs text-white focus:border-coral focus:outline-none"
+              className="w-full rounded-2xl border border-white/[0.12] bg-[#2C2C2E]/80 px-3 py-2 text-xs text-white focus:border-[#0A84FF] focus:outline-none"
             >
               <option value="">الجميع (ذكر وأنثى)</option>
               <option value="male">👨 ذكر</option>
@@ -162,7 +162,7 @@ export function DiscoverFilters({
           <div>
             <label
               htmlFor="discover-country"
-              className="mb-1.5 block text-xs font-bold text-[#FFF7EF]"
+              className="mb-1.5 block text-xs font-bold text-white/90"
             >
               الدولة
             </label>
@@ -170,7 +170,7 @@ export function DiscoverFilters({
               id="discover-country"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="w-full rounded-xl border border-[#20454E] bg-[#0E252D] px-3 py-2 text-xs text-white focus:border-coral focus:outline-none"
+              className="w-full rounded-2xl border border-white/[0.12] bg-[#2C2C2E]/80 px-3 py-2 text-xs text-white focus:border-[#0A84FF] focus:outline-none"
             >
               <option value="">جميع الدول</option>
               {ARAB_COUNTRIES.map((countryName) => (
@@ -185,7 +185,7 @@ export function DiscoverFilters({
           <div role="group" aria-labelledby="discover-age-label">
             <span
               id="discover-age-label"
-              className="mb-1.5 block text-xs font-bold text-[#FFF7EF]"
+              className="mb-1.5 block text-xs font-bold text-white/90"
             >
               السن ({minAge} - {maxAge} سنة)
             </span>
@@ -197,11 +197,11 @@ export function DiscoverFilters({
                 max={maxAge}
                 value={minAge}
                 onChange={(e) => setMinAge(Number(e.target.value))}
-                className="w-1/2 rounded-xl border border-[#20454E] bg-[#0E252D] px-2.5 py-1.5 text-center text-xs text-white focus:border-coral focus:outline-none"
+                className="w-1/2 rounded-2xl border border-white/[0.12] bg-[#2C2C2E]/80 px-2.5 py-1.5 text-center text-xs text-white focus:border-[#0A84FF] focus:outline-none"
                 placeholder="من"
                 aria-label="أقل عمر"
               />
-              <span className="text-xs text-[#9CB3B8]">إلى</span>
+              <span className="text-xs text-white/50">إلى</span>
               <input
                 id="discover-max-age"
                 type="number"
@@ -209,7 +209,7 @@ export function DiscoverFilters({
                 max={MAX_AGE}
                 value={maxAge}
                 onChange={(e) => setMaxAge(Number(e.target.value))}
-                className="w-1/2 rounded-xl border border-[#20454E] bg-[#0E252D] px-2.5 py-1.5 text-center text-xs text-white focus:border-coral focus:outline-none"
+                className="w-1/2 rounded-2xl border border-white/[0.12] bg-[#2C2C2E]/80 px-2.5 py-1.5 text-center text-xs text-white focus:border-[#0A84FF] focus:outline-none"
                 placeholder="إلى"
                 aria-label="أعلى عمر"
               />

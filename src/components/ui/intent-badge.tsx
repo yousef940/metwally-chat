@@ -18,7 +18,7 @@ export function intentLabel(intent?: string | null): string {
 /** Coral pill that shows the member intent. */
 export function IntentBadge({ intent }: { intent?: string | null }) {
   return (
-    <span className="inline-flex items-center rounded-xl bg-coral/10 px-3 py-1 text-xs font-semibold text-coral">
+    <span className="inline-flex items-center rounded-full border border-[#0A84FF]/30 bg-[#0A84FF]/15 px-3 py-1 text-xs font-semibold text-[#409CFF]">
       الهدف: {intentLabel(intent)}
     </span>
   );

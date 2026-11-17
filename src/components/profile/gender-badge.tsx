@@ -21,9 +21,9 @@ export function GenderBadge({
       <span
         title="شاب / ذكر"
         aria-label={showText ? undefined : "ذكر"}
-        className={`inline-flex items-center gap-1.5 rounded-full border border-sky-200 bg-sky-50 px-2.5 py-0.5 text-xs font-semibold text-sky-800 ${className}`}
+        className={`inline-flex items-center gap-1.5 rounded-full border border-[#0A84FF]/30 bg-[#0A84FF]/15 px-2.5 py-0.5 text-xs font-semibold text-[#64D2FF] ${className}`}
       >
-        <span aria-hidden="true" className="text-sm font-bold leading-none text-sky-600">
+        <span aria-hidden="true" className="text-sm font-bold leading-none text-[#0A84FF]">
           ♂
         </span>
         {showText && <span>ذكر</span>}
@@ -35,9 +35,9 @@ export function GenderBadge({
     <span
       title="شابة / أنثى"
       aria-label={showText ? undefined : "أنثى"}
-      className={`inline-flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-xs font-semibold text-rose-800 ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-[#FF375F]/30 bg-[#FF375F]/15 px-2.5 py-0.5 text-xs font-semibold text-[#FF6482] ${className}`}
     >
-      <span aria-hidden="true" className="text-sm font-bold leading-none text-coral">
+      <span aria-hidden="true" className="text-sm font-bold leading-none text-[#FF375F]">
         ♀
       </span>
       {showText && <span>أنثى</span>}

@@ -17,18 +17,18 @@ export default async function AdminLayout({
   const { user, profile } = await requireAdmin();
 
   return (
-    <div className="flex min-h-screen flex-col justify-between bg-[#F8F9FA] text-[#12343B]">
+    <div className="flex min-h-screen flex-col justify-between text-white">
       <div>
-        {/* Top Admin Bar */}
-        <header className="sticky top-0 z-40 border-b border-ink/10 bg-white/95 px-4 py-3 shadow-xs backdrop-blur-md sm:px-6">
+        {/* Top Admin Bar — iOS 27 Liquid Glass */}
+        <header className="ios-glass-bar sticky top-0 z-40 border-b px-4 py-3 sm:px-6">
           <div className="mx-auto flex max-w-6xl items-center justify-between">
             <div className="flex items-center gap-6">
               <Link
                 href="/admin"
-                className="flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                className="flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               >
-                <span className="text-2xl font-black text-coral">صحبة</span>
-                <span className="rounded-md bg-coral/10 px-2 py-0.5 text-xs font-bold text-coral">
+                <span className="bg-gradient-to-l from-white via-[#F4E8D3] to-[#409CFF] bg-clip-text text-2xl font-black text-transparent">صحبة</span>
+                <span className="rounded-full border border-[#0A84FF]/35 bg-[#0A84FF]/15 px-2.5 py-0.5 text-xs font-bold text-[#409CFF]">
                   الإدارة
                 </span>
               </Link>
@@ -36,29 +36,29 @@ export default async function AdminLayout({
               {/* Navigation Tabs */}
               <nav
                 aria-label="أقسام لوحة التحكم"
-                className="hidden items-center gap-1 text-xs font-bold sm:flex"
+                className="ios-segmented hidden items-center gap-1 rounded-full p-1 text-xs font-bold sm:flex"
               >
                 <Link
                   href="/admin"
-                  className="rounded-xl px-3 py-1.5 text-ink/80 transition-colors hover:bg-cream hover:text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                  className="rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
                   📊 نظرة عامة
                 </Link>
                 <Link
                   href="/admin/reports"
-                  className="rounded-xl px-3 py-1.5 text-ink/80 transition-colors hover:bg-cream hover:text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                  className="rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
                   🚩 البلاغات
                 </Link>
                 <Link
                   href="/admin/bans"
-                  className="rounded-xl px-3 py-1.5 text-ink/80 transition-colors hover:bg-cream hover:text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                  className="rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
                   🚫 الحظر
                 </Link>
                 <Link
                   href="/admin/rooms"
-                  className="rounded-xl px-3 py-1.5 text-ink/80 transition-colors hover:bg-cream hover:text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                  className="rounded-full px-3.5 py-1.5 text-white/75 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                 >
                   💬 الغرف
                 </Link>
@@ -68,11 +68,11 @@ export default async function AdminLayout({
             <div className="flex items-center gap-3">
               <Link
                 href="/"
-                className="rounded-xl border border-ink/15 px-3 py-1.5 text-xs font-semibold text-ink/70 transition-colors hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                className="ios-btn-glass rounded-full px-3.5 py-1.5 text-xs font-semibold text-white/85 transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               >
                 🏠 العودة للموقع
               </Link>
-              <div className="hidden text-xs font-bold text-ink sm:block">
+              <div className="hidden text-xs font-bold text-white sm:block">
                 {profile?.nickname || user.email}
               </div>
               <SignOutButton />
@@ -82,29 +82,29 @@ export default async function AdminLayout({
           {/* Mobile Navigation Sub-bar */}
           <nav
             aria-label="أقسام لوحة التحكم"
-            className="mt-2.5 flex items-center justify-around border-t border-ink/5 pt-2 text-xs font-bold sm:hidden"
+            className="mt-2.5 flex items-center justify-around border-t border-white/[0.08] pt-2 text-xs font-bold sm:hidden"
           >
             <Link
               href="/admin"
-              className="text-ink/80 hover:text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+              className="text-white/75 hover:text-[#409CFF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
             >
               الإحصائيات
             </Link>
             <Link
               href="/admin/reports"
-              className="text-ink/80 hover:text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+              className="text-white/75 hover:text-[#409CFF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
             >
               البلاغات
             </Link>
             <Link
               href="/admin/bans"
-              className="text-ink/80 hover:text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+              className="text-white/75 hover:text-[#409CFF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
             >
               الحظر
             </Link>
             <Link
               href="/admin/rooms"
-              className="text-ink/80 hover:text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+              className="text-white/75 hover:text-[#409CFF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
             >
               الغرف
             </Link>
@@ -115,7 +115,7 @@ export default async function AdminLayout({
         <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">{children}</main>
       </div>
 
-      <footer className="border-t border-ink/10 bg-white py-6 text-center text-xs text-ink/50">
+      <footer className="border-t border-white/[0.08] bg-black/50 backdrop-blur-xl py-6 text-center text-xs text-white/45">
         لوحة تحكم منصة صحبة • المشرفون والإدارة
       </footer>
     </div>

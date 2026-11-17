@@ -3,13 +3,13 @@ export const SITE_TAGLINE = "شات ومحادثات الأصدقاء";
 export const SITE_DESCRIPTION = "منصة شات ودردشة وتواصل الأصدقاء";
 
 export const THEME_COLORS = {
-  background: "#0B1E24",
-  surface: "#122A31",
-  border: "#20454E",
-  coral: "#F26B4F",
-  coralHover: "#E0563A",
-  ink: "#FFF7EF",
-  gold: "#D9A441",
+  background: "#000000",
+  surface: "#1C1C1E",
+  border: "rgba(255, 255, 255, 0.12)",
+  coral: "#0A84FF",
+  coralHover: "#409CFF",
+  ink: "#FFFFFF",
+  gold: "#E8D5B5",
 } as const;
 
 export const ARAB_COUNTRIES = [

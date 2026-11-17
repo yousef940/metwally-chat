@@ -207,13 +207,13 @@ export function PrivateChat({
   };
 
   return (
-    <div className="flex h-[100dvh] flex-col bg-[#0B1E24] text-[#FFF7EF] overflow-hidden">
-      {/* Header */}
-      <header className="flex items-center justify-between border-b border-[#20454E] bg-[#0E252D] px-3 py-2.5 sm:px-6 sm:py-3 shadow-sm shrink-0">
+    <div className="flex h-[100dvh] flex-col text-white overflow-hidden">
+      {/* iOS 27 Liquid Glass Header */}
+      <header className="ios-glass-bar flex items-center justify-between border-b px-3 py-2.5 sm:px-6 sm:py-3 shrink-0 z-20">
         <div className="flex items-center gap-3">
           <Link
             href="/messages"
-            className="flex h-9 w-9 items-center justify-center rounded-xl bg-ink/5 text-ink transition-colors hover:bg-coral hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            className="ios-btn-glass flex h-9 w-9 items-center justify-center rounded-full text-white transition-all hover:bg-white/20 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
             aria-label="العودة لصندوق الرسائل"
           >
             <span aria-hidden="true">→</span>
@@ -221,18 +221,19 @@ export function PrivateChat({
 
           <Link
             href={`/profile/${otherUser.id}`}
-            className="group flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            className="group flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           >
             <Avatar
               src={otherUser.avatar_url}
               name={otherUser.nickname}
               size="sm"
-              fallbackClassName="font-bold text-ink/40"
+              frameClassName="border border-white/15 bg-[#2C2C2E]"
+              fallbackClassName="font-bold text-white/60"
             />
 
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-ink transition-colors group-hover:text-coral sm:text-base">
+                <span className="text-sm font-bold text-white transition-colors group-hover:text-[#409CFF] sm:text-base">
                   {otherUser.nickname}
                 </span>
                 <GenderBadge gender={otherUser.gender} showText={false} />
@@ -252,13 +253,13 @@ export function PrivateChat({
             targetLabel={otherUser.nickname}
             triggerButtonText=""
             triggerLabel="الإبلاغ عن المستخدم"
-            buttonClassName="rounded-xl border border-ink/15 bg-white p-2 text-xs text-ink/60 transition-colors hover:border-red-200 hover:text-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            buttonClassName="ios-btn-glass rounded-full p-2 text-xs text-white/70 transition-all hover:border-[#FF453A]/50 hover:text-[#FF453A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           />
 
           <BlockButton
             targetUserId={otherUser.id}
             targetNickname={otherUser.nickname}
-            buttonClassName="rounded-xl border border-ink/15 bg-white px-2.5 py-1.5 text-xs font-semibold text-ink/70 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            buttonClassName="ios-btn-glass rounded-full px-3 py-1.5 text-xs font-semibold text-white/80 transition-all hover:border-[#FF453A]/50 hover:bg-[#FF453A]/15 hover:text-[#FF6961] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           />
 
           <button
@@ -266,10 +267,10 @@ export function PrivateChat({
             onClick={handleToggleMute}
             aria-pressed={isMuted}
             title={isMuted ? "إلغاء كتم المحادثة" : "كتم الإشعارات"}
-            className={`rounded-xl border px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral ${
+            className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF] ${
               isMuted
-                ? "border-amber-300 bg-amber-50 text-amber-800"
-                : "border-ink/15 bg-white text-ink/70 hover:bg-ink/5"
+                ? "border-[#FF9F0A]/40 bg-[#FF9F0A]/20 text-[#FFD080]"
+                : "ios-btn-glass text-white/80"
             }`}
           >
             <span aria-hidden="true">{isMuted ? "🔕" : "🔔"}</span>{" "}
@@ -279,9 +280,9 @@ export function PrivateChat({
       </header>
 
       {/* Messages Stream */}
-      <div className="flex flex-1 flex-col space-y-3.5 overflow-y-auto p-4 sm:p-6">
+      <div className="flex flex-1 flex-col space-y-3 overflow-y-auto p-4 sm:p-6">
         {messages.length === 0 ? (
-          <div className="my-auto text-center text-sm text-ink/50">
+          <div className="my-auto text-center text-sm text-white/55">
             <div aria-hidden="true" className="mb-2 text-3xl">
               👋
             </div>
@@ -297,26 +298,24 @@ export function PrivateChat({
                 className={`flex flex-col ${isMe ? "items-end" : "items-start"}`}
               >
                 <div
-                  className={`max-w-[85%] break-words rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-sm sm:max-w-[70%] ${
+                  className={`max-w-[85%] break-words rounded-[22px] px-4 py-2.5 text-sm leading-relaxed sm:max-w-[70%] ${
                     isMe
-                      ? // Own message: the bubble hugs the inline-end side.
-                        "rounded-se-none bg-coral text-white"
-                      : // Incoming message: the bubble hugs the inline-start side.
-                        "rounded-ss-none border border-ink/10 bg-white text-ink"
+                      ? "ios-bubble-me rounded-se-[6px]"
+                      : "ios-bubble-other rounded-ss-[6px]"
                   }`}
                 >
                   {msg.content}
                 </div>
 
                 {/* Meta info: Time and Read Receipt */}
-                <div className="mt-1 flex items-center gap-1.5 px-1 text-[11px] text-ink/50">
+                <div className="mt-1 flex items-center gap-1.5 px-1.5 text-[11px] text-white/45">
                   <span>{formatTime(msg.created_at)}</span>
                   {isMe && (
                     <span
                       title={msg.is_read ? "تمت القراءة" : "تم الإرسال"}
                       aria-label={msg.is_read ? "تمت القراءة" : "تم الإرسال"}
                       className={`font-mono text-xs font-bold ${
-                        msg.is_read ? "text-coral" : "text-ink/40"
+                        msg.is_read ? "text-[#409CFF]" : "text-white/40"
                       }`}
                     >
                       {msg.is_read ? "✓✓" : "✓"}
@@ -335,22 +334,22 @@ export function PrivateChat({
         <div
           role="alert"
           aria-live="assertive"
-          className="flex items-center justify-between border-t border-red-200 bg-red-50 px-4 py-2.5 text-xs text-red-700"
+          className="flex items-center justify-between border-t border-[#FF453A]/35 bg-[#FF453A]/15 backdrop-blur-xl px-4 py-2.5 text-xs text-[#FF9B95]"
         >
           <span>{error}</span>
           <button
             type="button"
             onClick={() => setError(null)}
             aria-label="إغلاق رسالة الخطأ"
-            className="ms-2 font-bold text-red-500 transition-colors hover:text-red-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+            className="ms-2 font-bold text-[#FF6961] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
           >
             <span aria-hidden="true">✕</span>
           </button>
         </div>
       )}
 
-      {/* Input Bar - Substack Style */}
-      <footer className="shrink-0 border-t border-[#20454E] bg-[#0E252D] p-2 sm:p-3 pb-safe">
+      {/* iOS 27 Liquid Glass Composer Footer */}
+      <footer className="ios-glass-bar shrink-0 border-t p-2.5 sm:p-3">
         <form onSubmit={handleSendMessage} className="mx-auto flex max-w-4xl items-center gap-2">
           {/* User's Avatar */}
           <div className="shrink-0">
@@ -358,12 +357,12 @@ export function PrivateChat({
               src={currentUser?.avatar_url}
               name={currentUser?.nickname || "أنا"}
               size="sm"
-              frameClassName="border border-[#20454E] bg-[#16353D]"
+              frameClassName="border border-white/15 bg-[#2C2C2E]"
             />
           </div>
 
-          {/* Substack-style Pill Input with Inner Circular Send Arrow */}
-          <div className="relative flex flex-1 items-center rounded-full border border-[#20454E] bg-[#16353D] ps-3.5 pe-1.5 py-1 focus-within:border-coral focus-within:ring-1 focus-within:ring-coral transition-colors">
+          {/* iOS 27 Liquid Glass Capsule Input with Inner Send Button */}
+          <div className="relative flex flex-1 items-center rounded-full border border-white/[0.14] bg-[#2C2C2E]/80 ps-4 pe-1.5 py-1 backdrop-blur-xl focus-within:border-[#0A84FF] focus-within:ring-2 focus-within:ring-[#0A84FF]/25 transition-all">
             <label htmlFor="private-message-input" className="sr-only">
               اكتب رسالة
             </label>
@@ -374,24 +373,24 @@ export function PrivateChat({
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               disabled={isSending}
-              placeholder="اكتب رسالة..."
+              placeholder="رسالة iMessage..."
               maxLength={5000}
-              className="flex-1 bg-transparent py-1.5 text-sm text-[#FFF7EF] placeholder:text-[#9CB3B8]/60 focus:outline-none min-w-0"
+              className="flex-1 bg-transparent py-1.5 text-sm text-white placeholder:text-white/40 focus:outline-none min-w-0"
             />
 
-            {/* Circular Send Arrow Inside Pill */}
+            {/* Circular iOS Blue Send Button Inside Pill */}
             <button
               type="submit"
               disabled={isSending || !inputText.trim()}
               aria-label="إرسال"
-              className="inline-flex h-8 w-8 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full bg-coral text-white shadow-sm transition-all hover:bg-coral-hover active:scale-95 disabled:opacity-20 disabled:pointer-events-none"
+              className="ios-btn-primary inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all active:scale-90 disabled:opacity-25 disabled:pointer-events-none"
             >
               <IconSend size={15} />
             </button>
           </div>
 
           {/* Outer Icons */}
-          <div className="flex items-center gap-0.5 sm:gap-1 text-[#9CB3B8] shrink-0">
+          <div className="flex items-center gap-1 text-white/60 shrink-0">
             <button
               type="button"
               onClick={() => {
@@ -400,7 +399,7 @@ export function PrivateChat({
               }}
               title="رموز تعبيرية"
               aria-label="رموز تعبيرية"
-              className="rounded-full p-2 transition-colors hover:bg-white/10 hover:text-white"
+              className="rounded-full p-2 transition-colors hover:bg-white/10 hover:text-white active:scale-95"
             >
               <IconSmile size={20} />
             </button>
@@ -408,16 +407,16 @@ export function PrivateChat({
         </form>
       </footer>
 
-      {/* Substack-style Bottom Navigation Bar */}
+      {/* iOS 27 Translucent Bottom Bar */}
       <nav
         aria-label="شريط التنقل السفلي"
-        className="shrink-0 border-t border-[#20454E]/70 bg-[#0A1B20] px-3 py-1 sm:py-1.5 pb-safe"
+        className="shrink-0 border-t border-white/[0.08] bg-black/85 backdrop-blur-2xl px-3 py-1.5 pb-safe"
       >
         <div className="mx-auto flex max-w-md items-center justify-around">
           <Link
             href="/"
             title="الرئيسية"
-            className="flex flex-col items-center justify-center p-2 text-white/50 transition-colors hover:text-white"
+            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
           >
             <IconHome size={22} />
           </Link>
@@ -425,7 +424,7 @@ export function PrivateChat({
           <Link
             href="/rooms/main"
             title="الدردشة الجماعية"
-            className="flex flex-col items-center justify-center p-2 text-white/50 transition-colors hover:text-white"
+            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
           >
             <IconMessages size={22} />
           </Link>
@@ -433,7 +432,7 @@ export function PrivateChat({
           <Link
             href="/discover"
             title="الأعضاء"
-            className="flex flex-col items-center justify-center p-2 text-white/50 transition-colors hover:text-white"
+            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
           >
             <IconUsers size={22} />
           </Link>
@@ -441,15 +440,15 @@ export function PrivateChat({
           <Link
             href="/messages"
             title="الرسائل الخاصة"
-            className="flex flex-col items-center justify-center p-2 text-coral transition-colors"
+            className="flex flex-col items-center justify-center rounded-full bg-white/[0.12] px-3.5 py-2 text-[#0A84FF] transition-colors"
           >
-            <IconDirectMessage size={22} className="text-coral" />
+            <IconDirectMessage size={22} className="text-[#0A84FF]" />
           </Link>
 
           <Link
             href="/settings"
             title="إعداداتي"
-            className="flex flex-col items-center justify-center p-2 text-white/50 transition-colors hover:text-white"
+            className="flex flex-col items-center justify-center rounded-full p-2 text-white/50 transition-colors hover:text-white"
           >
             <IconSettings size={22} />
           </Link>

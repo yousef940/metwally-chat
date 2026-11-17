@@ -17,7 +17,7 @@ export function BackLink({ href, children, className = "" }: BackLinkProps) {
   return (
     <Link
       href={href}
-      className={`inline-flex items-center gap-1 text-xs font-semibold text-coral transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral ${className}`}
+      className={`ios-btn-glass inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold text-[#409CFF] transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF] ${className}`}
     >
       <span aria-hidden="true">→</span>
       {children}

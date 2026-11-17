@@ -68,10 +68,10 @@ export function BlockButton({
         disabled={isPending}
         className={
           buttonClassName ||
-          `inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-xs font-semibold transition-colors ${
+          `inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold backdrop-blur-xl transition-all active:scale-95 ${
             isBlocked
-              ? "border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100"
-              : "border-red-200 bg-red-50/50 text-red-700 hover:bg-red-100"
+              ? "border-[#30D158]/35 bg-[#30D158]/15 text-[#7AE897] hover:bg-[#30D158]/25"
+              : "border-[#FF453A]/35 bg-[#FF453A]/15 text-[#FF8982] hover:bg-[#FF453A]/25"
           } disabled:opacity-50`
         }
       >
@@ -93,13 +93,13 @@ export function BlockButton({
       >
         <div
           aria-hidden="true"
-          className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-red-100 text-2xl text-red-600"
+          className="mt-3 mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#FF453A]/30 bg-[#FF453A]/15 text-2xl text-[#FF453A]"
         >
           🚫
         </div>
 
-        <p className="text-xs leading-relaxed text-ink/70">
-          عند تأكيد الحظر، لن يتمكن <strong>{targetNickname}</strong> من إرسال رسائل إليك أو رؤية ملفك الشخصي، ولن تظهر رسائله في الغرف العامة أو المحادثات الخاصة.
+        <p className="text-xs leading-relaxed text-white/70">
+          عند تأكيد الحظر، لن يتمكن <strong className="text-white">{targetNickname}</strong> من إرسال رسائل إليك أو رؤية ملفك الشخصي، ولن تظهر رسائله في الغرف العامة أو المحادثات الخاصة.
         </p>
 
         {error && (
@@ -114,7 +114,7 @@ export function BlockButton({
           <button
             type="button"
             onClick={() => setShowConfirm(false)}
-            className="rounded-xl border border-ink/15 px-4 py-2 text-xs font-semibold text-ink/70 transition-colors hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            className="ios-btn-glass rounded-full px-4 py-2 text-xs font-semibold text-white/80 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
           >
             تراجع
           </button>
@@ -122,7 +122,7 @@ export function BlockButton({
             type="button"
             onClick={confirmBlock}
             disabled={isPending}
-            className="rounded-xl bg-red-600 px-5 py-2 text-xs font-bold text-white shadow-sm transition-colors hover:bg-red-700 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+            className="rounded-full bg-[#FF453A] px-5 py-2 text-xs font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.28)] transition-all hover:bg-[#FF6961] active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
           >
             {isPending ? "جاري الحظر..." : "نعم، حظر المستخدم"}
           </button>

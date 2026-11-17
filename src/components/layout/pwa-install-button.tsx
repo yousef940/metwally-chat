@@ -75,15 +75,15 @@ export function PwaInstallButton({
 
   if (variant === "banner") {
     return (
-      <div className={`rounded-2xl border border-coral/30 bg-gradient-to-r from-coral/15 to-[#16353D] p-4 text-center ${className}`}>
+      <div className={`ios-glass rounded-[24px] p-4 text-center ${className}`}>
         <div className="flex flex-col items-center justify-between gap-3 sm:flex-row sm:text-start">
-          <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-coral text-white shadow-md">
+          <div className="flex items-center gap-3.5">
+            <span className="ios-btn-primary flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px]">
               <IconDeviceMobile size={22} className="text-white" />
             </span>
             <div>
               <h3 className="text-sm font-bold text-white">تثبيت تطبيق عائلة الحاج متولي</h3>
-              <p className="text-xs text-[#9CB3B8]">
+              <p className="text-xs text-white/60 mt-0.5">
                 نزّل التطبيق على شاشة هاتفك الرئيسية لتصل للشات والمحادثات بضغطة واحدة!
               </p>
             </div>
@@ -91,7 +91,7 @@ export function PwaInstallButton({
           <button
             type="button"
             onClick={handleInstallClick}
-            className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-coral px-4 py-2.5 text-xs font-bold text-white shadow-md transition-all hover:bg-coral-hover active:scale-95"
+            className="ios-btn-primary inline-flex shrink-0 items-center gap-2 rounded-full px-4.5 py-2.5 text-xs font-bold transition-all active:scale-95"
           >
             <IconDownload size={16} className="text-white" />
             <span>تثبيت التطبيق الآن</span>
@@ -99,15 +99,15 @@ export function PwaInstallButton({
         </div>
 
         {showIosGuide && (
-          <div className="mt-3 rounded-xl border border-white/10 bg-[#0E252D] p-3 text-start text-xs text-white/90">
-            <p className="font-semibold text-coral">طريقة التثبيت على الآيفون (Safari):</p>
-            <p className="mt-1 text-white/80">
+          <div className="mt-3 rounded-2xl border border-white/[0.10] bg-black/45 p-3.5 text-start text-xs text-white/90">
+            <p className="font-semibold text-[#409CFF]">طريقة التثبيت على الآيفون (Safari):</p>
+            <p className="mt-1 text-white/75">
               اضغط على زر المشاركة أسفل الشاشة، ثم اختر <span className="font-bold text-white">إضافة إلى الشاشة الرئيسية (Add to Home Screen)</span>.
             </p>
             <button
               type="button"
               onClick={() => setShowIosGuide(false)}
-              className="mt-2 text-[11px] text-white/60 underline hover:text-white"
+              className="mt-2 text-[11px] text-white/55 underline hover:text-white"
             >
               فهمت، إغلاق
             </button>
@@ -123,7 +123,7 @@ export function PwaInstallButton({
         type="button"
         onClick={handleInstallClick}
         aria-label="تثبيت التطبيق على جهازك"
-        className={`inline-flex items-center gap-1.5 rounded-xl border border-coral/40 bg-coral/15 px-3 py-1.5 text-xs font-bold text-coral transition-colors hover:bg-coral hover:text-white focus-visible:outline-2 focus-visible:outline-coral ${className}`}
+        className={`inline-flex items-center gap-1.5 rounded-full border border-[#0A84FF]/35 bg-[#0A84FF]/15 px-3.5 py-1.5 text-xs font-bold text-[#409CFF] backdrop-blur-xl transition-all hover:bg-[#0A84FF] hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-[#0A84FF] ${className}`}
       >
         <span>📱</span>
         <span>تثبيت التطبيق</span>
@@ -133,20 +133,21 @@ export function PwaInstallButton({
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-fadeIn"
         >
-          <div className="w-full max-w-sm rounded-2xl border border-[#20454E] bg-[#122A31] p-6 text-center shadow-2xl">
-            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-coral/20 text-2xl">
+          <div className="ios-glass-strong w-full max-w-sm rounded-[30px] p-6 text-center animate-slideUp">
+            <div className="mx-auto mb-3 ios-grabber" aria-hidden="true" />
+            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#0A84FF]/20 border border-[#0A84FF]/30 text-2xl">
               📲
             </div>
             <h3 className="text-base font-bold text-white">تثبيت التطبيق على هاتفك</h3>
-            <p className="mt-2 text-xs leading-relaxed text-[#9CB3B8]">
+            <p className="mt-2 text-xs leading-relaxed text-white/65">
               لتثبيت التطبيق على شاشة هاتفك: اضغط على زر المشاركة في المتصفح ثم اختر <span className="font-bold text-white">إضافة إلى الشاشة الرئيسية ➕</span>.
             </p>
             <button
               type="button"
               onClick={() => setShowIosGuide(false)}
-              className="mt-5 w-full rounded-xl bg-coral py-2 text-xs font-bold text-white hover:bg-coral-hover"
+              className="ios-btn-primary mt-5 w-full rounded-full py-2.5 text-xs font-bold active:scale-95"
             >
               تم
             </button>

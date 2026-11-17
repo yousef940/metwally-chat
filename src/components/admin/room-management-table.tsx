@@ -100,13 +100,13 @@ export function RoomManagementTable({ initialRooms }: RoomManagementTableProps) 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-bold text-ink/70">
+        <span className="text-xs font-bold text-white/70">
           إجمالي الغرف: {rooms.length}
         </span>
         <button
           type="button"
           onClick={openCreateModal}
-          className="rounded-xl bg-coral px-4 py-2 text-xs font-bold text-white shadow-xs transition-colors hover:bg-coral-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+          className="ios-btn-primary rounded-full px-4 py-2 text-xs font-bold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
         >
           + إنشاء غرفة جديدة
         </button>
@@ -124,10 +124,10 @@ export function RoomManagementTable({ initialRooms }: RoomManagementTableProps) 
       )}
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-3xl border border-ink/10 bg-white shadow-xs">
+      <div className="ios-card overflow-x-auto rounded-[28px]">
         <table className="w-full text-start text-xs">
           <caption className="sr-only">غرف المحادثة العامة في منصة صحبة</caption>
-          <thead className="border-b border-ink/10 bg-cream/40 font-bold text-ink/70">
+          <thead className="border-b border-white/[0.10] bg-white/[0.04] font-bold text-white/65">
             <tr>
               <th scope="col" className="px-5 py-3 text-start">
                 اسم الغرفة
@@ -146,29 +146,29 @@ export function RoomManagementTable({ initialRooms }: RoomManagementTableProps) 
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-ink/5">
+          <tbody className="divide-y divide-white/[0.08]">
             {rooms.map((room) => (
-              <tr key={room.id} className="transition-colors hover:bg-cream/20">
+              <tr key={room.id} className="transition-colors hover:bg-white/[0.04]">
                 <td className="px-5 py-4">
-                  <p className="font-bold text-ink">{room.name}</p>
-                  <p className="line-clamp-1 text-[11px] text-ink/50">
+                  <p className="font-bold text-white">{room.name}</p>
+                  <p className="line-clamp-1 text-[11px] text-white/50">
                     {room.description}
                   </p>
                 </td>
 
-                <td className="px-5 py-4 font-mono text-ink/70">
+                <td className="px-5 py-4 font-mono text-white/70">
                   /rooms/{room.slug}
                 </td>
 
                 <td className="px-5 py-4">
                   <div className="flex flex-wrap items-center gap-1.5">
                     {room.country && (
-                      <span className="rounded-md bg-cream px-2 py-0.5 text-[11px] font-semibold text-ink">
+                      <span className="rounded-full border border-white/[0.10] bg-white/[0.06] px-2.5 py-0.5 text-[11px] font-semibold text-white/90">
                         {room.country}
                       </span>
                     )}
                     {room.topic && (
-                      <span className="rounded-md bg-coral/10 px-2 py-0.5 text-[11px] font-semibold text-coral">
+                      <span className="rounded-full border border-[#0A84FF]/30 bg-[#0A84FF]/15 px-2.5 py-0.5 text-[11px] font-semibold text-[#409CFF]">
                         {room.topic}
                       </span>
                     )}
@@ -177,10 +177,10 @@ export function RoomManagementTable({ initialRooms }: RoomManagementTableProps) 
 
                 <td className="px-5 py-4">
                   <span
-                    className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${
+                    className={`rounded-full border px-2.5 py-0.5 text-[11px] font-bold ${
                       room.is_active
-                        ? "bg-emerald-100 text-emerald-800"
-                        : "bg-gray-100 text-gray-600"
+                        ? "border-[#30D158]/35 bg-[#30D158]/15 text-[#7AE897]"
+                        : "border-white/15 bg-white/[0.08] text-white/55"
                     }`}
                   >
                     {room.is_active ? "نشطة" : "معطلة"}
@@ -193,10 +193,10 @@ export function RoomManagementTable({ initialRooms }: RoomManagementTableProps) 
                       type="button"
                       disabled={isPending}
                       onClick={() => handleToggleActive(room.id, room.is_active)}
-                      className={`rounded-xl border px-3 py-1.5 text-xs font-semibold transition-colors ${
+                      className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-all active:scale-95 ${
                         room.is_active
-                          ? "border-ink/15 text-ink/70 hover:bg-cream"
-                          : "border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100"
+                          ? "ios-btn-glass text-white/75"
+                          : "border-[#30D158]/35 bg-[#30D158]/15 text-[#7AE897] hover:bg-[#30D158]/25"
                       }`}
                     >
                       {room.is_active ? "إيقاف" : "تفعيل"}
@@ -205,7 +205,7 @@ export function RoomManagementTable({ initialRooms }: RoomManagementTableProps) 
                     <button
                       type="button"
                       onClick={() => openEditModal(room)}
-                      className="rounded-xl border border-coral/30 px-3 py-1.5 text-xs font-semibold text-coral transition-colors hover:bg-coral/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                      className="rounded-full border border-[#0A84FF]/35 bg-[#0A84FF]/15 px-3.5 py-1.5 text-xs font-semibold text-[#409CFF] transition-all hover:bg-[#0A84FF]/25 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                     >
                       تعديل
                     </button>

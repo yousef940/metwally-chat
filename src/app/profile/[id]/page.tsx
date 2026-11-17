@@ -57,21 +57,21 @@ export default async function PublicProfilePage({
 
   if (!profile) {
     return (
-      <div className="flex min-h-screen flex-col justify-between bg-[#0B1E24] text-[#FFF7EF]">
+      <div className="flex min-h-screen flex-col justify-between text-white">
         <AppHeader user={user} profile={currentUserProfile} />
         <main className="mx-auto max-w-md px-4 py-16 text-center">
-          <div className="rounded-3xl border border-[#20454E] bg-[#122A31] p-8 shadow-sm">
+          <div className="ios-glass rounded-[30px] p-8">
             <span aria-hidden="true" className="text-4xl">
               🔒
             </span>
             <h1 className="mt-3 text-xl font-bold text-white">الملف الشخصي غير متاح</h1>
-            <p className="mt-2 text-sm text-[#9CB3B8]">
+            <p className="mt-2 text-sm text-white/60">
               عذراً، هذا الحساب غير متاح أو لا يمكن عرضه بسبب قيود الخصوصية أو الحظر.
             </p>
             <div className="mt-6">
               <Link
                 href="/discover"
-                className="inline-flex rounded-xl bg-coral px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-coral-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                className="ios-btn-primary inline-flex rounded-full px-6 py-2.5 text-sm font-semibold transition-all active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               >
                 تصفح قائمة الأعضاء
               </Link>
@@ -116,11 +116,11 @@ export default async function PublicProfilePage({
   const isPending = existingReq?.status === "pending";
 
   return (
-    <div className="flex min-h-screen flex-col justify-between bg-[#0B1E24] text-[#FFF7EF]">
+    <div className="flex min-h-screen flex-col justify-between text-white">
       <div>
         <AppHeader user={user} profile={currentUserProfile} />
 
-        <main className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-10 pb-24 md:pb-10">
+        <main className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-10 pb-28 md:pb-10">
           {/* Top Navigation Bar */}
           <div className="mb-6 flex items-center justify-between gap-3">
             <BackLink href="/discover">
@@ -133,7 +133,7 @@ export default async function PublicProfilePage({
                 targetId={profile.id}
                 targetLabel={profile.nickname}
                 triggerButtonText="إبلاغ"
-                buttonClassName="rounded-xl border border-[#20454E] bg-[#16353D] px-3 py-1.5 text-xs font-semibold text-white/70 transition-colors hover:border-red-400 hover:text-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                buttonClassName="ios-btn-glass rounded-full px-3.5 py-2 text-xs font-semibold text-white/75 transition-all hover:border-[#FF453A]/50 hover:text-[#FF453A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               />
               <BlockButton
                 targetUserId={profile.id}
@@ -143,10 +143,10 @@ export default async function PublicProfilePage({
             </div>
           </div>
 
-          {/* Main Profile Card */}
-          <div className="overflow-hidden rounded-3xl border border-[#20454E] bg-[#122A31] shadow-lg">
-            {/* Cover Banner */}
-            <div className="h-28 bg-gradient-to-r from-coral/25 via-[#16353D] to-coral/15" />
+          {/* Main iOS 27 Glass Profile Card */}
+          <div className="ios-glass overflow-hidden rounded-[30px]">
+            {/* Sculptural iOS 27 Cover Banner */}
+            <div className="h-32 bg-gradient-to-br from-[#0A84FF]/35 via-[#2B2F3D]/70 to-[#E8D5B5]/25" />
 
             <div className="px-6 pb-8 pt-0 sm:px-8">
               {/* Avatar & Badges */}
@@ -155,15 +155,15 @@ export default async function PublicProfilePage({
                   src={profile.avatar_url}
                   name={profile.nickname}
                   size="2xl"
-                  frameClassName="border-4 border-[#122A31] bg-[#16353D] shadow-md"
-                  fallbackClassName="text-4xl text-coral"
+                  frameClassName="border-4 border-[#1C1C1E] bg-[#2C2C2E] shadow-xl"
+                  fallbackClassName="text-4xl text-[#409CFF]"
                   fallback="👤"
                 />
 
                 <div className="flex items-center gap-2">
                   <GenderBadge gender={profile.gender} />
                   {profile.age && (
-                    <span className="rounded-lg border border-[#20454E] bg-[#16353D] px-3 py-1 text-xs font-bold text-coral">
+                    <span className="rounded-full border border-white/[0.12] bg-white/[0.08] px-3 py-1 text-xs font-semibold text-[#E8D5B5]">
                       السن: {profile.age} سنة
                     </span>
                   )}
@@ -182,9 +182,9 @@ export default async function PublicProfilePage({
 
               {/* Bio */}
               {profile.bio && (
-                <div className="mt-6 border-t border-[#20454E] pt-6">
-                  <h2 className="mb-2 text-sm font-bold text-white">نبذة تعريفية</h2>
-                  <p className="whitespace-pre-line text-sm leading-relaxed text-[#9CB3B8]">
+                <div className="mt-6 border-t border-white/[0.09] pt-6">
+                  <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-white/50">نبذة تعريفية</h2>
+                  <p className="whitespace-pre-line text-sm leading-relaxed text-white/80">
                     {profile.bio}
                   </p>
                 </div>
@@ -192,15 +192,15 @@ export default async function PublicProfilePage({
 
               {/* Interests */}
               {profile.interests && profile.interests.length > 0 && (
-                <div className="mt-6 border-t border-[#20454E] pt-6">
-                  <h2 className="mb-3 text-sm font-bold text-white">
+                <div className="mt-6 border-t border-white/[0.09] pt-6">
+                  <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-white/50">
                     الاهتمامات والهوايات
                   </h2>
                   <ul className="flex flex-wrap gap-2">
                     {profile.interests.map((interest: string) => (
                       <li
                         key={interest}
-                        className="rounded-xl border border-[#20454E] bg-[#16353D] px-3 py-1 text-xs font-medium text-white/90"
+                        className="rounded-full border border-white/[0.10] bg-white/[0.06] px-3.5 py-1 text-xs font-medium text-white/90"
                       >
                         #{interest}
                       </li>
@@ -210,7 +210,7 @@ export default async function PublicProfilePage({
               )}
 
               {/* Interaction Actions */}
-              <div className="mt-8 flex flex-wrap gap-3 border-t border-[#20454E] pt-6">
+              <div className="mt-8 flex flex-wrap gap-3 border-t border-white/[0.09] pt-6">
                 <SendRequestModal
                   receiverId={profile.id}
                   receiverNickname={profile.nickname}

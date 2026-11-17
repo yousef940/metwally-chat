@@ -149,11 +149,11 @@ export function RegisterForm() {
       </div>
 
       <div className="pt-2 text-center">
-        <p className="text-sm text-[#9CB3B8]">
+        <p className="text-sm text-white/60">
           لديك حساب بالفعل؟{" "}
           <Link
             href="/login"
-            className="font-semibold text-coral hover:underline focus-visible:outline-2 focus-visible:outline-coral"
+            className="font-semibold text-[#409CFF] hover:underline focus-visible:outline-2 focus-visible:outline-[#0A84FF]"
           >
             تسجيل الدخول
           </Link>

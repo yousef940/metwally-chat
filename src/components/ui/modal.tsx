@@ -122,7 +122,7 @@ export function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/65 p-3 sm:p-4 backdrop-blur-md animate-fadeIn"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
@@ -134,17 +134,20 @@ export function Modal({
         aria-labelledby={titleId}
         aria-describedby={subtitle ? subtitleId : undefined}
         tabIndex={-1}
-        className={`w-full max-w-md rounded-3xl border border-ink/10 bg-white p-6 shadow-2xl outline-none ${panelClassName}`}
+        className={`ios-glass-strong w-full max-w-md rounded-[30px] p-5 sm:p-6 text-white outline-none animate-slideUp ${panelClassName}`}
       >
-        <div className="flex items-center justify-between gap-3 border-b border-ink/10 pb-3">
-          <div className="flex items-center gap-2">
+        {/* iOS 27 Sheet Grabber */}
+        <div className="mx-auto mb-3.5 ios-grabber" aria-hidden="true" />
+
+        <div className="flex items-center justify-between gap-3 border-b border-white/[0.10] pb-3.5">
+          <div className="flex items-center gap-2.5">
             {icon}
             <div>
               <h2 id={titleId} className={titleClassName}>
                 {title}
               </h2>
               {subtitle && (
-                <p id={subtitleId} className="text-xs text-ink/60">
+                <p id={subtitleId} className="text-xs text-white/60 mt-0.5">
                   {subtitle}
                 </p>
               )}
@@ -156,9 +159,9 @@ export function Modal({
               type="button"
               onClick={onClose}
               aria-label={closeLabel}
-              className="rounded-lg p-1.5 text-ink/40 transition-colors hover:bg-cream hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-white/[0.10] text-white/70 transition-all hover:bg-white/[0.18] hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
             >
-              <span aria-hidden="true">✕</span>
+              <span aria-hidden="true" className="text-xs">✕</span>
             </button>
           )}
         </div>

@@ -83,17 +83,17 @@ export function ReportCard({ report }: ReportCardProps) {
   };
 
   return (
-    <div className="space-y-4 rounded-2xl border border-ink/10 bg-white p-5 shadow-xs sm:p-6">
+    <div className="ios-card space-y-4 rounded-[24px] p-5 sm:p-6">
       {/* Top Header: Badge, Reason, and Date */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink/5 pb-3">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.08] pb-3">
         <div className="flex items-center gap-2">
           <span
-            className={`rounded-md px-2.5 py-0.5 text-xs font-bold ${
+            className={`rounded-full border px-2.5 py-0.5 text-xs font-bold ${
               report.targetType === "user"
-                ? "bg-purple-100 text-purple-800"
+                ? "border-[#BF5AF2]/35 bg-[#BF5AF2]/15 text-[#DA8FFF]"
                 : report.targetType === "message"
-                ? "bg-blue-100 text-blue-800"
-                : "bg-amber-100 text-amber-800"
+                ? "border-[#0A84FF]/35 bg-[#0A84FF]/15 text-[#64D2FF]"
+                : "border-[#FF9F0A]/35 bg-[#FF9F0A]/15 text-[#FFD080]"
             }`}
           >
             {report.targetType === "user"
@@ -104,14 +104,14 @@ export function ReportCard({ report }: ReportCardProps) {
           </span>
 
           <span
-            className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${
+            className={`rounded-full border px-2.5 py-0.5 text-[11px] font-bold ${
               report.status === "pending"
-                ? "bg-red-100 text-red-700"
+                ? "border-[#FF453A]/35 bg-[#FF453A]/15 text-[#FF8982]"
                 : report.status === "investigating"
-                ? "bg-amber-100 text-amber-700"
+                ? "border-[#FF9F0A]/35 bg-[#FF9F0A]/15 text-[#FFD080]"
                 : report.status === "resolved"
-                ? "bg-emerald-100 text-emerald-700"
-                : "bg-gray-100 text-gray-700"
+                ? "border-[#30D158]/35 bg-[#30D158]/15 text-[#7AE897]"
+                : "border-white/15 bg-white/[0.08] text-white/65"
             }`}
           >
             {report.status === "pending"
@@ -124,7 +124,7 @@ export function ReportCard({ report }: ReportCardProps) {
           </span>
         </div>
 
-        <span className="text-[11px] text-ink/50">
+        <span className="text-[11px] text-white/45">
           {new Date(report.createdAt).toLocaleString("ar-EG")}
         </span>
       </div>
@@ -132,30 +132,30 @@ export function ReportCard({ report }: ReportCardProps) {
       {/* Report Info */}
       <div className="space-y-2 text-xs">
         <div>
-          <span className="font-bold text-ink/70">سبب البلاغ: </span>
-          <span className="text-sm font-extrabold text-red-600">
+          <span className="font-bold text-white/60">سبب البلاغ: </span>
+          <span className="text-sm font-extrabold text-[#FF6961]">
             {report.reason}
           </span>
         </div>
 
         <div>
-          <span className="font-bold text-ink/70">المُبلِغ: </span>
-          <span className="font-semibold text-ink">{report.reporterNickname}</span>
+          <span className="font-bold text-white/60">المُبلِغ: </span>
+          <span className="font-semibold text-white">{report.reporterNickname}</span>
         </div>
 
         {report.targetPreview && (
-          <div className="rounded-xl border border-ink/5 bg-[#F8F9FA] p-3">
-            <span className="mb-1 block font-bold text-ink/70">
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.05] p-3.5">
+            <span className="mb-1 block font-bold text-white/60">
               الهدف المبلغ عنه:
             </span>
-            <p className="font-semibold text-ink">{report.targetPreview.title}</p>
+            <p className="font-semibold text-white">{report.targetPreview.title}</p>
             {report.targetPreview.content && (
-              <p className="mt-1 italic text-ink/80">
+              <p className="mt-1 italic text-white/80">
                 &quot;{report.targetPreview.content}&quot;
               </p>
             )}
             {report.targetPreview.extra && (
-              <p className="mt-1 text-[11px] text-ink/50">
+              <p className="mt-1 text-[11px] text-white/45">
                 {report.targetPreview.extra}
               </p>
             )}
@@ -164,10 +164,10 @@ export function ReportCard({ report }: ReportCardProps) {
 
         {report.details && (
           <div>
-            <span className="mb-1 block font-bold text-ink/70">
+            <span className="mb-1 block font-bold text-white/60">
               تفاصيل إضافية من المبلغ:
             </span>
-            <p className="rounded-xl border border-amber-200/50 bg-amber-50/60 p-2.5 text-ink/80">
+            <p className="rounded-2xl border border-[#FF9F0A]/30 bg-[#FF9F0A]/12 p-3 text-white/85">
               {report.details}
             </p>
           </div>
@@ -187,7 +187,7 @@ export function ReportCard({ report }: ReportCardProps) {
       )}
 
       {/* Action Buttons */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-ink/5 pt-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.08] pt-3">
         {/* Status Transition buttons */}
         <div className="flex flex-wrap items-center gap-1.5">
           {report.status !== "investigating" && (
@@ -195,7 +195,7 @@ export function ReportCard({ report }: ReportCardProps) {
               type="button"
               disabled={isPending}
               onClick={() => handleStatusChange("investigating")}
-              className="rounded-xl border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs font-bold text-amber-800 transition-colors hover:bg-amber-100 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+              className="rounded-full border border-[#FF9F0A]/35 bg-[#FF9F0A]/15 px-3.5 py-1.5 text-xs font-bold text-[#FFD080] transition-all hover:bg-[#FF9F0A]/25 active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF9F0A]"
             >
               قيد التحقيق
             </button>
@@ -206,7 +206,7 @@ export function ReportCard({ report }: ReportCardProps) {
               type="button"
               disabled={isPending}
               onClick={() => handleStatusChange("resolved")}
-              className="rounded-xl border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-800 transition-colors hover:bg-emerald-100 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+              className="rounded-full border border-[#30D158]/35 bg-[#30D158]/15 px-3.5 py-1.5 text-xs font-bold text-[#7AE897] transition-all hover:bg-[#30D158]/25 active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#30D158]"
             >
               ✓ تم الحل
             </button>
@@ -217,7 +217,7 @@ export function ReportCard({ report }: ReportCardProps) {
               type="button"
               disabled={isPending}
               onClick={() => handleStatusChange("dismissed")}
-              className="rounded-xl border border-ink/15 bg-white px-3 py-1.5 text-xs font-semibold text-ink/60 transition-colors hover:bg-cream disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+              className="ios-btn-glass rounded-full px-3.5 py-1.5 text-xs font-semibold text-white/70 active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
             >
               تجاهل
             </button>
@@ -231,7 +231,7 @@ export function ReportCard({ report }: ReportCardProps) {
               type="button"
               disabled={isPending}
               onClick={handleDeleteMsg}
-              className="rounded-xl border border-red-300 bg-red-100 px-3 py-1.5 text-xs font-bold text-red-700 transition-colors hover:bg-red-200 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+              className="rounded-full border border-[#FF453A]/35 bg-[#FF453A]/15 px-3.5 py-1.5 text-xs font-bold text-[#FF8982] transition-all hover:bg-[#FF453A]/25 active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
             >
               🗑 حذف الرسالة
             </button>
@@ -241,7 +241,7 @@ export function ReportCard({ report }: ReportCardProps) {
             <button
               type="button"
               onClick={() => setShowBanModal(true)}
-              className="rounded-xl bg-red-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-xs transition-colors hover:bg-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+              className="rounded-full bg-[#FF453A] px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-all hover:bg-[#FF6961] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF453A]"
             >
               🚫 حظر الحساب
             </button>

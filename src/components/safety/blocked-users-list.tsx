@@ -36,32 +36,32 @@ export function BlockedUsersList({ initialUsers }: BlockedUsersListProps) {
       )}
 
       {users.length === 0 ? (
-        <div className="rounded-2xl border border-ink/10 bg-white/60 p-6 text-center text-xs text-ink/60">
+        <div className="rounded-2xl border border-white/[0.08] bg-white/[0.04] p-6 text-center text-xs text-white/55">
           قائمة الحظر فارغة. لم تقم بحظر أي مستخدم حتى الآن.
         </div>
       ) : (
-        <ul className="divide-y divide-ink/5 overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-sm">
+        <ul className="divide-y divide-white/[0.08] overflow-hidden rounded-2xl border border-white/[0.10] bg-white/[0.04]">
           {users.map((item) => (
             <li
               key={item.id}
-              className="flex items-center justify-between gap-3 p-4 transition-colors hover:bg-cream/30"
+              className="flex items-center justify-between gap-3 p-4 transition-colors hover:bg-white/[0.06]"
             >
               <div className="flex items-center gap-3">
                 <Avatar
                   src={item.avatarUrl}
                   name={item.nickname}
                   size="sm"
-                  fallbackClassName="text-sm font-bold text-coral"
+                  fallbackClassName="text-sm font-bold text-[#409CFF]"
                 />
 
                 <div>
                   <Link
                     href={`/profile/${item.blockedId}`}
-                    className="text-sm font-bold text-ink transition-colors hover:text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                    className="text-sm font-bold text-white transition-colors hover:text-[#409CFF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
                   >
                     {item.nickname}
                   </Link>
-                  <p className="text-[11px] text-ink/50">
+                  <p className="text-[11px] text-white/50">
                     تم الحظر: {new Date(item.blockedAt).toLocaleDateString("ar-EG")}
                   </p>
                 </div>
@@ -71,7 +71,7 @@ export function BlockedUsersList({ initialUsers }: BlockedUsersListProps) {
                 type="button"
                 disabled={isPending}
                 onClick={() => handleUnblock(item.blockedId)}
-                className="rounded-xl border border-ink/15 px-3 py-1.5 text-xs font-semibold text-ink/80 transition-colors hover:border-coral hover:bg-coral/10 hover:text-coral disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
+                className="ios-btn-glass rounded-full px-3.5 py-1.5 text-xs font-semibold text-white/85 transition-all hover:border-[#0A84FF]/50 hover:text-[#409CFF] active:scale-95 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A84FF]"
               >
                 إلغاء الحظر
               </button>

@@ -17,24 +17,25 @@ export interface ButtonStyleOptions {
 
 const VARIANT_STYLES: Record<ButtonVariant, string> = {
   primary:
-    "bg-coral text-white shadow-sm hover:bg-coral-hover focus-visible:outline-coral",
+    "ios-btn-primary text-white focus-visible:outline-[#0A84FF]",
   outline:
-    "border border-coral text-coral hover:bg-coral/10 focus-visible:outline-coral",
-  ghost: "text-ink hover:bg-ink/5 focus-visible:outline-ink",
+    "border border-[#0A84FF]/40 bg-[#0A84FF]/12 text-[#409CFF] backdrop-blur-xl hover:bg-[#0A84FF]/22 hover:border-[#0A84FF]/60 focus-visible:outline-[#0A84FF]",
+  ghost:
+    "text-white/80 hover:bg-white/10 hover:text-white focus-visible:outline-white/40",
   subtle:
-    "border border-ink/20 bg-white text-ink hover:bg-ink/5 focus-visible:outline-ink",
+    "ios-btn-glass text-white focus-visible:outline-white/40",
   danger:
-    "bg-red-600 text-white shadow-sm hover:bg-red-700 focus-visible:outline-red-600",
+    "bg-[#FF453A] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_6px_18px_-6px_rgba(255,69,58,0.5)] hover:bg-[#FF6961] focus-visible:outline-[#FF453A]",
 };
 
 const SIZE_STYLES: Record<ButtonSize, string> = {
-  sm: "px-3 py-1.5 text-xs",
-  md: "px-4 py-2 text-sm",
+  sm: "px-3.5 py-1.5 text-xs",
+  md: "px-4.5 py-2.5 text-sm",
   lg: "px-6 py-3.5 text-base",
 };
 
 const BASE_STYLES =
-  "inline-flex items-center justify-center rounded-xl font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center rounded-full font-semibold transition-all duration-200 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-45";
 
 /**
  * Builds the button class list so plain links and buttons share one visual

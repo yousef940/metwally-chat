@@ -157,14 +157,14 @@ export function BottomNav({ inline = false }: { inline?: boolean } = {}) {
 
   if (inline) {
     return (
-      <div className="block md:hidden shrink-0 bg-black/95 px-3 pt-1.5 pb-2.5 pb-safe">
+      <div className="block md:hidden shrink-0 bg-black px-2.5 pt-1 pb-[max(0.35rem,env(safe-area-inset-bottom))]">
         {capsule}
       </div>
     );
   }
 
   return (
-    <div className="pointer-events-none fixed bottom-0 inset-x-0 z-40 block md:hidden px-3 pb-3 pb-safe">
+    <div className="pointer-events-none fixed bottom-0 inset-x-0 z-40 block md:hidden px-2.5 pb-[max(0.4rem,env(safe-area-inset-bottom))]">
       {capsule}
     </div>
   );

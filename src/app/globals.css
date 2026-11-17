@@ -77,7 +77,7 @@ body {
   color: #FFFFFF;
   font-family: var(--font-alexandria), -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-overflow-scrolling: touch;
 }
 

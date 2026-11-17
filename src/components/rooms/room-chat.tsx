@@ -669,10 +669,10 @@ export function RoomChat({
   return (
     <div
       data-theme="dark"
-      className="flex h-[100dvh] flex-col text-white overflow-hidden"
+      className="fixed inset-0 flex h-[100dvh] w-full flex-col bg-black text-white overflow-hidden"
     >
-      {/* iOS 27 Liquid Glass Room Header — Consistent with AppHeader on Desktop & Compact on Mobile */}
-      <header className="ios-glass-bar flex items-center justify-between gap-2 border-b px-3 py-2 sm:px-6 sm:py-2.5 shrink-0 z-20">
+      {/* iOS 27 Liquid Glass Room Header — Permanently Fixed at Top */}
+      <header className="ios-glass-bar flex items-center justify-between gap-2 border-b px-3 py-2 sm:px-6 sm:py-2.5 shrink-0 z-30">
         {/* Brand, Desktop Nav Capsule & Room Info */}
         <div className="flex items-center gap-1.5 sm:gap-4 min-w-0 flex-1 overflow-hidden">
           <Link
@@ -929,7 +929,7 @@ export function RoomChat({
                       onTouchEnd={handleTouchEnd}
                       onContextMenu={(e) => handleContextMenu(msg, e)}
                       title="اضغط مطولاً للمزيد من الخيارات والتفاعلات"
-                      className={`min-w-0 max-w-full break-all [overflow-wrap:anywhere] rounded-[22px] px-4 py-2.5 text-sm leading-relaxed transition-all select-none cursor-pointer ${
+                      className={`min-w-0 max-w-full break-words [overflow-wrap:anywhere] rounded-[22px] px-4 py-2.5 text-sm leading-relaxed transition-all select-none cursor-pointer ${
                         isMe
                           ? "ios-bubble-me rounded-se-[6px]"
                           : "ios-bubble-other rounded-ss-[6px]"
@@ -968,7 +968,7 @@ export function RoomChat({
                       )}
 
                       {parsed.message && (
-                        <div className="whitespace-pre-wrap leading-relaxed break-all [overflow-wrap:anywhere]">
+                        <div className="whitespace-pre-wrap leading-relaxed break-words [overflow-wrap:anywhere]">
                           {renderMessageTextWithMentions(parsed.message, currentProfile.nickname)}
                         </div>
                       )}

@@ -206,9 +206,9 @@ export function PrivateChat({
   };
 
   return (
-    <div className="flex h-[100dvh] flex-col text-white overflow-hidden">
-      {/* iOS 27 Liquid Glass Header */}
-      <header className="ios-glass-bar flex items-center justify-between border-b px-3 py-2.5 sm:px-6 sm:py-3 shrink-0 z-20">
+    <div className="fixed inset-0 flex h-[100dvh] w-full flex-col bg-black text-white overflow-hidden">
+      {/* iOS 27 Liquid Glass Header — Permanently Fixed at Top */}
+      <header className="ios-glass-bar flex items-center justify-between border-b px-3 py-2.5 sm:px-6 sm:py-3 shrink-0 z-30">
         <div className="flex items-center gap-3">
           <Link
             href="/messages"
